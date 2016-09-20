@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Navbar from './Navbar'; // eslint-disable-line import/no-named-as-default
-import Quotes from './Quotes'; // eslint-disable-line import/no-named-as-default
+import Quotes from '../components/Quotes'; // eslint-disable-line import/no-named-as-default
 import * as quoteActions from '../actions/quotes';
 import * as appActions from '../actions/app';
 

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import AppMessages from './AppMessages'; // eslint-disable-line import/no-named-as-default
+import AppMessages from '../components/AppMessages'; // eslint-disable-line import/no-named-as-default
 import * as authActions from '../actions/auth';
 
 export class App extends Component {
@@ -21,7 +21,8 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element,
+  checkCreds: PropTypes.func.isRequired
 };
 
 
