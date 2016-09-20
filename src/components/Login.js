@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 
 export class Login extends Component {
 
-  handleClick(_event) {
-    const username = this.refs.username;
-    const password = this.refs.password;
+  handleLogin(e) {
+    e.preventDefault();
+    const { username, password } = this.refs;
+
     const creds = { username: username.value.trim(), password: password.value };
     this.props.onLoginClick(creds);
   }
@@ -13,13 +14,13 @@ export class Login extends Component {
   render() {
     const { isFetching } = this.props;
     return (
-      <div>
+      <form onClick={e => this.handleLogin(e)}>
         <input type="text" ref="username" className="form-control" style={{ marginRight: '5px' }} placeholder="Username"/>
         <input type="password" ref="password" className="form-control" style={{ marginRight: '5px' }} placeholder="Password"/>
-        <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
+        <button type="submit" onClick={e => this.handleLogin(e)} className="btn btn-primary">
           {isFetching ? 'Logging in...' : 'Login'}
         </button>
-      </div>
+      </form>
     );
   }
 }
