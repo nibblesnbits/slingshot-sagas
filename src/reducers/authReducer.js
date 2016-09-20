@@ -18,14 +18,12 @@ export default function authReducer(state = initialState.auth, action) {
     case types.LOGIN_FAILURE:
       return {
         ...state,
-        token: null,
         isAuthenticated: false,
         isFetching: false
       };
     case types.LOGOUT_REQUEST:
       return {
         ...state,
-        token: null,
         isAuthenticated: false,
         isFetching: false
       };

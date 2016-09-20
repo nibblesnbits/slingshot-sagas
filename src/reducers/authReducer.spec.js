@@ -1,22 +1,21 @@
 
-// import { expect } from 'chai';
-// import authReducer from './authReducer';
-// import * as actions from '../actions/login';
+import { expect } from 'chai';
+import authReducer from './authReducer';
+import * as actions from '../actions/auth';
 
-// describe('App Reducer', () => {
+describe('App Reducer', () => {
 
-//   it ('should return token on LOGIN_SUCCESS', () => {
-//     const initialState = {
-//       auth: {
-//         isFetching: false,
-//         isAuthenticated: false
-//       },
-//     };
+  it ('should return isFetching on LOGIN_REQUEST', () => {
+    const initialState = {
+      auth: {
+        isFetching: false
+      },
+    };
 
-//     const action = actions.login('test', 'test');
+    const action = actions.login({username: 'test', password: 'test'});
 
-//     const newState = authReducer(initialState, action);
+    const newState = authReducer(initialState, action);
 
-//     expect(newState.auth.isAthenticated).to.equal(true);
-//   });
-// });
+    expect(newState.isFetching).to.be.true;
+  });
+});
