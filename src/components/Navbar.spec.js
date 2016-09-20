@@ -1,102 +1,102 @@
-// import React from 'react';
-// import { mount } from 'enzyme';
-// import chai, {expect} from 'chai';
-// import sinon from 'sinon';
-// import sinonChai from 'sinon-chai';
-// import { createStore } from 'redux';
-// import rootReducer from '../reducers/rootReducer';
-// import initialState from '../reducers/initialState';
-// import { Provider } from 'react-redux';
-// import { Navbar } from './Navbar';
+import React from 'react';
+import { mount } from 'enzyme';
+import chai, {expect} from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import { createStore } from 'redux';
+import rootReducer from '../reducers/rootReducer';
+import initialState from '../reducers/initialState';
+import { Provider } from 'react-redux';
+import { Navbar } from './Navbar';
 
-// chai.use(sinonChai);
+chai.use(sinonChai);
 
-// describe('<Navbar />', () => {
+describe('<Navbar />', () => {
 
-//   let store;
+  let store;
 
-//   beforeEach(() => {
-//     store = createStore(rootReducer, initialState);
-//   });
+  beforeEach(() => {
+    store = createStore(rootReducer, initialState);
+  });
 
-//   it('should render Login when isAuthenticated is false', () => {
-//     const props = {
-//       isAuthenticated: false,
-//       logout: sinon.spy(),
-//       login: sinon.spy(),
-//       hideMessage: sinon.spy()
-//     };
+  it('should render Login when isAuthenticated is false', () => {
+    const props = {
+      isAuthenticated: false,
+      logout: sinon.spy(),
+      login: sinon.spy(),
+      hideMessage: sinon.spy()
+    };
 
-//     const wrapper = mount(
-//       <Provider store={store}>
-//           <Navbar {...props} />
-//       </Provider>
-//     );
-//     const loginButton = wrapper.find('Login');
+    const wrapper = mount(
+      <Provider store={store}>
+          <Navbar {...props} />
+      </Provider>
+    );
+    const loginButton = wrapper.find('Login');
 
-//     expect(loginButton.length).to.equal(1);
-//   });
+    expect(loginButton.length).to.equal(1);
+  });
 
-//   it('should render Logout when isAuthenticated is true', () => {
-//     const props = {
-//       isAuthenticated: true,
-//       logout: sinon.spy(),
-//       login: sinon.spy(),
-//       hideMessage: sinon.spy()
-//     };
+  it('should render Logout when isAuthenticated is true', () => {
+    const props = {
+      isAuthenticated: true,
+      logout: sinon.spy(),
+      login: sinon.spy(),
+      hideMessage: sinon.spy()
+    };
 
-//     const wrapper = mount(
-//       <Provider store={store}>
-//           <Navbar {...props} />
-//       </Provider>
-//     );
+    const wrapper = mount(
+      <Provider store={store}>
+          <Navbar {...props} />
+      </Provider>
+    );
 
-//     const loginButton = wrapper.find('Logout');
+    const loginButton = wrapper.find('Logout');
 
-//     expect(loginButton.length).to.equal(1);
-//   });
+    expect(loginButton.length).to.equal(1);
+  });
 
-//   it('should call login() on button click', () => {
-//     const props = {
-//       isAuthenticated: false,
-//       logout: sinon.spy(),
-//       login: sinon.spy(),
-//       hideMessage: sinon.spy()
-//     };
+  it('should call login() on button click', () => {
+    const props = {
+      isAuthenticated: false,
+      logout: sinon.spy(),
+      login: sinon.spy(),
+      hideMessage: sinon.spy()
+    };
 
-//     const wrapper = mount(
-//       <Provider store={store}>
-//           <Navbar {...props} />
-//       </Provider>
-//     );
+    const wrapper = mount(
+      <Provider store={store}>
+          <Navbar {...props} />
+      </Provider>
+    );
 
-//     const loginButton = wrapper.find('button');
+    const loginButton = wrapper.find('button');
 
-//     expect(loginButton.length).to.equal(1);
-//     loginButton.simulate('click');
+    expect(loginButton.length).to.equal(1);
+    loginButton.simulate('click');
 
-//     expect(props.login.calledOnce).to.equal(true);
-//   });
+    expect(props.login.calledOnce).to.equal(true);
+  });
 
-//   it('should call logout() on button click', () => {
-//     const props = {
-//       isAuthenticated: true,
-//       logout: sinon.spy(),
-//       login: sinon.spy(),
-//       hideMessage: sinon.spy()
-//     };
+  it('should call logout() on button click', () => {
+    const props = {
+      isAuthenticated: true,
+      logout: sinon.spy(),
+      login: sinon.spy(),
+      hideMessage: sinon.spy()
+    };
 
-//     const wrapper = mount(
-//       <Provider store={store}>
-//           <Navbar {...props} />
-//       </Provider>
-//     );
+    const wrapper = mount(
+      <Provider store={store}>
+          <Navbar {...props} />
+      </Provider>
+    );
 
-//     const loginButton = wrapper.find('button');
+    const loginButton = wrapper.find('button');
 
-//     expect(loginButton.length).to.equal(1);
-//     loginButton.simulate('click');
+    expect(loginButton.length).to.equal(1);
+    loginButton.simulate('click');
 
-//     expect(props.logout.calledOnce).to.equal(true);
-//   });
-// });
+    expect(props.logout.calledOnce).to.equal(true);
+  });
+});

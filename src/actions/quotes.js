@@ -1,6 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-// Uses the API middlware to get a quote
 export function fetchQuote() {
   return {
     endpoint: 'random-quote',
@@ -9,9 +8,6 @@ export function fetchQuote() {
   };
 }
 
-// Same API middlware is used to get a
-// secret quote, but we set authenticated
-// to true so that the auth header is sent
 export function fetchSecretQuote() {
   return {
     endpoint: 'protected/random-quote',

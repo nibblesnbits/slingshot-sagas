@@ -8,6 +8,8 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers/rootReducer';
 import rootSaga from '../sagas/rootSaga';
 
+import storeTokenMiddleware from '../middleware/storage';
+
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState) {
@@ -17,6 +19,8 @@ export default function configureStore(initialState) {
     reduxImmutableStateInvariant(),
 
     sagaMiddleware,
+
+    storeTokenMiddleware
   ];
 
   const store = createStore(rootReducer, initialState, compose(

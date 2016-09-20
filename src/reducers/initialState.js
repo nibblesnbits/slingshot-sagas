@@ -1,8 +1,3 @@
-import { getItem } from '../util/storage';
-import * as keys from '../constants/storageKeys';
-
-const token = getItem(keys.ACCESS_TOKEN) || '';
-
 export default {
   app: {
     message: {
@@ -13,9 +8,9 @@ export default {
     }
   },
   auth: {
-    token: token,
+    token: '',
     isFetching: false,
-    isAuthenticated: typeof(token) !== "undefined"
+    isAuthenticated: false
   },
   quotes: {
     isFetching: false,

@@ -4,8 +4,6 @@ import callApi from './helpers';
 import * as types from '../constants/actionTypes';
 import * as appActions from '../actions/app';
 import { parseJwt } from '../util/jwtParser';
-import { setItem, removeItem } from '../util/storage';
-import * as keys from '../constants/storageKeys';
 
 export function* login({username, password}) {
 
@@ -17,9 +15,8 @@ export function* login({username, password}) {
   const url = "http://localhost:3001/sessions/create";
 
   try {
-    const result = yield* callApi(url, config, [types.LOGIN_SUCCESS, types.LOGIN_FAILURE]);
-    setItem(keys.ACCESS_TOKEN, result.access_token);
-    const { payload } = parseJwt(result.access_token);
+    const response = yield* callApi(url, config, [types.LOGIN_SUCCESS, types.LOGIN_FAILURE]);
+    const { payload } = parseJwt(response.access_token);
     const username = payload.username;
     yield put(appActions.showToast('Success!', `logged in as ${username}`,'success'));
   } catch(error) {
@@ -28,7 +25,6 @@ export function* login({username, password}) {
 }
 
 function* logout() {
-  removeItem(keys.ACCESS_TOKEN);
   yield put({type: types.LOGOUT_SUCCESS});
 }
 
