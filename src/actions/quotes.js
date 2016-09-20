@@ -11,6 +11,8 @@ export function fetchQuote() {
 export function fetchSecretQuote() {
   return {
     endpoint: 'protected/random-quote',
+    config: {},
+    useToken: true,
     type: types.QUOTE_REQUEST
   };
 }
