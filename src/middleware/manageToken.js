@@ -12,7 +12,7 @@ export default function manageTokenMiddleware(store) {
           ...headers,
           Authorization: `Bearer ${localStorage.getItem(keys.ACCESS_TOKEN)}`
         }
-      }
+      };
     }
 
     switch (action.type) {
