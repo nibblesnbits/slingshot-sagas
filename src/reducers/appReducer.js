@@ -7,9 +7,7 @@ export default function authReducer(state = initialState.app.message, action) {
       return {
         ...state,
         message: {
-          title: '',
-          text: '',
-          className: 'info',
+          ...state.message,
           hidden: true
         }
       };
