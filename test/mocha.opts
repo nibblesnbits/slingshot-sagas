@@ -1,0 +1,3 @@
+-r jsdom-global/register
+-r babel-core/register
+-r babel-polyfill
