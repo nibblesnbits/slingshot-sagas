@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers/rootReducer';
 import rootSaga from '../sagas/rootSaga';
 
-import storeTokenMiddleware from '../middleware/storage';
+import manageTokenMiddleware from '../middleware/manageToken';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,7 +20,7 @@ export default function configureStore(initialState) {
 
     sagaMiddleware,
 
-    storeTokenMiddleware
+    manageTokenMiddleware
   ];
 
   const store = createStore(rootReducer, initialState, compose(
@@ -30,14 +30,6 @@ export default function configureStore(initialState) {
   );
 
   sagaMiddleware.run(rootSaga);
-
-  // if (module.hot) {
-  //   // Enable Webpack hot module replacement for reducers
-  //   module.hot.accept('../reducers', () => {
-  //     const nextReducer = require('../reducers').default; // eslint-disable-line global-require
-  //     store.replaceReducer(nextReducer);
-  //   });
-  // }
 
   return store;
 }

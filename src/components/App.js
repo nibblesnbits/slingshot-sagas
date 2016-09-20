@@ -1,7 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import AppMessages from './AppMessages'; // eslint-disable-line import/no-named-as-default
+import * as authActions from '../actions/auth';
 
-class App extends Component {
+export class App extends Component {
+
+  componentDidMount() {
+    this.props.checkCreds();
+  }
 
   render() {
     const { children } = this.props;
@@ -18,4 +24,11 @@ App.propTypes = {
   children: PropTypes.element
 };
 
-export default App;
+
+function mapStateToProps(state, ownProps) {
+  return {
+    children: ownProps.children
+  };
+}
+
+export default connect(mapStateToProps, { ...authActions })(App);

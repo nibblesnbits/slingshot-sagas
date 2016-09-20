@@ -7,6 +7,12 @@ export function login(creds) {
   };
 }
 
+export function checkCreds() {
+  return {
+    type: types.CHECK_CREDS
+  };
+}
+
 export function logout() {
   return {
     type: types.LOGOUT_REQUEST
