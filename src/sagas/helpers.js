@@ -18,7 +18,8 @@ export default function* callApi(url, config, statusTypes, returnType = "json") 
   const [ SUCCESS, FAILURE ] = statusTypes;
   try {
     const result = yield call(makeRequest, url, config, returnType);
-    yield put({ type: SUCCESS, result });
+    // TODO: the authenticated property here is hacky; needs cleanup
+    yield put({ type: SUCCESS, result, authenticated: typeof((config.headers || {}).Authorization) !== "undefined" });
     return result;
   } catch (error) {
     yield put({type: FAILURE, error });
