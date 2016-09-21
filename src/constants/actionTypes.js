@@ -1,6 +1,7 @@
 // notification
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 export const HIDE_MESSAGE = 'HIDE_MESSAGE';
+export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 export const SHOW_TOAST = 'SHOW_TOAST';
 // Login
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';

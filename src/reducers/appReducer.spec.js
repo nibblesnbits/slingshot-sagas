@@ -33,4 +33,21 @@ describe('App Reducer', () => {
 
     expect(newState.messages.length).to.equal(0);
   });
+
+  it ('should hide all messages on CLEAR_MESSAGES', () => {
+    const initialState = {
+      messages: [{
+        title: 'test',
+        text: 'test',
+        className: 'info',
+        hidden: false
+      }]
+    };
+
+    const action = actions.clearMesages();
+
+    const newState = appReducer(initialState, action);
+
+    expect(newState.messages.length).to.equal(0);
+  });
 });

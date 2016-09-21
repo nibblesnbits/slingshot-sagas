@@ -11,6 +11,11 @@ export default function authReducer(state = initialState.app, action) {
           ...state.messages.slice(action.id + 1)
         ].reverse()
       };
+    case types.CLEAR_MESSAGES:
+      return {
+        ...state,
+        messages: []
+      };
     case types.SHOW_MESSAGE:
       return {
         ...state,

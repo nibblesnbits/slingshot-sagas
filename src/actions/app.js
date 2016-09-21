@@ -27,3 +27,9 @@ export function hideMessage(id) {
     id: id
   };
 }
+
+export function clearMesages() {
+  return {
+    type: types.CLEAR_MESSAGES
+  };
+}
