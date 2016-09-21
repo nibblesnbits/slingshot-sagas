@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Navbar from './Navbar'; // eslint-disable-line import/no-named-as-default
 import Quotes from '../components/Quotes'; // eslint-disable-line import/no-named-as-default
 import * as quoteActions from '../actions/quotes';
 import * as appActions from '../actions/app';
@@ -15,7 +14,6 @@ export class HomePage extends Component {
     const { quote, isFetching, isAuthenticated, isSecretQuote, fetchQuote, fetchSecretQuote } = this.props;
     return (
       <div>
-        <Navbar />
         <div className="container">
           <Quotes
             onQuoteClick={() => fetchQuote()}

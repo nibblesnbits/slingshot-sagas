@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Navbar from './Navbar'; // eslint-disable-line import/no-named-as-default
 import AppMessages from '../components/AppMessages'; // eslint-disable-line import/no-named-as-default
 import * as authActions from '../actions/auth';
 
@@ -13,6 +14,7 @@ export class App extends Component {
     const { children } = this.props;
     return (
       <div>
+        <Navbar />
         {children}
         <AppMessages />
       </div>

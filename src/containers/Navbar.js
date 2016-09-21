@@ -3,6 +3,7 @@ import Login from '../components/Login'; // eslint-disable-line import/no-named-
 import Logout from '../components/Logout'; // eslint-disable-line import/no-named-as-default
 import { connect } from 'react-redux';
 import * as authActions from '../actions/auth';
+import { Link } from 'react-router';
 
 export class Navbar extends Component {
 
@@ -11,19 +12,29 @@ export class Navbar extends Component {
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">Quotes App</a>
-          <div className="navbar-form">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+            </button>
+            <Link to="/" className="navbar-brand">React-Sagas</Link>
+          </div>
 
-            {!isAuthenticated &&
-              <Login
-                onLoginClick={creds => login(creds)}
-                />
-            }
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul className="nav navbar-nav">
+              <li><Link to="about">About</Link></li>
+            </ul>
+            <div className="navbar-form navbar-right">
+              {!isAuthenticated &&
+                <Login onLoginClick={creds => login(creds)} />
+              }
 
-            {isAuthenticated &&
-              <Logout onLogoutClick={() => logout()} />
-            }
-
+              {isAuthenticated &&
+                <Logout onLogoutClick={() => logout()} />
+              }
+            </div>
           </div>
         </div>
       </nav>
