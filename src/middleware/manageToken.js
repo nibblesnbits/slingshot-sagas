@@ -16,12 +16,13 @@ export default function manageTokenMiddleware(store) {
     }
 
     switch (action.type) {
-      case types.CHECK_CREDS:
+      case types.CHECK_CREDS: {
         const token = localStorage.getItem(keys.ACCESS_TOKEN);
         if (token) {
           store.dispatch({ type: types.LOGIN_SUCCESS, result: { access_token: token } });
         }
         return next(action);
+      }
       case types.LOGIN_SUCCESS:
         localStorage.setItem(keys.ACCESS_TOKEN, action.result.access_token);
         return next(action);
@@ -32,4 +33,4 @@ export default function manageTokenMiddleware(store) {
         return next(action);
     }
   };
-};
+}
