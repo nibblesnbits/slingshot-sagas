@@ -21,7 +21,7 @@ export function* login({username, password}) {
     yield put(appActions.showToast('Success!', `logged in as ${username}`,'success'));
   } catch(error) {
     const message = typeof(error) === "string" ? error : (typeof(error) === "object" && error.message ? error.message : "Unknown Error");
-    yield put(appActions.showMessage('Login Error:', message, 'danger'));
+    yield put(appActions.showToast('Login Error:', message, 'danger'));
   }
 }
 

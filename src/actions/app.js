@@ -1,26 +1,27 @@
 import * as types from '../constants/actionTypes';
 
-export function showMessage(title, message, className) {
+export function showMessage(title, text, className) {
   return {
     type: types.SHOW_MESSAGE,
     title,
-    message,
+    text,
     className
   };
 }
 
-export function showToast(title, message, className, duration = 2000) {
+export function showToast(title, text, className, duration = 2000) {
   return {
     type: types.SHOW_TOAST,
     title,
-    message,
+    text,
     className,
     duration
   };
 }
 
-export function hideMessage() {
+export function hideMessage(id) {
   return {
-    type: types.HIDE_MESSAGE
+    type: types.HIDE_MESSAGE,
+    id: id
   };
 }

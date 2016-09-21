@@ -1,25 +1,28 @@
 import * as types from '../constants/actionTypes';
 import initialState from './initialState';
 
-export default function authReducer(state = initialState.app.message, action) {
+export default function authReducer(state = initialState.app, action) {
   switch (action.type) {
     case types.HIDE_MESSAGE:
       return {
         ...state,
-        message: {
-          ...state.message,
-          hidden: true
-        }
+        messages: [
+          ...state.messages.slice(0, action.id),
+          ...state.messages.slice(action.id + 1)
+        ]
       };
     case types.SHOW_MESSAGE:
       return {
         ...state,
-        message: {
-          title: action.title,
-          text: action.message,
-          className: action.className || 'info',
-          hidden: false
-        }
+        messages: [
+          ...state.messages,
+          {
+            title: action.title,
+            className: action.className,
+            text: action.text,
+            hidden: false
+          }
+        ]
       };
     default:
       return state;

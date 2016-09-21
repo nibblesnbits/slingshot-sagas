@@ -1,11 +1,6 @@
 export default {
   app: {
-    message: {
-      title: '',
-      text: '',
-      hidden: true,
-      className: 'info'
-    }
+    messages: []
   },
   auth: {
     token: '',

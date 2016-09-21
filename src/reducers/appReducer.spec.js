@@ -5,39 +5,32 @@ import * as actions from '../actions/app';
 
 describe('App Reducer', () => {
 
-  it ('should show message on SHOW_MESSAGE', () => {
+  it ('should add message on SHOW_MESSAGE', () => {
     const initialState = {
-      message: {
-        title: 'test',
-        text: 'test',
-        className: 'info',
-        hidden: true
-      }
+      messages: []
     };
 
     const action = actions.showMessage('test', 'test', 'success');
 
     const newState = appReducer(initialState, action);
 
-    expect(newState.message.text).to.equal('test');
-    expect(newState.message.title).to.equal('test');
-    expect(newState.message.hidden).to.equal(false);
+    expect(newState.messages.length).to.equal(1);
   });
 
   it ('should hide message on HIDE_MESSAGE', () => {
     const initialState = {
-      message: {
+      messages: [{
         title: 'test',
         text: 'test',
         className: 'info',
         hidden: false
-      }
+      }]
     };
 
-    const action = actions.hideMessage('test', 'success');
+    const action = actions.hideMessage(0);
 
     const newState = appReducer(initialState, action);
 
-    expect(newState.message.hidden).to.equal(true);
+    expect(newState.messages.length).to.equal(0);
   });
 });
