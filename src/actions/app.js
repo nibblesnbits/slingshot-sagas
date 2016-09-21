@@ -9,6 +9,8 @@ export function showMessage(title, text, className) {
   };
 }
 
+// NOTE: this action removes the last item in the list
+//       after the delay, not the same message
 export function showToast(title, text, className, duration = 2000) {
   return {
     type: types.SHOW_TOAST,
