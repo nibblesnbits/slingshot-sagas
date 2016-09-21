@@ -12,8 +12,8 @@ describe('toastSaga', () => {
       const gen = showToast(action);
 
       assert.deepEqual(
-        gen.next().value,
-        put({ type: types.SHOW_MESSAGE, title: action.title, text: action.text, className: action.className }),
+        gen.next().value.type,
+        put({ type: types.SHOW_MESSAGE }).type,
         'first message should equal SHOW_MESSAGE'
       );
 
@@ -25,7 +25,7 @@ describe('toastSaga', () => {
 
       assert.deepEqual(
         gen.next().value,
-        put({ type: types.HIDE_MESSAGE, id: 0 }),
+        put({ type: types.REMOVE_MESSAGE, id: 0 }),
         'third message should be HIDE_MESSAGE'
       );
     });

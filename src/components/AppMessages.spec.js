@@ -12,7 +12,8 @@ describe('<AppMessages />', () => {
         title: 'test',
         text: 'test',
         className: 'test',
-        hidden: true
+        hidden: true,
+        id: 'test'
       }]
     };
 

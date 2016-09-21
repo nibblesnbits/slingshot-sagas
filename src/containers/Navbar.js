@@ -3,7 +3,7 @@ import Login from '../components/Login'; // eslint-disable-line import/no-named-
 import Logout from '../components/Logout'; // eslint-disable-line import/no-named-as-default
 import { connect } from 'react-redux';
 import * as authActions from '../actions/auth';
-import { Link } from 'react-router';
+import { IndexLink } from 'react-router';
 
 export class Navbar extends Component {
 
@@ -19,13 +19,10 @@ export class Navbar extends Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <Link to="/" className="navbar-brand">React-Sagas</Link>
+            <IndexLink to="/" className="navbar-brand" activeClassName="active">React-Sagas</IndexLink>
           </div>
 
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
-              <li><Link to="about">About</Link></li>
-            </ul>
+          <div className="collapse navbar-collapse">
             <div className="navbar-form navbar-right">
               {!isAuthenticated &&
                 <Login onLoginClick={creds => login(creds)} />

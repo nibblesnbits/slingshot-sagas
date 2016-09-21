@@ -1,29 +1,42 @@
 import * as types from '../constants/actionTypes';
 
+function generateId() {
+    return ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4);
+}
+
 export function showMessage(title, text, className) {
   return {
     type: types.SHOW_MESSAGE,
     title,
     text,
-    className
+    className,
+    hidden: false,
+    id: generateId()
   };
 }
 
-// NOTE: this action removes the last item in the list
-//       after the delay, not the same message
 export function showToast(title, text, className, duration = 2000) {
   return {
     type: types.SHOW_TOAST,
     title,
     text,
     className,
-    duration
+    duration,
+    hidden: false,
+    id: generateId()
   };
 }
 
-export function hideMessage(id) {
+export function removeMessage(id) {
   return {
-    type: types.HIDE_MESSAGE,
+    type: types.REMOVE_MESSAGE,
+    id: id
+  };
+}
+
+export function fadeMessage(id) {
+  return {
+    type: types.FADE_MESSAGE,
     id: id
   };
 }

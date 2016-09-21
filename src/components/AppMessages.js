@@ -11,11 +11,11 @@ export class AppMessages extends Component {
   }
 
   render() {
-    const { messages, hideMessage } = this.props;
+    const { messages, removeMessage } = this.props;
     return (
       <div id="notificationArea">
-        {messages.map((message, i) => {
-          return (<Message key={i} hide={() => hideMessage(i)} {...message} />);
+        {messages.map((message) => {
+          return (<Message key={message.id} hide={() => removeMessage(message.id)} {...message} />);
         })}
       </div>
     );
@@ -31,7 +31,7 @@ function mapStateToProps(state) {
 AppMessages.propTypes = {
   messages: PropTypes.array.isRequired,
   showToast: PropTypes.func.isRequired,
-  hideMessage: PropTypes.func.isRequired
+  removeMessage: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, {...actions})(AppMessages);

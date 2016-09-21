@@ -12,8 +12,8 @@ export function* getQuote({endpoint, config}) {
   try {
     yield* callApi(uri, config, [types.QUOTE_SUCCESS, types.QUOTE_FAILURE], "text");
   } catch (error) {
-    const message = typeof(error) === "string" ? error : (typeof(error) === "object" && error.message ? error.message : "Unknown Error");
-    yield put(appActions.showMessage('Request Error:', message, 'danger'));
+    const text = typeof(error) === "string" ? error : (typeof(error) === "object" && error.message ? error.message : "Unknown Error");
+    yield put(appActions.showMessage('Request Error:', text, 'danger'));
   }
 }
 

@@ -1,17 +1,6 @@
 #notificationArea {
-  top: 100px;
-  right: 10px;
+  bottom: 20px;
+  left: 10px;
   position: absolute;
   max-width: 800px;
-}
-
-.alert.hide {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.alert {
-  transition: opacity 3s ease-in-out;
-  opacity: 1;
-  visibility: visible;
 }

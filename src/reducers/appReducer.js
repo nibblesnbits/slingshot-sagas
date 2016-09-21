@@ -3,13 +3,21 @@ import initialState from './initialState';
 
 export default function authReducer(state = initialState.app, action) {
   switch (action.type) {
-    case types.HIDE_MESSAGE:
+    case types.REMOVE_MESSAGE:
+      return {
+        ...state,
+        messages: state.messages.filter(m => m.id !== action.id)
+      };
+    case types.FADE_MESSAGE:
       return {
         ...state,
         messages: [
-          ...state.messages.slice(0, action.id),
-          ...state.messages.slice(action.id + 1)
-        ].reverse()
+          ...state.messages.filter(m => m.id !== action.id),
+          {
+            ...state.messages.filter(m => m.id === action.id)[0],
+            hidden: true
+          }
+        ]
       };
     case types.CLEAR_MESSAGES:
       return {
@@ -21,13 +29,8 @@ export default function authReducer(state = initialState.app, action) {
         ...state,
         messages: [
           ...state.messages,
-          {
-            title: action.title,
-            className: action.className,
-            text: action.text,
-            hidden: false
-          }
-        ].reverse()
+          { ...action }
+        ]
       };
     default:
       return state;

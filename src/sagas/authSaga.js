@@ -20,8 +20,8 @@ export function* login({username, password}) {
     const username = payload.username;
     yield put(appActions.showToast('Success!', `logged in as ${username}`,'success'));
   } catch(error) {
-    const message = typeof(error) === "string" ? error : (typeof(error) === "object" && error.message ? error.message : "Unknown Error");
-    yield put(appActions.showToast('Login Error:', message, 'danger'));
+    const text = typeof(error) === "string" ? error : (typeof(error) === "object" && error.message ? error.message : "Unknown Error");
+    yield put(appActions.showMessage('Login Error:', text, 'danger'));
   }
 }
 

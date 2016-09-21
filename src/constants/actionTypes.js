@@ -1,6 +1,7 @@
 // notification
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
-export const HIDE_MESSAGE = 'HIDE_MESSAGE';
+export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
+export const FADE_MESSAGE = 'FADE_MESSAGE';
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 export const SHOW_TOAST = 'SHOW_TOAST';
 // Login
@@ -13,7 +14,6 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 // check credentials
 export const CHECK_CREDS = 'CHECK_CREDS';
-
 // quotes
 export const QUOTE_REQUEST = 'QUOTE_REQUEST';
 export const QUOTE_SUCCESS = 'QUOTE_SUCCESS';

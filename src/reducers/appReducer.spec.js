@@ -17,7 +17,7 @@ describe('App Reducer', () => {
     expect(newState.messages.length).to.equal(1);
   });
 
-  it ('should hide message on HIDE_MESSAGE', () => {
+  it ('should hide message on REMOVE_MESSAGE', () => {
     const initialState = {
       messages: [{
         title: 'test',
@@ -27,7 +27,7 @@ describe('App Reducer', () => {
       }]
     };
 
-    const action = actions.hideMessage(0);
+    const action = actions.removeMessage(0);
 
     const newState = appReducer(initialState, action);
 
