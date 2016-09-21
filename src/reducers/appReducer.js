@@ -9,7 +9,7 @@ export default function authReducer(state = initialState.app, action) {
         messages: [
           ...state.messages.slice(0, action.id),
           ...state.messages.slice(action.id + 1)
-        ]
+        ].reverse()
       };
     case types.SHOW_MESSAGE:
       return {
@@ -22,7 +22,7 @@ export default function authReducer(state = initialState.app, action) {
             text: action.text,
             hidden: false
           }
-        ]
+        ].reverse()
       };
     default:
       return state;
