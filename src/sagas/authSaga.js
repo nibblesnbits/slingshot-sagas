@@ -25,14 +25,6 @@ export function* login({username, password}) {
   }
 }
 
-function* logout() {
-  yield put({type: types.LOGOUT_SUCCESS});
-}
-
 export function* watchLogin() {
   yield* takeLatest(types.LOGIN_REQUEST, login);
-}
-
-export function* watchLogout() {
-  yield* takeLatest(types.LOGOUT_REQUEST, logout);
 }
