@@ -6,7 +6,7 @@ export default function* rootSaga() {
   yield [
     watchGetQuotes(),
     watchLogin(),
-    watchLogout(),
+    watchLogout(), // TODO: look into removing this since the middleware and reducers might take care of it
     watchToast(),
   ];
 }
