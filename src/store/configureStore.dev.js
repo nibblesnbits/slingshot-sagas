@@ -7,6 +7,8 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers/rootReducer';
 import rootSaga from '../sagas/rootSaga';
+import { routerMiddleware } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import manageTokenMiddleware from '../middleware/manageToken';
 
@@ -18,9 +20,12 @@ export default function configureStore(initialState) {
     // Redux middleware that spits an error on you when you try to mutate your state either inside a dispatch or between dispatches.
     reduxImmutableStateInvariant(),
 
+    // Saga middleware enabled saga listeners
     sagaMiddleware,
+    // manageToken middlware handles the auth flow
+    manageTokenMiddleware(),
 
-    manageTokenMiddleware()
+    routerMiddleware(browserHistory)
   ];
 
   const store = createStore(rootReducer, initialState, compose(
