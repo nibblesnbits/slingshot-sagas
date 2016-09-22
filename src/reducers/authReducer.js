@@ -11,7 +11,7 @@ export default function authReducer(state = initialState.auth, action) {
     case types.LOGIN_SUCCESS:
       return {
         ...state,
-        token: action.result.token,
+        token: action.token,
         isAuthenticated: true,
         isFetching: false
       };

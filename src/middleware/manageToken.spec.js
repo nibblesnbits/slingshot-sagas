@@ -56,7 +56,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call setItem on storage on ${types.LOGIN_SUCCESS}`, () => {
-    const action = { type: types.LOGIN_SUCCESS, result: { access_token: 'test' } };
+    const action = { type: types.LOGIN_SUCCESS, token: 'test' };
 
     store.dispatch(action);
 
@@ -71,13 +71,22 @@ describe('manageTokenMiddleware', () => {
     expect(localStorageMock.removeItem.calledOnce).to.be.true;
   });
 
-  it('should add a config and header to requests with "useToken"', () => {
+
+  it(`should dispatch ${types.LOGIN_SUCCESS} with access token on ${types.CHECK_CREDS}`, (done) => {
     const token = 'test';
     localStorageMock.setItem(keys.ACCESS_TOKEN, token);
-    const action = { type: 'TEST_REQUEST', useToken: true };
+    const action = { type: types.CHECK_CREDS };
 
-    const result = store.dispatch(action);
-    expect(result.config.headers.Authorization).to.be.equal(`Bearer ${token}`);
+    let calls = 0;
+    const unsubscribe = store.subscribe(() => {
+      if (++calls === 1) return; // skip the first action
+      expect(localStorageMock.getItem.calledOnce).to.be.true;
+      expect(store.getState().auth.token).to.be.equal(token); // TODO: why is token undefined here?
+      unsubscribe();
+      done();
+    });
+
+    store.dispatch(action);
   });
 
   it(`should get access token on ${types.CHECK_CREDS}`, () => {
@@ -89,6 +98,14 @@ describe('manageTokenMiddleware', () => {
 
     expect(localStorageMock.getItem.calledOnce).to.be.true;
   });
+
+  it('should add a config and Authorization header to actions with "useToken"', () => {
+    const token = 'test';
+    localStorageMock.setItem(keys.ACCESS_TOKEN, token);
+    const action = { type: 'TEST_REQUEST', useToken: true };
+
+    store.dispatch({ type: types.CHECK_CREDS }); // load the token into state
+    const result = store.dispatch(action);
+    expect(result.config.headers.Authorization).to.be.equal(`Bearer ${token}`);
+  });
 });
-
-

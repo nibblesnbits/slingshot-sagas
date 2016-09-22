@@ -8,7 +8,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
 
       // TODO: this feels hacky
       if (action.useToken) {
-        const token = storage.getItem(keys.ACCESS_TOKEN);
+        const token = store.getState().auth.token;
         if (token) {
           const config = action.config || {};
           const headers = config.headers || {};
@@ -24,14 +24,15 @@ export default function manageTokenMiddleware(storage = localStorage) {
 
       switch (action.type) {
         case types.CHECK_CREDS: {
-          const token = storage.getItem(keys.ACCESS_TOKEN);
+          const token = store.getState().auth.token || storage.getItem(keys.ACCESS_TOKEN);
           if (token) {
-            store.dispatch({ type: types.LOGIN_SUCCESS, result: { access_token: token } });
+            console.log(`token = ${token}`);
+            store.dispatch({ type: types.LOGIN_SUCCESS, token: token });
           }
           return next(action);
         }
         case types.LOGIN_SUCCESS:
-          storage.setItem(keys.ACCESS_TOKEN, action.result.access_token);
+          storage.setItem(keys.ACCESS_TOKEN, action.token);
           return next(action);
         case types.LOGOUT_REQUEST:
           storage.removeItem(keys.ACCESS_TOKEN);
