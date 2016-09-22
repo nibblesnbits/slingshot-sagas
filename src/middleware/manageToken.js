@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import * as keys from '../constants/storageKeys';
+import { parseJwt } from '../util/jwtParser';
 
 // NOTE: we can pass in a mock storage object here to unit test
 export default function manageTokenMiddleware(storage = localStorage) {
@@ -26,8 +27,9 @@ export default function manageTokenMiddleware(storage = localStorage) {
         case types.CHECK_CREDS: {
           const token = store.getState().auth.token || storage.getItem(keys.ACCESS_TOKEN);
           if (token) {
-            console.log(`token = ${token}`);
-            store.dispatch({ type: types.LOGIN_SUCCESS, token: token });
+            const { payload } = parseJwt(token);
+            const username = payload.username;
+            store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
           }
           return next(action);
         }

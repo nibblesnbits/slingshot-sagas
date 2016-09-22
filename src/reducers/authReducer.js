@@ -12,6 +12,7 @@ export default function authReducer(state = initialState.auth, action) {
       return {
         ...state,
         token: action.token,
+        username: action.username,
         isAuthenticated: true,
         isFetching: false
       };

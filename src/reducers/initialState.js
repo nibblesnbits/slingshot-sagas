@@ -4,6 +4,7 @@ export default {
   },
   auth: {
     token: '',
+    username: '',
     isFetching: false,
     isAuthenticated: false
   },

@@ -3,12 +3,12 @@ import Login from '../components/Login'; // eslint-disable-line import/no-named-
 import Logout from '../components/Logout'; // eslint-disable-line import/no-named-as-default
 import { connect } from 'react-redux';
 import * as authActions from '../actions/auth';
-import { IndexLink } from 'react-router';
+import { IndexLink, Link } from 'react-router';
 
 export class Navbar extends Component {
 
   render() {
-    const { isAuthenticated, logout, login } = this.props;
+    const { username, isAuthenticated, logout, login } = this.props;
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -29,7 +29,12 @@ export class Navbar extends Component {
               }
 
               {isAuthenticated &&
-                <Logout onLogoutClick={() => logout()} />
+                <ul className="nav navbar-nav">
+                  <li><Link to="profile">{username}</Link></li>
+                  <form className="navbar-form navbar-left">
+                    <Logout onLogoutClick={() => logout()} />
+                  </form>
+                </ul>
               }
             </div>
           </div>
@@ -40,16 +45,18 @@ export class Navbar extends Component {
 }
 
 function mapStateToProps(state) {
-  const { isAuthenticated } = state.auth;
+  const { isAuthenticated, username } = state.auth;
   return {
     isAuthenticated,
+    username
   };
 }
 
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, { ...authActions })(Navbar);

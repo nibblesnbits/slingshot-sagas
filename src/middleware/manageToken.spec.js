@@ -10,6 +10,8 @@ import * as keys from '../constants/storageKeys';
 
 chai.use(sinonChai);
 
+const exampleToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcm5hbWUiOiJKb2huIERvZSIsImFkbWluIjp0cnVlfQ.Y0M_wkxFaw2R8ZQUT1-nAd_2zKtzBs2almfUwZposoM";
+
 function createMockStore() {
     const store = {};
     store.setItem = function (key, val) {
@@ -56,7 +58,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call setItem on storage on ${types.LOGIN_SUCCESS}`, () => {
-    const action = { type: types.LOGIN_SUCCESS, token: 'test' };
+    const action = { type: types.LOGIN_SUCCESS, token: exampleToken };
 
     store.dispatch(action);
 
@@ -73,15 +75,14 @@ describe('manageTokenMiddleware', () => {
 
 
   it(`should dispatch ${types.LOGIN_SUCCESS} with access token on ${types.CHECK_CREDS}`, (done) => {
-    const token = 'test';
-    localStorageMock.setItem(keys.ACCESS_TOKEN, token);
+    localStorageMock.setItem(keys.ACCESS_TOKEN, exampleToken);
     const action = { type: types.CHECK_CREDS };
 
     let calls = 0;
     const unsubscribe = store.subscribe(() => {
-      if (++calls === 1) return; // skip the first action
+      if (++calls === 1) return; // skip the CHECK_CREDS action
       expect(localStorageMock.getItem.calledOnce).to.be.true;
-      expect(store.getState().auth.token).to.be.equal(token); // TODO: why is token undefined here?
+      expect(store.getState().auth.token).to.be.equal(exampleToken); // TODO: why is token undefined here?
       unsubscribe();
       done();
     });
@@ -90,8 +91,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should get access token on ${types.CHECK_CREDS}`, () => {
-    const token = 'test';
-    localStorageMock.setItem(keys.ACCESS_TOKEN, token);
+    localStorageMock.setItem(keys.ACCESS_TOKEN, exampleToken);
     const action = { type: types.CHECK_CREDS };
 
     store.dispatch(action);
@@ -100,12 +100,11 @@ describe('manageTokenMiddleware', () => {
   });
 
   it('should add a config and Authorization header to actions with "useToken"', () => {
-    const token = 'test';
-    localStorageMock.setItem(keys.ACCESS_TOKEN, token);
+    localStorageMock.setItem(keys.ACCESS_TOKEN, exampleToken);
     const action = { type: 'TEST_REQUEST', useToken: true };
 
     store.dispatch({ type: types.CHECK_CREDS }); // load the token into state
     const result = store.dispatch(action);
-    expect(result.config.headers.Authorization).to.be.equal(`Bearer ${token}`);
+    expect(result.config.headers.Authorization).to.be.equal(`Bearer ${exampleToken}`);
   });
 });
