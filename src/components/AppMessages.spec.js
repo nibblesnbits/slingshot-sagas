@@ -7,13 +7,14 @@ describe('<AppMessages />', () => {
 
   it('should display an alert for each message', () => {
     const props = {
-      showToast: function() {},
+      showToast: () => null,
+      removeMessage: () => null,
       messages: [{
         title: 'test',
         text: 'test',
         className: 'test',
         hidden: true,
-        id: 'test'
+        id: 'test',
       }]
     };
 

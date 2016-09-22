@@ -1,7 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import Message from './Message';
+
+chai.use(sinonChai);
 
 describe('<Message />', () => {
 
@@ -10,7 +14,8 @@ describe('<Message />', () => {
       title: 'test',
       text: 'test',
       className: 'test',
-      hidden: true
+      hidden: true,
+      hide: () => null
     };
 
     const wrapper = shallow(<Message {...props} />);
@@ -25,7 +30,8 @@ describe('<Message />', () => {
       title: 'test',
       text: 'test',
       className: 'test',
-      hidden: false
+      hidden: false,
+      hide: () => null
     };
 
     const wrapper = shallow(<Message {...props} />);
@@ -33,5 +39,22 @@ describe('<Message />', () => {
     const alert = wrapper.find('.fadeOut');
 
     expect(alert.length, `${alert.length} hidden alerts found`).to.equal(0);
+  });
+
+  it('should call hide() on button click', () => {
+    const props = {
+      title: 'test',
+      text: 'test',
+      className: 'test',
+      hidden: false,
+      hide: sinon.spy()
+    };
+
+    const wrapper = shallow(<Message {...props} />);
+
+    const button = wrapper.find('button');
+    button.simulate('click');
+
+    expect(props.hide.calledOnce).to.be.true;
   });
 });
