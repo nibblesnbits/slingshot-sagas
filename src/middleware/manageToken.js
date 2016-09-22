@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import * as types from '../constants/actionTypes';
 import * as keys from '../constants/storageKeys';
 import { parseJwt } from '../util/jwtParser';
@@ -44,6 +45,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
         case types.LOGOUT_REQUEST:
           storage.removeItem(keys.ACCESS_TOKEN);
           store.dispatch({ type: types.LOGOUT_SUCCESS });
+          store.dispatch(push('/'));
           return next(action);
         default:
           return next(action);
