@@ -57,4 +57,19 @@ describe('<Message />', () => {
 
     expect(props.hide.calledOnce).to.be.true;
   });
+
+  it('should show title only when provided', () => {
+    const props = {
+      text: 'test',
+      className: 'test',
+      hidden: false,
+      hide: () => null
+    };
+
+    const wrapper = shallow(<Message {...props} />);
+
+    const title = wrapper.find('strong');
+
+    expect(title.length).to.be.equal(0);
+  });
 });

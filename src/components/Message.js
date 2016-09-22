@@ -17,7 +17,7 @@ export default class Message extends Component {
 
 Message.propTypes = {
   text: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   className: PropTypes.string.isRequired,
   hidden: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired
