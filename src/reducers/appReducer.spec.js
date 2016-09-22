@@ -17,13 +17,14 @@ describe('App Reducer', () => {
     expect(newState.messages.length).to.equal(1);
   });
 
-  it ('should hide message on REMOVE_MESSAGE', () => {
+  it ('should delete message on REMOVE_MESSAGE', () => {
     const initialState = {
       messages: [{
         title: 'test',
         text: 'test',
         className: 'info',
-        hidden: false
+        hidden: false,
+        id: 0
       }]
     };
 

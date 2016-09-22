@@ -70,7 +70,7 @@ describe('<Navbar />', () => {
       </Provider>
     );
 
-    const loginButton = wrapper.find('button');
+    const loginButton = wrapper.find('button[type="submit"]');
 
     expect(loginButton.length).to.equal(1);
     loginButton.simulate('click');
@@ -92,7 +92,7 @@ describe('<Navbar />', () => {
       </Provider>
     );
 
-    const loginButton = wrapper.find('button');
+    const loginButton = wrapper.find('.logout-button');
 
     expect(loginButton.length).to.equal(1);
     loginButton.simulate('click');

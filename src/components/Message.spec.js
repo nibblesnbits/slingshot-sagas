@@ -15,7 +15,7 @@ describe('<Message />', () => {
 
     const wrapper = shallow(<Message {...props} />);
 
-    const alert = wrapper.find('.alert.alert-test.hide');
+    const alert = wrapper.find('.fadeOut');
 
     expect(alert.length, `${alert.length} hidden alerts found`).to.equal(1);
   });
@@ -30,7 +30,7 @@ describe('<Message />', () => {
 
     const wrapper = shallow(<Message {...props} />);
 
-    const alert = wrapper.find('.alert.alert-test.hide');
+    const alert = wrapper.find('.fadeOut');
 
     expect(alert.length, `${alert.length} hidden alerts found`).to.equal(0);
   });
