@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
 import { AppMessages } from './AppMessages';
+import * as actions from '../actions/app';
 
 describe('<AppMessages />', () => {
 
@@ -9,13 +10,7 @@ describe('<AppMessages />', () => {
     const props = {
       showToast: () => null,
       removeMessage: () => null,
-      messages: [{
-        title: 'test',
-        text: 'test',
-        className: 'test',
-        hidden: true,
-        id: 'test',
-      }]
+      messages: [actions.showMessage('test','test','test')]
     };
 
     const wrapper = mount(<AppMessages {...props} />);
