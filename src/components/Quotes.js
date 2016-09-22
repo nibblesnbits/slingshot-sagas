@@ -8,14 +8,14 @@ export class Quotes extends Component {
     return (
       <div>
         <div className="col-sm-3">
-          <button onClick={onQuoteClick} className="btn btn-primary">
+          <button onClick={onQuoteClick} className="btn btn-primary" disabled={isFetching}>
             {isFetching && !isSecretQuote ? 'Fetching...' : 'Get Quotes'}
           </button>
         </div>
 
         { isAuthenticated &&
           <div className="col-sm-3">
-            <button onClick={onSecretQuoteClick} className="btn btn-warning">
+            <button onClick={onSecretQuoteClick} className="btn btn-warning" disabled={isFetching}>
               {isFetching && isSecretQuote ? 'Fetching...' : 'Get Secret Quotes'}
             </button>
           </div>
