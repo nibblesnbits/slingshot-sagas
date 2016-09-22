@@ -20,7 +20,7 @@ export default function configureStore(initialState) {
 
     sagaMiddleware,
 
-    manageTokenMiddleware
+    manageTokenMiddleware()
   ];
 
   const store = createStore(rootReducer, initialState, compose(
