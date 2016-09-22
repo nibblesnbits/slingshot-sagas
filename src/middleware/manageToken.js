@@ -6,14 +6,18 @@ export default function manageTokenMiddleware(store) {
 
     // TODO: this feels hacky
     if (action.useToken) {
-      const headers = action.config.headers || {};
-      action.config = {
-        ...action.config,
-        headers: {
-          ...headers,
-          Authorization: `Bearer ${localStorage.getItem(keys.ACCESS_TOKEN)}`
-        }
-      };
+      const token = localStorage.getItem(keys.ACCESS_TOKEN);
+      if (token) {
+        const config = action.config || {};
+        const headers = action.config.headers || {};
+        action.config = {
+          ...config,
+          headers: {
+            ...headers,
+            Authorization: `Bearer ${token}`
+          }
+        };
+      }
     }
 
     switch (action.type) {
