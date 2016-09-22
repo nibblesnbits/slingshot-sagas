@@ -23,4 +23,17 @@ describe('<Login />', () => {
 
     expect(props.onLoginClick.calledOnce).to.equal(true);
   });
+
+  it('should call onLoginClick() on form submit', () => {
+    const props = {
+      onLoginClick: sinon.spy(),
+      isFetching: false
+    };
+
+    const wrapper = mount(<Login {...props} />);
+
+    wrapper.simulate('submit');
+
+    expect(props.onLoginClick.calledOnce).to.equal(true);
+  });
 });
