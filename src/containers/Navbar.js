@@ -31,9 +31,9 @@ export class Navbar extends Component {
               {isAuthenticated &&
                 <ul className="nav navbar-nav">
                   <li><Link to="profile">{username}</Link></li>
-                  <form className="navbar-form navbar-left">
+                  <div className="navbar-form navbar-left">
                     <Logout onLogoutClick={() => logout()} />
-                  </form>
+                  </div>
                 </ul>
               }
             </div>
