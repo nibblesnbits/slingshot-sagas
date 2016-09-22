@@ -57,8 +57,8 @@ describe('manageTokenMiddleware', () => {
     expect(localStorageMock.getItem.calledOnce).to.be.true;
   });
 
-  it(`should call setItem on storage on ${types.LOGIN_SUCCESS}`, () => {
-    const action = { type: types.LOGIN_SUCCESS, token: exampleToken };
+  it(`should call setItem on storage on ${types.LOGIN_REQUEST_SUCCESS}`, () => {
+    const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { access_token: exampleToken } };
 
     store.dispatch(action);
 
@@ -82,7 +82,7 @@ describe('manageTokenMiddleware', () => {
     const unsubscribe = store.subscribe(() => {
       if (++calls === 1) return; // skip the CHECK_CREDS action
       expect(localStorageMock.getItem.calledOnce).to.be.true;
-      expect(store.getState().auth.token).to.be.equal(exampleToken); // TODO: why is token undefined here?
+      expect(store.getState().auth.token).to.be.equal(exampleToken);
       unsubscribe();
       done();
     });

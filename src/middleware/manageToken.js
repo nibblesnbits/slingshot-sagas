@@ -33,9 +33,14 @@ export default function manageTokenMiddleware(storage = localStorage) {
           }
           return next(action);
         }
-        case types.LOGIN_SUCCESS:
-          storage.setItem(keys.ACCESS_TOKEN, action.token);
+        case types.LOGIN_REQUEST_SUCCESS: {
+          const token = action.result.access_token;
+          storage.setItem(keys.ACCESS_TOKEN, token);
+          const { payload } = parseJwt(token);
+          const username = payload.username;
+          store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
           return next(action);
+        }
         case types.LOGOUT_REQUEST:
           storage.removeItem(keys.ACCESS_TOKEN);
           store.dispatch({ type: types.LOGOUT_SUCCESS });

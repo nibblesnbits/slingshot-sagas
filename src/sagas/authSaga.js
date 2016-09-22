@@ -15,7 +15,7 @@ export function* login({username, password}) {
   const url = "http://localhost:3001/sessions/create";
 
   try {
-    const response = yield* callApi(url, config, [types.LOGIN_SUCCESS, types.LOGIN_FAILURE]);
+    const response = yield* callApi(url, config, [types.LOGIN_REQUEST_SUCCESS, types.LOGIN_REQUEST_FAILURE]);
     const { payload } = parseJwt(response.access_token);
     const username = payload.username;
     yield put(appActions.showToast('Success!', `logged in as ${username}`,'success'));
