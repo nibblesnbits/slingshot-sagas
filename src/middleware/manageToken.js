@@ -8,6 +8,7 @@ export default function manageTokenMiddleware(store) {
     if (action.useToken) {
       const headers = action.config.headers || {};
       action.config = {
+        ...action.config,
         headers: {
           ...headers,
           Authorization: `Bearer ${localStorage.getItem(keys.ACCESS_TOKEN)}`
