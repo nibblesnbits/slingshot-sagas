@@ -57,12 +57,20 @@ describe('manageTokenMiddleware', () => {
     expect(localStorageMock.getItem.calledOnce).to.be.true;
   });
 
-  it(`should call setItem on storage on ${types.LOGIN_REQUEST_SUCCESS}`, () => {
+  it(`should call setItem on storage on ${types.LOGIN_REQUEST_SUCCESS}`, (done) => {
     const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { access_token: exampleToken } };
 
+    let calls = 0;
+    const unsubscribe = store.subscribe(() => {
+      if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
+      expect(localStorageMock.setItem.calledOnce).to.be.true;
+      expect(store.getState().auth.token).to.be.equal(exampleToken);
+      unsubscribe();
+      done();
+    });
     store.dispatch(action);
 
-    expect(localStorageMock.setItem.calledOnce).to.be.true;
+
   });
 
   it(`should call removeItem on storage on ${types.LOGOUT_REQUEST}`, () => {
