@@ -71,4 +71,86 @@ describe('App Reducer', () => {
     expect(newState.messages[0].hidden).to.be.true;
     expect(newState.messages.length).to.be.equal(1);
   });
+
+  it ('messages remain in original order on fadeMessage()', () => {
+    const initialState = {
+      messages: [{
+        title: 'test1',
+        text: 'test1',
+        className: 'test1',
+        hidden: false,
+        id: 'test1',
+        order: 0
+      }, {
+        title: 'test2',
+        text: 'test2',
+        className: 'test2',
+        hidden: false,
+        id: 'test2',
+        order: 1
+      }]
+    };
+
+    const action = actions.fadeMessage('test1');
+
+    const newState = appReducer(initialState, action);
+    expect(newState.messages[0].order).to.equal(0);
+  });
+
+  it ('messages remain in original order on showMessage()', () => {
+    const initialState = {
+      messages: [{
+        title: 'test0',
+        text: 'test0',
+        className: 'test0',
+        hidden: true,
+        id: 'test0',
+        order: 0
+      }, {
+        title: 'test2',
+        text: 'test2',
+        className: 'test2',
+        hidden: true,
+        id: 'test2',
+        order: 2
+      }]
+    };
+
+    const action = actions.showMessage('test1', 'test1', 'test1');
+
+    const newState = appReducer(initialState, action);
+    expect(newState.messages[2].order).to.equal(2);
+  });
+
+  it ('messages remain in original order on removeMessage()', () => {
+    const initialState = {
+      messages: [{
+        title: 'test0',
+        text: 'test0',
+        className: 'test0',
+        hidden: false,
+        id: 'test0',
+        order: 0
+      }, {
+        title: 'test1',
+        text: 'test1',
+        className: 'test1',
+        hidden: true,
+        id: 'test1',
+        order: 1
+      }, {
+        title: 'test2',
+        text: 'test2',
+        className: 'test2',
+        hidden: true,
+        id: 'test2',
+        order: 2
+      }]
+    };
+
+    const action = actions.removeMessage('test1');
+
+    const newState = appReducer(initialState, action);
+    expect(newState.messages[1].order).to.equal(1);
+  });
 });

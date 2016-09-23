@@ -1,12 +1,19 @@
 import * as types from '../constants/actionTypes';
 import initialState from './initialState';
 
+function sortByOrder(a,b) {
+  return a.order > b.order ? 1 : (a.order < b.order ? -1 : 0);
+}
+
 export default function authReducer(state = initialState.app, action) {
   switch (action.type) {
     case types.REMOVE_MESSAGE:
       return {
         ...state,
-        messages: state.messages.filter(m => m.id !== action.id)
+        messages: state.messages
+          .filter(m => m.id !== action.id)
+          .sort(sortByOrder)
+          .map((m, i) => { m.order = i; return m; })
       };
     case types.FADE_MESSAGE:
       return {
@@ -17,7 +24,7 @@ export default function authReducer(state = initialState.app, action) {
             ...state.messages.filter(m => m.id === action.id)[0],
             hidden: true
           }
-        ]
+        ].sort(sortByOrder)
       };
     case types.CLEAR_MESSAGES:
       return {
@@ -28,8 +35,9 @@ export default function authReducer(state = initialState.app, action) {
       return {
         ...state,
         messages: [
-          ...state.messages,
-          { ...action }
+          ...state.messages.sort(sortByOrder)
+          .map((m, i) => { m.order = i; return m; }),
+          { ...action, order: state.messages.length }
         ]
       };
     default:
