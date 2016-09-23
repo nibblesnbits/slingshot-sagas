@@ -1,17 +1,17 @@
 # Slingshot Sagas!
-Another React-Redux starter kit heavily inspired by Cory House's react-slingshot
+Another React-Redux starter kit heavily inspired by heavily inspired by [@coryhouse](https://github.com/coryhouse)'s [React Slingshot Project](https://github.com/coryhouse/react-slingshot).
 
 [![Build Status](https://travis-ci.org/nibblesnbits/slingshot-sagas.svg?branch=master)](https://travis-ci.org/nibblesnbits/slingshot-sagas)
 [![Build status](https://ci.appveyor.com/api/projects/status/ytf3aupfshvgt0u5?svg=true)](https://ci.appveyor.com/project/nibblesnbits/slingshot-sagas)
 [![Coverage Status](https://coveralls.io/repos/github/nibblesnbits/slingshot-sagas/badge.svg?branch=master)](https://coveralls.io/github/nibblesnbits/slingshot-sagas?branch=master)
 [![Dependency Status](https://david-dm.org/nibblesnbits/slingshot-sagas.svg?style=flat-square)](https://david-dm.org/nibblesnbits/slingshot-sagas)
 
-Slingshot Sagas is a comprehensive starter kit for rapid application development using React, heavily inspired by [@coryhouse](https://github.com/coryhouse)'s [React Slingshot Project](https://github.com/coryhouse/react-slingshot).
+Slingshot Sagas is a comprehensive starter kit for rapid application development using React, Redux, React Router, and Redux Sagas.
 
 Why Slingshot?
 
 1. **(Almost) One command to get started** - Type `npm start` to start development in your default browser.
-  a. In order to make requests to the included auth server, see [Auth Server](#auth-server).
+  a. In order to make requests to the included test server, see [Test Server](#test-server).
 2. **Rapid feedback** - Each time you hit save, changes hot reload and linting and automated tests run.
 3. **One command line to check** - All feedback is displayed on a single command line.
 4. **No more JavaScript fatigue** - Slingshot uses the most popular and powerful libraries for working with React.
@@ -61,6 +61,10 @@ Slingshot offers a rich development experience using the following technologies:
 | [PostCSS](https://github.com/postcss/postcss) | Transform styles with JS plugins. Used to autoprefix CSS |
 | [Editor Config](http://editorconfig.org) | Enforce consistent editor settings (spaces vs tabs, etc). | [IDE Plugins](http://editorconfig.org/#download) |
 | [npm Scripts](https://docs.npmjs.com/misc/scripts)| Glues all this together in a handy automated build. | [Pluralsight course](https://www.pluralsight.com/courses/npm-build-tool-introduction), [Why not Gulp?](https://medium.com/@housecor/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8#.vtaziro8n)  |
+
+## Running the sample
+In order to run the sample, simply run `npm i` in the project directory, then run `npm start -s` to start the demo.  This command will open the browser for you.
+To test the requests the application makes, in another terminal, run the [Test Server](#test-server).
 
 ## Test Server
 This project includes a submodule from [an auth0 example repo](https://github.com/auth0-blog/nodejs-jwt-authentication-sample/tree/8a3e52e52ceafeac12b1693d06837f3351aced47).
