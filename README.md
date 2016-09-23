@@ -4,7 +4,7 @@ Another React-Redux starter kit heavily inspired by Cory House's react-slingshot
 [![Build Status](https://travis-ci.org/nibblesnbits/slingshot-sagas.svg?branch=master)](https://travis-ci.org/nibblesnbits/slingshot-sagas)
 [![Build status](https://ci.appveyor.com/api/projects/status/ytf3aupfshvgt0u5?svg=true)](https://ci.appveyor.com/project/nibblesnbits/slingshot-sagas)
 [![Coverage Status](https://coveralls.io/repos/github/nibblesnbits/slingshot-sagas/badge.svg?branch=master)](https://coveralls.io/github/nibblesnbits/slingshot-sagas?branch=master)
-[![Dependency Status](https://david-dm.org/nibblesnbits/slingshot-saga.svg?style=flat-square)](https://david-dm.org/nibblesnbits/slingshot-saga)
+[![Dependency Status](https://david-dm.org/nibblesnbits/slingshot-sagas.svg?style=flat-square)](https://david-dm.org/nibblesnbits/slingshot-sagas)
 
 Slingshot Sagas is a comprehensive starter kit for rapid application development using React, heavily inspired by [@coryhouse](https://github.com/coryhouse)'s [React Slingshot Project](https://github.com/coryhouse/react-slingshot); 
 
