@@ -3,14 +3,17 @@ import { put, call } from 'redux-saga/effects';
 
 export function makeRequest(url, config, returnType) {
   return fetch(url, config)
-    .then(response =>
-      response[returnType]()
-      .then(result => ({ result, response }))
-    ).then(({ result, response }) => {
+  .then(response => {
       if (!response.ok) {
-        return Promise.reject(result);
+        // This part is only because the auth server
+        // throws oddly shaped, unpredictable errors
+        // in a normal scenario, this would simply
+        // parse the json error response
+        return response.text().then(result => {
+          return Promise.reject({ message: result });
+        });
       }
-      return result;
+      return response[returnType]();
     });
 }
 

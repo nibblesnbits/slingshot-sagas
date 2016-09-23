@@ -44,6 +44,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
             tryGetUsername(token, (username, error) => {
               if (error) {
                 store.dispatch(appActions.showMessage('Login Error:', error.message, 'danger'));
+                store.dispatch({ type: types.LOGIN_FAILURE, error });
               } else {
                 store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
               }
@@ -51,7 +52,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
           }
           return next(action);
         }
-        case types.LOGIN_FAILURE: {
+        case types.LOGIN_REQUEST_FAILURE: {
           push('/');
           return next(action);
         }
@@ -64,6 +65,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
           tryGetUsername(token, (username, error) => {
             if (error) {
               store.dispatch(appActions.showMessage('Login Error:', error.message, 'danger'));
+              store.dispatch({ type: types.LOGIN_FAILURE, error });
             } else {
               storage.setItem(keys.ACCESS_TOKEN, token);
               store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
