@@ -6,7 +6,7 @@ import * as authActions from '../actions/auth';
 
 export class App extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.checkCreds();
   }
 
