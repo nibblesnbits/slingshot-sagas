@@ -41,7 +41,7 @@ export function fadeMessage(id) {
   };
 }
 
-export function clearMesages() {
+export function clearMessages() {
   return {
     type: types.CLEAR_MESSAGES
   };

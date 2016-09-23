@@ -6,7 +6,9 @@ import sinonChai from 'sinon-chai';
 import initialState from '../reducers/initialState';
 import manageTokenMiddleware from './manageToken';
 import * as types from '../constants/actionTypes';
+import * as actions from '../actions/auth';
 import * as keys from '../constants/storageKeys';
+import decode from 'jwt-decode';
 
 chai.use(sinonChai);
 
@@ -50,7 +52,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call getItem on storage on ${types.CHECK_CREDS}`, () => {
-    const action = { type: types.CHECK_CREDS };
+    const action = actions.checkCreds();
 
     store.dispatch(action);
 
@@ -58,7 +60,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call setItem on storage on ${types.LOGIN_REQUEST_SUCCESS}`, (done) => {
-    const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { access_token: exampleToken } };
+    const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { id_token: exampleToken } };
 
     let calls = 0;
     const unsubscribe = store.subscribe(() => {
@@ -74,7 +76,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call removeItem on storage on ${types.LOGOUT_REQUEST}`, () => {
-    const action = { type: types.LOGOUT_REQUEST };
+    const action = actions.logout();
 
     store.dispatch(action);
 
@@ -82,15 +84,16 @@ describe('manageTokenMiddleware', () => {
   });
 
 
-  it(`should dispatch ${types.LOGIN_SUCCESS} with access token on ${types.CHECK_CREDS}`, (done) => {
+  it(`should dispatch ${types.LOGIN_SUCCESS} with access token and username on ${types.CHECK_CREDS}`, (done) => {
     localStorageMock.setItem(keys.ACCESS_TOKEN, exampleToken);
-    const action = { type: types.CHECK_CREDS };
+    const action = actions.checkCreds();
 
     let calls = 0;
     const unsubscribe = store.subscribe(() => {
       if (++calls === 1) return; // skip the CHECK_CREDS action
       expect(localStorageMock.getItem.calledOnce).to.be.true;
       expect(store.getState().auth.token).to.be.equal(exampleToken);
+      expect(store.getState().auth.username).to.be.equal(decode(exampleToken).username);
       unsubscribe();
       done();
     });
@@ -100,7 +103,7 @@ describe('manageTokenMiddleware', () => {
 
   it(`should get access token on ${types.CHECK_CREDS}`, () => {
     localStorageMock.setItem(keys.ACCESS_TOKEN, exampleToken);
-    const action = { type: types.CHECK_CREDS };
+    const action = actions.checkCreds();
 
     store.dispatch(action);
 

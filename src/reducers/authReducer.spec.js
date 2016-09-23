@@ -1,11 +1,10 @@
-
 import { expect } from 'chai';
 import authReducer from './authReducer';
 import * as actions from '../actions/auth';
 
 describe('App Reducer', () => {
 
-  it ('should return isFetching on LOGIN_REQUEST', () => {
+  it ('should return isFetching on login()', () => {
     const initialState = {
       auth: {
         isFetching: false
