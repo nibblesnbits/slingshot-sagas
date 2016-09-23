@@ -8,18 +8,18 @@ export class AuthGuard extends Component {
   componentWillMount() {
     const { token, push, redirectTo, allowedRoles } = this.props;
     if (!token) {
-      return push(redirectTo || '/');
+      return push(redirectTo);
     }
     if (allowedRoles) {
       const tokenPayload = parseJwt(token).payload;
       if (!tokenPayload.roles) {
-        return push(redirectTo || '/');
+        return push(redirectTo);
       }
       const matches = tokenPayload.roles.filter(r => {
         return allowedRoles.indexOf(r) > -1;
       });
       if (matches.length < 1) {
-        return push(redirectTo || '/');
+        return push(redirectTo);
       }
     }
   }
@@ -32,7 +32,7 @@ export class AuthGuard extends Component {
 AuthGuard.propTypes = {
   token: PropTypes.string.isRequired,
   push: PropTypes.func.isRequired,
-  redirectTo: PropTypes.string,
+  redirectTo: PropTypes.string.isRequired,
   allowedRoles: PropTypes.array
 };
 
