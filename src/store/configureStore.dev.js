@@ -9,7 +9,6 @@ import rootReducer from '../reducers/rootReducer';
 import rootSaga from '../sagas/rootSaga';
 import { routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
-
 import manageTokenMiddleware from '../middleware/manageToken';
 
 const sagaMiddleware = createSagaMiddleware();
