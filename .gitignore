@@ -35,6 +35,7 @@ dist
 
 #VSCode metadata
 .vscode
+jsconfig.json
 
 # Mac files
 .DS_Store
