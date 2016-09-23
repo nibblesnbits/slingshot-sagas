@@ -5,7 +5,7 @@ import * as actions from '../actions/app';
 
 describe('App Reducer', () => {
 
-  it ('should add message on SHOW_MESSAGE', () => {
+  it ('should add message on showMessage()', () => {
     const initialState = {
       messages: []
     };
@@ -17,7 +17,7 @@ describe('App Reducer', () => {
     expect(newState.messages.length).to.equal(1);
   });
 
-  it ('should delete message on REMOVE_MESSAGE', () => {
+  it ('should delete message on removeMessage()', () => {
     const initialState = {
       messages: [{
         title: 'test',
@@ -35,20 +35,40 @@ describe('App Reducer', () => {
     expect(newState.messages.length).to.equal(0);
   });
 
-  it ('should hide all messages on CLEAR_MESSAGES', () => {
+  it ('should hide all messages on clearMesages()', () => {
     const initialState = {
       messages: [{
         title: 'test',
         text: 'test',
         className: 'info',
-        hidden: false
+        hidden: false,
+        id: 0
       }]
     };
 
-    const action = actions.clearMesages();
+    const action = actions.clearMessages();
 
     const newState = appReducer(initialState, action);
 
     expect(newState.messages.length).to.equal(0);
+  });
+
+  it ('should set hidden to "true" for a message on fadeMessage()', () => {
+    const initialState = {
+      messages: [{
+        title: 'test',
+        text: 'test',
+        className: 'info',
+        hidden: false,
+        id: 0
+      }]
+    };
+
+    const action = actions.fadeMessage(0);
+
+    const newState = appReducer(initialState, action);
+
+    expect(newState.messages[0].hidden).to.be.true;
+    expect(newState.messages.length).to.be.equal(1);
   });
 });
