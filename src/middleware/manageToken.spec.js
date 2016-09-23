@@ -6,6 +6,7 @@ import sinonChai from 'sinon-chai';
 import initialState from '../reducers/initialState';
 import manageTokenMiddleware from './manageToken';
 import * as types from '../constants/actionTypes';
+import * as actions from '../actions/auth';
 import * as keys from '../constants/storageKeys';
 
 chai.use(sinonChai);
@@ -50,7 +51,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call getItem on storage on ${types.CHECK_CREDS}`, () => {
-    const action = { type: types.CHECK_CREDS };
+    const action = actions.checkCreds();
 
     store.dispatch(action);
 
@@ -74,7 +75,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call removeItem on storage on ${types.LOGOUT_REQUEST}`, () => {
-    const action = { type: types.LOGOUT_REQUEST };
+    const action = actions.logout();
 
     store.dispatch(action);
 
@@ -84,7 +85,7 @@ describe('manageTokenMiddleware', () => {
 
   it(`should dispatch ${types.LOGIN_SUCCESS} with access token on ${types.CHECK_CREDS}`, (done) => {
     localStorageMock.setItem(keys.ACCESS_TOKEN, exampleToken);
-    const action = { type: types.CHECK_CREDS };
+    const action = actions.checkCreds();
 
     let calls = 0;
     const unsubscribe = store.subscribe(() => {
@@ -100,7 +101,7 @@ describe('manageTokenMiddleware', () => {
 
   it(`should get access token on ${types.CHECK_CREDS}`, () => {
     localStorageMock.setItem(keys.ACCESS_TOKEN, exampleToken);
-    const action = { type: types.CHECK_CREDS };
+    const action = actions.checkCreds();
 
     store.dispatch(action);
 

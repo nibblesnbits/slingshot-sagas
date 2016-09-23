@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
 import * as types from '../constants/actionTypes';
 import * as keys from '../constants/storageKeys';
-import { parseJwt } from '../util/jwtParser';
+import decode from 'jwt-decode';
 
 // NOTE: we can pass in a mock storage object here to unit test
 export default function manageTokenMiddleware(storage = localStorage) {
@@ -28,8 +28,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
         case types.CHECK_CREDS: {
           const token = store.getState().auth.token || storage.getItem(keys.ACCESS_TOKEN);
           if (token) {
-            const { payload } = parseJwt(token);
-            const username = payload.username;
+            const username = decode(token).username;
             store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
           }
           return next(action);
@@ -37,8 +36,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
         case types.LOGIN_REQUEST_SUCCESS: {
           const token = action.result.access_token;
           storage.setItem(keys.ACCESS_TOKEN, token);
-          const { payload } = parseJwt(token);
-          const username = payload.username;
+          const username = decode(token).username;
           store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
           return next(action);
         }

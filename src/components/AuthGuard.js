@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { parseJwt } from '../util/jwtParser';
+import decode from 'jwt-decode';
 
 export class AuthGuard extends Component {
 
@@ -11,7 +11,7 @@ export class AuthGuard extends Component {
       return push(redirectTo);
     }
     if (allowedRoles) {
-      const tokenPayload = parseJwt(token).payload;
+      const tokenPayload = decode(token);
       if (!tokenPayload.roles) {
         return push(redirectTo);
       }

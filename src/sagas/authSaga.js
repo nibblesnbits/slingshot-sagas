@@ -3,7 +3,6 @@ import { put } from 'redux-saga/effects';
 import callApi from './helpers';
 import * as types from '../constants/actionTypes';
 import * as appActions from '../actions/app';
-// import { parseJwt } from '../util/jwtParser';
 
 export function* login({username, password}) {
 
@@ -15,10 +14,7 @@ export function* login({username, password}) {
   const url = "http://localhost:3001/sessions/create";
 
   try {
-    /*const response =*/ yield* callApi(url, config, [types.LOGIN_REQUEST_SUCCESS, types.LOGIN_REQUEST_FAILURE]);
-    // const { payload } = parseJwt(response.access_token);
-    // const username = payload.username;
-    // yield put(appActions.showToast('Success!', `logged in as ${username}`,'success'));
+    yield* callApi(url, config, [types.LOGIN_REQUEST_SUCCESS, types.LOGIN_REQUEST_FAILURE]);
   } catch(error) {
     const text = typeof(error) === "string" ? error : (typeof(error) === "object" && error.message ? error.message : "Unknown Error");
     yield put(appActions.showMessage('Login Error:', text, 'danger'));
