@@ -21,6 +21,7 @@ describe('<Navbar />', () => {
 
   it('should render Login when isAuthenticated is false', () => {
     const props = {
+      username: 'test',
       isAuthenticated: false,
       logout: sinon.spy(),
       login: sinon.spy(),
@@ -39,6 +40,7 @@ describe('<Navbar />', () => {
 
   it('should render Logout when isAuthenticated is true', () => {
     const props = {
+      username: 'test',
       isAuthenticated: true,
       logout: sinon.spy(),
       login: sinon.spy(),
