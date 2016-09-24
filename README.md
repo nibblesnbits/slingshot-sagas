@@ -82,4 +82,5 @@ After initial setup, just navigate to the `auth-server` directory and run `npm s
 
 # TODO
 - Handle 404 routes
+- Add unit tests for Sagas
 - *If anyone has any more, feel free to report them in Issues*
