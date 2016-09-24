@@ -32,10 +32,6 @@ function createMockStore() {
       delete this[key];
     };
 
-    Object.defineProperty(store, 'length', {
-      get: function () { return Object.keys(this).length - 2; }
-    });
-
     return store;
 }
 
@@ -158,47 +154,45 @@ describe('manageTokenMiddleware', () => {
 
   describe(types.CHECK_CREDS, () => {
 
-    // const action = actions.checkCreds();
+    const action = actions.checkCreds();
 
-    // it(`should send ${types.LOGIN_FAILURE} when token is broken`, (done) => {
-    //   // first populate the store with a token
-    //   const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: ExampleToken, username: BrokenToken };
-    //   store.dispatch(sucessfulLogin);
+    it(`should send ${types.LOGIN_FAILURE} when token is broken`, (done) => {
+      // first populate the store with a token
+      const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: BrokenToken, username: 'test' };
+      store.dispatch(sucessfulLogin);
 
-    //   let calls = 0;
-    //   const unsubscribe = store.subscribe(() => {
-    //     if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
-    //     expect(store.getState().auth.token).to.be.equal('');
-    //     expect(localStorageMock.getItem.callCount).to.equal(0);
-    //     expect(store.getState().app.messages.length).to.equal(1);
-    //     unsubscribe();
-    //     done();
-    //   });
+      let calls = 0;
+      const unsubscribe = store.subscribe(() => {
+        if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
+        expect(store.getState().auth.isAuthenticated).to.be.false;
+        expect(localStorageMock.getItem.callCount).to.equal(0);
+        expect(store.getState().app.messages.length).to.equal(1);
+        unsubscribe();
+        done();
+      });
 
-    //   // then dispatch a LOGIN_REQUEST_SUCCESS with an empty token
-    //   store.dispatch(action);
-    // });
+      // then dispatch a LOGIN_REQUEST_SUCCESS with an empty token
+      store.dispatch(action);
+    });
 
-    // it(`should send ${types.LOGIN_FAILURE} when username is not in token`, (done) => {
-    //   // first populate the store with a token
-    //   const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: ExampleToken, username: MissingUsernameToken };
-    //   store.dispatch(sucessfulLogin);
+    it(`should send ${types.LOGIN_FAILURE} when username is not in token`, (done) => {
+      // first populate the store with a token
+      const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: MissingUsernameToken, username: 'test' };
+      store.dispatch(sucessfulLogin);
 
-    //   let calls = 0;
-    //   const unsubscribe = store.subscribe(() => {
-    //     if (++calls === 1) return; // don't check on the LOGIN_FAILURE action
-    //       console.log('')
-    //     console.log(store.getState().auth)
-    //     // the authReducer sets the isAuthenticated to false
-    //     expect(store.getState().auth.isAuthenticated).to.be.false;
-    //     expect(localStorageMock.setItem.callCount).to.equal(0);
-    //     expect(store.getState().app.messages.length).to.equal(1);
-    //     unsubscribe();
-    //     done();
-    //   });
+      let calls = 0;
+      const unsubscribe = store.subscribe(() => {
+        if (++calls === 1) return; // don't check on the LOGIN_FAILURE action
+        // the authReducer sets the isAuthenticated to false
+        expect(store.getState().auth.isAuthenticated).to.be.false;
+        expect(localStorageMock.setItem.callCount).to.equal(0);
+        expect(store.getState().app.messages.length).to.equal(1);
+        unsubscribe();
+        done();
+      });
 
-    //   store.dispatch(action);
-    // });
+      store.dispatch(action);
+    });
 
 
     it(`should dispatch ${types.LOGIN_SUCCESS} with access token and username`, (done) => {
@@ -224,21 +218,18 @@ describe('manageTokenMiddleware', () => {
   //   const action =  actions.requireLogin(path);
   //   const firstPush = {
   //     type: "@@router/LOCAION_CHANGE",
-  //     // payload: {
+  //     payload: {
   //       pathname: '/'
-  //     // }
+  //     }
   //   };
-  //   let calls = 0;
+  //   store.dispatch(firstPush);
+
   //   const unsubscribe = store.subscribe(() => {
-  //     if (++calls === 1) return; // skip the LOGIN_REQUIRED action
   //     expect(store.getState().routing.locationBeforeTransitions.pathname).to.be.equal(path);
   //     unsubscribe();
   //     done();
   //   });
 
-  //   store.dispatch(firstPush);
   //   store.dispatch(action); // load the token into state
-  //   const result = store.dispatch(action);
-  //   expect(result.config.headers.Authorization).to.be.equal(`Bearer ${exampleToken}`);
   // });
 });
