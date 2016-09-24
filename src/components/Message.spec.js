@@ -15,7 +15,7 @@ describe('<Message />', () => {
       text: 'test',
       className: 'test',
       hidden: true,
-      hide: () => null
+      hide: sinon.spy()
     };
 
     const wrapper = shallow(<Message {...props} />);
@@ -31,7 +31,7 @@ describe('<Message />', () => {
       text: 'test',
       className: 'test',
       hidden: false,
-      hide: () => null
+      hide: sinon.spy()
     };
 
     const wrapper = shallow(<Message {...props} />);
@@ -63,7 +63,7 @@ describe('<Message />', () => {
       text: 'test',
       className: 'test',
       hidden: false,
-      hide: () => null
+      hide: sinon.spy()
     };
 
     const wrapper = shallow(<Message {...props} />);

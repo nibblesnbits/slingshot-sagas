@@ -33,7 +33,7 @@ describe('<App />', () => {
     it('should return valid props', () => {
       const props = {
         children: (<div />),
-        checkCreds: () => null
+        checkCreds: sinon.spy()
       };
       const state = {
         children: {}

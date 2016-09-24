@@ -17,7 +17,7 @@ describe('<ProfilePage />', () => {
     const props = {
       username: 'test',
       token: 'test',
-      logout: () => null
+      logout: sinon.spy()
     };
     const store = createStore(rootReducer, initialState);
 
