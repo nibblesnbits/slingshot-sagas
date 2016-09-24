@@ -14,50 +14,50 @@ describe('<AuthGuard />', () => {
   it('should call push() if no token is found', () => {
     const props = {
       token: '',
-      push: sinon.spy(),
+      requireLogin: sinon.spy(),
       redirectTo: '/'
     };
 
     shallow(<AuthGuard {...props} />);
 
-    expect(props.push.calledOnce).to.equal(true);
+    expect(props.requireLogin.calledOnce).to.equal(true);
   });
 
   it('should not call push() if a token is found', () => {
     const props = {
       token: 'test',
-      push: sinon.spy(),
+      requireLogin: sinon.spy(),
       redirectTo: '/'
     };
 
     shallow(<AuthGuard {...props} />);
 
-    expect(props.push.calledOnce).to.equal(false);
+    expect(props.requireLogin.calledOnce).to.equal(false);
   });
 
   it('should not call push() if a valid role is found', () => {
     const props = {
       token: exampleToken,
-      push: sinon.spy(),
+      requireLogin: sinon.spy(),
       redirectTo: '/',
       allowedRoles: ["user"]
     };
 
     shallow(<AuthGuard {...props} />);
 
-    expect(props.push.calledOnce).to.equal(false);
+    expect(props.requireLogin.calledOnce).to.equal(false);
   });
 
   it('should call push() if a valid role is not found', () => {
     const props = {
       token: exampleToken,
-      push: sinon.spy(),
+      requireLogin: sinon.spy(),
       redirectTo: '/',
       allowedRoles: ["admin"]
     };
 
     shallow(<AuthGuard {...props} />);
 
-    expect(props.push.calledOnce).to.equal(true);
+    expect(props.requireLogin.calledOnce).to.equal(true);
   });
 });

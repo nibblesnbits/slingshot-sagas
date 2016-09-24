@@ -18,3 +18,11 @@ export function logout() {
     type: types.LOGOUT_REQUEST
   };
 }
+
+
+export function requireLogin(redirectTo) {
+  return {
+    type: types.LOGIN_REQUIRED,
+    redirectTo
+  };
+}

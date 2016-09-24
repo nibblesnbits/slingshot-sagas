@@ -38,6 +38,10 @@ export default function manageTokenMiddleware(storage = localStorage) {
       }
 
       switch (action.type) {
+        case types.LOGIN_REQUIRED: {
+          push(action.redirectTo);
+          return next(action);
+        }
         case types.CHECK_CREDS: {
           const token = store.getState().auth.token || storage.getItem(keys.ACCESS_TOKEN);
           if (token) {

@@ -1,25 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import decode from 'jwt-decode';
+import * as actions from '../actions/auth';
 
 export class AuthGuard extends Component {
 
   componentWillMount() {
-    const { token, push, redirectTo, allowedRoles } = this.props;
+    const { token, requireLogin, redirectTo, allowedRoles } = this.props;
     if (!token) {
-      return push(redirectTo);
+      return requireLogin(redirectTo);
     }
     if (allowedRoles) {
       const tokenPayload = decode(token);
       if (!tokenPayload.roles) {
-        return push(redirectTo);
+      return requireLogin(redirectTo);
       }
       const matches = tokenPayload.roles.filter(r => {
         return allowedRoles.indexOf(r) > -1;
       });
       if (matches.length < 1) {
-        return push(redirectTo);
+      return requireLogin(redirectTo);
       }
     }
   }
@@ -31,7 +31,7 @@ export class AuthGuard extends Component {
 
 AuthGuard.propTypes = {
   token: PropTypes.string.isRequired,
-  push: PropTypes.func.isRequired,
+  requireLogin: PropTypes.func.isRequired,
   redirectTo: PropTypes.string.isRequired,
   allowedRoles: PropTypes.array
 };
@@ -45,4 +45,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { push })(AuthGuard);
+export default connect(mapStateToProps, { ...actions })(AuthGuard);
