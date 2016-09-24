@@ -13,13 +13,13 @@ export class AuthGuard extends Component {
     if (allowedRoles) {
       const tokenPayload = decode(token);
       if (!tokenPayload.roles) {
-      return requireLogin(redirectTo);
+        return requireLogin(redirectTo);
       }
       const matches = tokenPayload.roles.filter(r => {
         return allowedRoles.indexOf(r) > -1;
       });
       if (matches.length < 1) {
-      return requireLogin(redirectTo);
+        return requireLogin(redirectTo);
       }
     }
   }
