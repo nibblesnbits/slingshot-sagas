@@ -38,7 +38,7 @@ HomePage.propTypes = {
   fetchSecretQuote: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const { quotes, auth } = state;
   const { quote, authenticated, isFetching } = quotes;
   const { isAuthenticated } = auth;

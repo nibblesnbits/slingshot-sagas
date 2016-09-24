@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import chai, {expect} from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import { Login } from './Login';
+import { mapStateToProps, Login } from './Login';
 
 chai.use(sinonChai);
 
@@ -35,5 +35,19 @@ describe('<Login />', () => {
     wrapper.simulate('submit');
 
     expect(props.onLoginClick.calledOnce).to.equal(true);
+  });
+
+  describe('mapStateToProps', () => {
+    it('should return valid props', () => {
+      const state = {
+        auth: {
+          isFetching: true
+        }
+      };
+
+      const result = mapStateToProps(state);
+
+      expect(result).to.deep.equal(state.auth);
+    });
   });
 });

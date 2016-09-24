@@ -20,6 +20,20 @@ describe('App Reducer', () => {
     expect(newState.isFetching).to.be.true;
   });
 
+  it ('should return isFetching on fetchSecretQuote()', () => {
+    const initialState = {
+      quotes: {
+        isFetching: false
+      }
+    };
+
+    const action = actions.fetchSecretQuote();
+
+    const newState = quotesReducer(initialState, action);
+
+    expect(newState.isFetching).to.be.true;
+  });
+
   it ('should return result on QUOTE_SUCCESS', () => {
     const initialState = {
       quotes: {

@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import chai, {expect} from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import { HomePage } from './HomePage';
+import { mapStateToProps, HomePage } from './HomePage';
 import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
@@ -81,5 +81,30 @@ describe('<HomePage />', () => {
     quoteButton.simulate('click');
 
     expect(props.fetchSecretQuote.calledOnce).to.equal(true);
+  });
+
+  describe('mapStateToProps', () => {
+    it('should return valid props', () => {
+      const state = {
+        auth: {
+          isAuthenticated: true,
+          token: 'test'
+        },
+        quotes: {
+          quote: 'test',
+          authenticated: true,
+          isFetching: false
+        }
+      };
+
+      const result = mapStateToProps(state);
+
+      expect(result).to.deep.equal({
+        quote: state.quotes.quote,
+        isFetching: state.quotes.isFetching,
+        isSecretQuote: state.quotes.authenticated,
+        isAuthenticated: state.auth.isAuthenticated
+      });
+    });
   });
 });

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import chai, {expect} from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import { AuthGuard } from './AuthGuard';
+import { mapStateToProps, AuthGuard } from './AuthGuard';
 
 chai.use(sinonChai);
 
@@ -59,5 +59,20 @@ describe('<AuthGuard />', () => {
     shallow(<AuthGuard {...props} />);
 
     expect(props.requireLogin.calledOnce).to.equal(true);
+  });
+
+  describe('mapStateToProps', () => {
+    it('should return valid props', () => {
+      const state = {
+        auth: {
+          username: 'test',
+          token: 'test'
+        }
+      };
+
+      const result = mapStateToProps(state);
+
+      expect(result).to.deep.equal(state.auth);
+    });
   });
 });

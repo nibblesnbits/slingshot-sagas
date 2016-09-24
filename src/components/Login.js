@@ -25,7 +25,7 @@ export class Login extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const { isFetching } = state.auth;
   return {
     isFetching,

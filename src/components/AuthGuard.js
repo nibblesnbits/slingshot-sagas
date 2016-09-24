@@ -36,7 +36,7 @@ AuthGuard.propTypes = {
   allowedRoles: PropTypes.array
 };
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const { username, token } = state.auth;
 
   return {

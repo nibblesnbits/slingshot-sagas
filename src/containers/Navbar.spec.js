@@ -7,7 +7,7 @@ import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
 import { Provider } from 'react-redux';
-import { Navbar } from './Navbar';
+import { mapStateToProps, Navbar } from './Navbar';
 
 chai.use(sinonChai);
 
@@ -56,5 +56,21 @@ describe('<Navbar />', () => {
     const loginButton = wrapper.find('Logout');
 
     expect(loginButton.length).to.equal(1);
+  });
+
+
+  describe('mapStateToProps', () => {
+    it('should return valid props', () => {
+      const state = {
+        auth: {
+          isAuthenticated: true,
+          username: 'test'
+        }
+      };
+
+      const result = mapStateToProps(state);
+
+      expect(result).to.deep.equal(state.auth);
+    });
   });
 });

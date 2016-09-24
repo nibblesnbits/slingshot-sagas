@@ -27,7 +27,7 @@ ProfilePage.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const { username, token } = state.auth;
 
   return {

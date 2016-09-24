@@ -28,7 +28,7 @@ App.propTypes = {
 };
 
 
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state, ownProps) {
   return {
     children: ownProps.children
   };
