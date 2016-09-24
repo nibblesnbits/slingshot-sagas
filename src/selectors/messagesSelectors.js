@@ -7,9 +7,6 @@ function sortByOrder(a,b) {
 const getMessages = (state) => state.app.messages;
 
 const sortMessages = messages =>  messages.sort(sortByOrder);
-// const orderMessages = messages => messages.map((m, i) => { m.order = i; return m; });
-// const allButThisId = id => messages => messages.filter(m => m.id !== id);
-// const justThisId = id => messages => messages.filter(m => m.id === id);
 
 export const makeGetAndSortMessages = () => {
   return createSelector(

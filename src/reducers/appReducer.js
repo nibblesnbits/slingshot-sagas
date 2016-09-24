@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import initialState from './initialState';
+
 function sortByOrder(a,b) {
   return a.order > b.order ? 1 : (a.order < b.order ? -1 : 0);
 }

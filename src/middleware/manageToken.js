@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux';
 import * as types from '../constants/actionTypes';
 import * as appActions from '../actions/app';
+import * as authActions from '../actions/auth';
 import * as keys from '../constants/storageKeys';
 import decode from 'jwt-decode';
 
@@ -20,7 +21,6 @@ function tryGetUsername(token, cb) {
 export default function manageTokenMiddleware(storage = localStorage) {
   return (store) => {
     return (next) => (action) => {
-
       // TODO: this feels hacky
       if (action.useToken) {
         const token = store.getState().auth.token;
@@ -54,6 +54,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
               }
             });
           }
+          store.dispatch(authActions.requireLogin('/'));
           return next(action);
         }
         case types.LOGIN_REQUEST_FAILURE: {

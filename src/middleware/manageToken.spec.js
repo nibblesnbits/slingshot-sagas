@@ -1,4 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import { createMemoryHistory  } from 'react-router';
 import rootReducer from '../reducers/rootReducer';
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
@@ -44,9 +46,12 @@ describe('manageTokenMiddleware', () => {
     sinon.spy(localStorageMock, 'setItem');
     sinon.spy(localStorageMock, 'getItem');
     sinon.spy(localStorageMock, 'removeItem');
-
+    const history = createMemoryHistory('/');
     store = createStore(rootReducer, initialState, compose(
-        applyMiddleware(manageTokenMiddleware(localStorageMock))
+        applyMiddleware(
+          routerMiddleware(history), // TODO: need to figure out how to mock the router enough to check transitions
+          manageTokenMiddleware(localStorageMock)
+        )
       )
     );
   });
@@ -118,4 +123,27 @@ describe('manageTokenMiddleware', () => {
     const result = store.dispatch(action);
     expect(result.config.headers.Authorization).to.be.equal(`Bearer ${exampleToken}`);
   });
+
+  // it(`should push new route on ${types.LOGIN_REQUIRED}`, (done) => {
+  //   const path = '/';
+  //   const action =  actions.requireLogin(path);
+  //   const firstPush = {
+  //     type: "@@router/LOCAION_CHANGE",
+  //     // payload: {
+  //       pathname: '/'
+  //     // }
+  //   };
+  //   let calls = 0;
+  //   const unsubscribe = store.subscribe(() => {
+  //     if (++calls === 1) return; // skip the LOGIN_REQUIRED action
+  //     expect(store.getState().routing.locationBeforeTransitions.pathname).to.be.equal(path);
+  //     unsubscribe();
+  //     done();
+  //   });
+
+  //   store.dispatch(firstPush);
+  //   store.dispatch(action); // load the token into state
+  //   const result = store.dispatch(action);
+  //   expect(result.config.headers.Authorization).to.be.equal(`Bearer ${exampleToken}`);
+  // });
 });
