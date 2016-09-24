@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import chai, {expect} from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import { App } from './App';
+import { mapStateToProps, App } from './App';
 import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
@@ -27,5 +27,21 @@ describe('<App />', () => {
     );
 
     expect(props.checkCreds.calledOnce).to.equal(true);
+  });
+
+  describe('mapStateToProps', () => {
+    it('should return valid props', () => {
+      const props = {
+        children: (<div />),
+        checkCreds: sinon.spy()
+      };
+      const state = {
+        children: {}
+      };
+
+      const result = mapStateToProps(state, props);
+
+      expect(result.children).to.deep.equal(props.children);
+    });
   });
 });

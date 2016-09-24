@@ -1,16 +1,19 @@
-
 import { put, call } from 'redux-saga/effects';
 
 export function makeRequest(url, config, returnType) {
+
   return fetch(url, config)
-    .then(response =>
-      response[returnType]()
-      .then(result => ({ result, response }))
-    ).then(({ result, response }) => {
+  .then(response => {
       if (!response.ok) {
-        return Promise.reject(result);
+        // This part is only because the auth server
+        // throws oddly shaped, unpredictable errors.
+        // in a normal scenario, this would simply
+        // parse the json error response.
+        return response.text().then(result => {
+          return Promise.reject({ message: result });
+        });
       }
-      return result;
+      return response[returnType]();
     });
 }
 
@@ -18,8 +21,9 @@ export default function* callApi(url, config, statusTypes, returnType = "json") 
   const [ SUCCESS, FAILURE ] = statusTypes;
   try {
     const result = yield call(makeRequest, url, config, returnType);
-    // TODO: the authenticated property here is hacky; needs cleanup
-    yield put({ type: SUCCESS, result, authenticated: typeof((config.headers || {}).Authorization) !== "undefined" });
+    // this authenticated bit is hacky
+    const authenticated = config.headers ? (config.headers.Authorization) : false;
+    yield put({ type: SUCCESS, result, authenticated: authenticated });
     return result;
   } catch (error) {
     yield put({type: FAILURE, error });

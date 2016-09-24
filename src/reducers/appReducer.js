@@ -10,10 +10,10 @@ export default function authReducer(state = initialState.app, action) {
     case types.REMOVE_MESSAGE:
       return {
         ...state,
-        messages: state.messages
+        messages: [...state.messages]
           .filter(m => m.id !== action.id)
           .sort(sortByOrder)
-          .map((m, i) => { m.order = i; return m; })
+          .map((m, i) => { return { ...m, order: i }; })
       };
     case types.FADE_MESSAGE:
       return {
@@ -35,8 +35,7 @@ export default function authReducer(state = initialState.app, action) {
       return {
         ...state,
         messages: [
-          ...state.messages.sort(sortByOrder)
-          .map((m, i) => { m.order = i; return m; }),
+          ...state.messages,
           { ...action, order: state.messages.length }
         ]
       };

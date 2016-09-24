@@ -2,8 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Message from './Message';
 import * as actions from '../actions/app';
+import { makeGetAndSortMessages } from '../selectors/messagesSelectors';
 
 export class AppMessages extends Component {
+
+  componentWillMount() {
+    this.props.showToast('', 'Application loaded', 'success');
+  }
 
   render() {
     const { messages, removeMessage } = this.props;
@@ -17,15 +22,21 @@ export class AppMessages extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    messages: state.app.messages
+const makeMapStateToProps = () => {
+  const getOrderedMessages = makeGetAndSortMessages();
+  const mapStateToProps = (state) => {
+    return {
+      messages: getOrderedMessages(state)
+    };
   };
-}
+  return mapStateToProps;
+};
+
 
 AppMessages.propTypes = {
   messages: PropTypes.array.isRequired,
-  removeMessage: PropTypes.func.isRequired
+  removeMessage: PropTypes.func.isRequired,
+  showToast: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, { ...actions })(AppMessages);
+export default connect(makeMapStateToProps, { ...actions })(AppMessages);

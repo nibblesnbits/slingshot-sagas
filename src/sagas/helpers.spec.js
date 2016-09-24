@@ -1,102 +1,54 @@
-// import { put, call } from 'redux-saga/effects';
-// import { expect } from 'chai';
-// import callApi, { makeRequest } from './helpers';
+import { put, call } from 'redux-saga/effects';
+import { expect } from 'chai';
+import callApi, { makeRequest } from './helpers';
 
-// describe('saga helper', () => {
-//   describe('callApi()', () => {
-    // it('should yield specified SUCCESS type on request success', () => {
+describe('saga helper', () => {
+  describe('callApi()', () => {
+    it('should yield specified SUCCESS type on request success', () => {
 
-    //   // arrange
-    //   const text = "quote";
-    //   // TODO: figure out how this is actually supposed to be structured to replicate the real response.
-    //   //       this is the only reason this test is failing
-    //   const apiResult =Promise.resolve({
-    //     response: {
-    //       "text": {
-    //           ok: true,
-    //           "result": () => Promise.resolve(text)
-    //       }
-    //     }
-    //   });
-    //   const url = 'http://tempuri.org/json';
-    //   const config = { };
-    //   const types = ['SUCCESS', 'FAILURE'];
-    //   const action = { type: types[0], result: text };
+      // arrange
+      const text = "quote";
+      const responseType = "text";
+      const url = 'http://tempuri.org/json';
+      const config = { };
+      const types = ['SUCCESS', 'FAILURE'];
+      const sucessAction = { type: types[0], result: text, authenticated: false };
 
-    //   // act
-    //   const gen = callApi(url, config, types, "text");
-    //   // assert
-    //   let next = gen.next(apiResult);
-    //   expect(next.value).to.be
-    //     .deep.equal(call(makeRequest, url, config, "text"));
+      const gen = callApi(url, config, types, responseType);
 
-    //   next = gen.next();
-    //   expect(next.value).to.be.deep.equal(put(action));
+      // act & assert
+      let next = gen.next().value;
+      expect(next).to.deep.equal(call(makeRequest, url, config, responseType));
 
-    //   next = gen.next();
-    //   expect(next.value).to.be.undefined;
-    //   expect(next.done).to.be.true;
-    // });
+      next = gen.next(text).value;
+      expect(next).to.deep.equal(put(sucessAction));
 
-    // it('should yield specified FAILURE type on request failure', () => {
+      next = gen.next().value;
+      expect(next).to.equal(text);
 
-    //   // arrange
-    //   const error = {};
-    //   // TODO: figure out how this is actually supposed to be structured to replicate the real response.
-    //   //       this is the only reason this test is failing
-    //   const apiResult = Promise.reject(error);
-    //   const url = 'http://tempuri.org/json';
-    //   const config = { };
-    //   const types = ['SUCCESS', 'FAILURE'];
-    //   const action = { type: types[0], error };
+      next = gen.next();
+      expect(next.value).to.be.undefined;
+      expect(next.done).to.be.true;
+    });
 
-    //   // act
-    //   const gen = callApi(url, config, types, "json");
+    it('should yield specified FAILURE type on request failure', () => {
 
-    //   // assert
-    //   let next = gen.next(apiResult);
-    //   expect(next.value).to.be
-    //     .deep.equal(call(makeRequest, url, config, "json"));
+      // arrange
+      const error = "error";
+      const responseType = "text";
+      const url = 'http://tempuri.org/json';
+      const config = { };
+      const types = ['SUCCESS', 'FAILURE'];
+      const failureAction = { type: types[1], error };
 
-    //   next = gen.next();
-    //   expect(next.value).to.be.deep.equal(put(action));
+      const gen = callApi(url, config, types, responseType);
 
-    //   next = gen.next();
-    //   expect(next.value).to.be.undefined;
-    //   expect(next.done).to.be.true;
-    // });
+      // act & assert
+      let next = gen.next().value;
+      expect(next).to.deep.equal(call(makeRequest, url, config, responseType));
 
-    // it('should yield specified FAILURE type on non-200 return', () => {
-
-    //   // arrange
-    //   const error = {};
-    //   // TODO: figure out how this is actually supposed to be structured to replicate the real response.
-    //   //       this is the only reason this test is failing
-    //   const apiResult = Promise.resolve({
-    //     response: () => Promise.resolve({error}),
-    //     result: {
-    //       ok: false
-    //     }
-    //   });
-    //   const url = 'http://tempuri.org/json';
-    //   const config = { };
-    //   const types = ['SUCCESS', 'FAILURE'];
-    //   const action = { type: types[0], error };
-
-    //   // act
-    //   const gen = callApi(url, config, types, "json");
-
-    //   // assert
-    //   let next = gen.next(apiResult);
-    //   expect(next.value).to.be
-    //     .deep.equal(call(makeRequest, url, config, "json"));
-
-    //   next = gen.next();
-    //   expect(next.value).to.be.deep.equal(put(action));
-
-    //   next = gen.next();
-    //   expect(next.value).to.be.undefined;
-    //   expect(next.done).to.be.true;
-    // });
-//   });
-// });
+      next = gen.throw(error).value;
+      expect(next).to.deep.equal(put(failureAction));
+    });
+  });
+});

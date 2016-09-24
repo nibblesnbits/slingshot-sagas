@@ -44,7 +44,7 @@ export class Navbar extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const { isAuthenticated, username } = state.auth;
   return {
     isAuthenticated,

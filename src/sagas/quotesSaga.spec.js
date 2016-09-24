@@ -1,48 +1,49 @@
-// import { put } from 'redux-saga/effects';
-// import callApi from './helpers';
-// import { getQuote } from './quotesSaga';
-// import { expect } from 'chai';
-// import * as types from '../constants/actionTypes';
+import { call, put } from 'redux-saga/effects';
+import callApi from './helpers';
+import { getQuote } from './quotesSaga';
+import { expect } from 'chai';
+import * as types from '../constants/actionTypes';
+import * as appActions from '../actions/app';
+import url from 'url';
 
-// describe('quotesSaga', () => {
-//   describe('getQuote', () => {
-//     it('should yield QUOTE_SUCCESS on fetch success', () => {
+const BASE_URL = 'http://localhost:4001/api/';
 
-//       const action = { endpoint: 'test', config: {} };
+describe('quotesSaga', () => {
+  describe('getQuote()', () => {
+    it('should yield QUOTE_SUCCESS on fetch success', () => {
 
-//       const gen = getQuote(action);
+      const args = { endpoint: 'test', config: {} };
+      const uri = url.resolve(BASE_URL, args.endpoint);
+      const gen = getQuote(args);
 
-//       // first dispatch SHOW_MESSAGE
-//       let next = gen.next().value;
-//       expect(next.value)
-//       .to.be.deep
-//       .equal(callApi("", {}, [types.QUOTE_SUCCESS, types.QUOTE_FAILURE], "text"));
+      // just call callApi()
+      let next = gen.next().value;
+      expect(next)
+      .to.deep.equal(call(callApi, uri, args.config, [types.QUOTE_SUCCESS, types.QUOTE_FAILURE], "text"));
 
-//       // // then wait the action-specified delay
-//       // next = gen.next().value;
-//       // expect(next)
-//       // .to.be.deep.equal(call(delay, action.duration));
+      // and be done
+      next = gen.next();
+      expect(next.value).to.be.undefined;
+      expect(next.done).to.be.true;
+    });
 
-//       // // then dispatch FADE_MESSAGE
-//       // next = gen.next().value;
-//       // // expect(next.type)  // can't test this
-//       // // .to.be.deep.equal(put({ type: types.FADE_MESSAGE }).type);
+    it('should yield QUOTE_FAILURE on fetch failure', () => {
 
-//       // // then wait the saga-specified delay
-//       // next = gen.next().value;
-//       // expect(next)
-//       // .to.be.deep.equal(call(delay, 500));
+      const args = { endpoint: 'test', config: {} };
+      const error = { message: 'test' };
+      const action = appActions.showMessage('Login Error:', error.message, 'danger');
+      const uri = url.resolve(BASE_URL, args.endpoint);
+      const gen = getQuote(args);
 
-//       // // then dispatch REMOVE_MESSAGE
-//       // next = gen.next().value;
-//       // // expect(next)  // can't test this, either
-//       // // .to.be.deep.equal(put({ type: types.REMOVE_MESSAGE }).type);
+      // just call callApi()
+      let next = gen.next().value;
+      expect(next)
+      .to.deep.equal(call(callApi, uri, args.config, [types.QUOTE_SUCCESS, types.QUOTE_FAILURE], "text"));
 
-//       // // and be done
-//       // next = gen.next().value;
-//       // expect(next)
-//       // .to.be.undefined;
-
-//     });
-//   });
-// });
+      // throw
+      next = gen.throw(error).value;
+      expect(next.type)
+      .to.deep.equal(put(action).type);
+    });
+  });
+});
