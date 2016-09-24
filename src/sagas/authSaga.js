@@ -1,5 +1,5 @@
 import { takeLatest } from 'redux-saga';
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import callApi from './helpers';
 import * as types from '../constants/actionTypes';
 import * as appActions from '../actions/app';
@@ -14,7 +14,7 @@ export function* login({username, password}) {
   const url = "http://localhost:4001/sessions/create";
 
   try {
-    yield* callApi(url, config, [types.LOGIN_REQUEST_SUCCESS, types.LOGIN_REQUEST_FAILURE]);
+    yield call(callApi, url, config, [types.LOGIN_REQUEST_SUCCESS, types.LOGIN_REQUEST_FAILURE]);
   } catch(error) {
     yield put(appActions.showMessage('Login Error:', error.message, 'danger'));
   }
