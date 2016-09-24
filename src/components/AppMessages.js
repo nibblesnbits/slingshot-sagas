@@ -6,6 +6,10 @@ import { makeGetAndSortMessages } from '../selectors/messagesSelectors';
 
 export class AppMessages extends Component {
 
+  componentWillMount() {
+    this.props.showToast('', 'Application loaded', 'success');
+  }
+
   render() {
     const { messages, removeMessage } = this.props;
     return (
@@ -31,7 +35,8 @@ const makeMapStateToProps = () => {
 
 AppMessages.propTypes = {
   messages: PropTypes.array.isRequired,
-  removeMessage: PropTypes.func.isRequired
+  removeMessage: PropTypes.func.isRequired,
+  showToast: PropTypes.func.isRequired
 };
 
 export default connect(makeMapStateToProps, { ...actions })(AppMessages);
