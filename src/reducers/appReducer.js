@@ -1,6 +1,5 @@
 import * as types from '../constants/actionTypes';
 import initialState from './initialState';
-
 function sortByOrder(a,b) {
   return a.order > b.order ? 1 : (a.order < b.order ? -1 : 0);
 }
@@ -35,8 +34,7 @@ export default function authReducer(state = initialState.app, action) {
       return {
         ...state,
         messages: [
-          ...state.messages.sort(sortByOrder)
-          .map((m, i) => { m.order = i; return m; }),
+          ...state.messages,
           { ...action, order: state.messages.length }
         ]
       };
