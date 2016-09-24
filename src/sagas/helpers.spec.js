@@ -12,7 +12,7 @@ describe('saga helper', () => {
       const url = 'http://tempuri.org/json';
       const config = { };
       const types = ['SUCCESS', 'FAILURE'];
-      const sucessAction = { type: types[0], result: text };
+      const sucessAction = { type: types[0], result: text, authenticated: false };
 
       const gen = callApi(url, config, types, responseType);
 

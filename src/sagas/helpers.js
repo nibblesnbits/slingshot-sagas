@@ -21,7 +21,9 @@ export default function* callApi(url, config, statusTypes, returnType = "json") 
   const [ SUCCESS, FAILURE ] = statusTypes;
   try {
     const result = yield call(makeRequest, url, config, returnType);
-    yield put({ type: SUCCESS, result });
+    // this authenticated bit is hacky
+    const authenticated = config.headers ? (config.headers.Authorization) : false;
+    yield put({ type: SUCCESS, result, authenticated: authenticated });
     return result;
   } catch (error) {
     yield put({type: FAILURE, error });
