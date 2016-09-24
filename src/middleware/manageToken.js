@@ -9,7 +9,7 @@ function tryGetUsername(token, cb) {
   try {
     const username = decode(token).username;
     if (!username) {
-      return cb(undefined, new Error("Could not find username in token"));
+      return cb(undefined, new Error("Token in incorrect format"));
     }
     cb(username);
   } catch (err) {
@@ -39,7 +39,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
 
       switch (action.type) {
         case types.LOGIN_REQUIRED: {
-          push(action.redirectTo);
+          store.dispatch(push(action.redirectTo));
           return next(action);
         }
         case types.CHECK_CREDS: {
@@ -47,35 +47,37 @@ export default function manageTokenMiddleware(storage = localStorage) {
           if (token) {
             tryGetUsername(token, (username, error) => {
               if (error) {
-                store.dispatch(appActions.showMessage('Login Error:', error.message, 'danger'));
                 store.dispatch({ type: types.LOGIN_FAILURE, error });
+                store.dispatch(authActions.requireLogin('/'));
               } else {
                 store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
               }
             });
           }
-          store.dispatch(authActions.requireLogin('/'));
           return next(action);
         }
         case types.LOGIN_REQUEST_FAILURE: {
-          push('/');
+          store.dispatch(push('/'));
           return next(action);
         }
         case types.LOGIN_REQUEST_SUCCESS: {
           const token = action.result.id_token;
           if (!token) {
-            store.dispatch(appActions.showMessage('Login Error:','Error locating token in response', 'danger'));
+            store.dispatch({ type: types.LOGIN_FAILURE, error: { message: 'Error locating token in response' } });
             return next(action);
           }
           tryGetUsername(token, (username, error) => {
             if (error) {
-              store.dispatch(appActions.showMessage('Login Error:', error.message, 'danger'));
               store.dispatch({ type: types.LOGIN_FAILURE, error });
             } else {
               storage.setItem(keys.ACCESS_TOKEN, token);
               store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
             }
           });
+          return next(action);
+        }
+        case types.LOGIN_FAILURE: {
+          store.dispatch(appActions.showMessage('Login Error:', action.error.message, 'danger'));
           return next(action);
         }
         case types.LOGOUT_REQUEST:
