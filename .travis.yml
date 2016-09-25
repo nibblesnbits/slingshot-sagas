@@ -5,3 +5,6 @@ node_js:
 after_success:
   # Send coverage data to coveralls.
   - npm run test:cover:travis
+
+git:
+  submodules: false
