@@ -34,12 +34,12 @@ describe('saga helper', () => {
     it('should yield specified FAILURE type on request failure', () => {
 
       // arrange
-      const error = "error";
+      const error = new Error('test');
       const responseType = "text";
       const url = 'http://tempuri.org/json';
       const config = { };
       const types = ['SUCCESS', 'FAILURE'];
-      const failureAction = { type: types[1], error };
+      const failureAction = { type: types[1], error: error.message };
 
       const gen = callApi(url, config, types, responseType);
 

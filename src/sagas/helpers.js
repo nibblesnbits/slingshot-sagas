@@ -26,7 +26,7 @@ export default function* callApi(url, config, statusTypes, returnType = "json") 
     yield put({ type: SUCCESS, result, authenticated: authenticated });
     return result;
   } catch (error) {
-    yield put({type: FAILURE, error });
+    yield put({type: FAILURE, error: error.message });
     throw error;
   }
 }
