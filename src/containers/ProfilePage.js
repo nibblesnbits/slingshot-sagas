@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import AuthGuard from '../components/AuthGuard'; // eslint-disable-line import/no-named-as-default
 import { connect } from 'react-redux';
 import Logout from '../components/Logout'; // eslint-disable-line import/no-named-as-default
-import * as authActions from '../actions/auth';
+import * as authActions from '../actions/authActions';
 
 export class ProfilePage extends Component {
 

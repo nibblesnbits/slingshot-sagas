@@ -8,7 +8,7 @@ import sinonChai from 'sinon-chai';
 import initialState from '../reducers/initialState';
 import manageTokenMiddleware from './manageToken';
 import * as types from '../constants/actionTypes';
-import * as actions from '../actions/auth';
+import * as actions from '../actions/authActions';
 import * as keys from '../constants/storageKeys';
 import decode from 'jwt-decode';
 

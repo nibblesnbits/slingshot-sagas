@@ -1,7 +1,7 @@
 
 import { expect } from 'chai';
 import appReducer from './appReducer';
-import * as actions from '../actions/app';
+import * as actions from '../actions/appActions';
 
 describe('App Reducer', () => {
 

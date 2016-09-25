@@ -2,7 +2,7 @@ import { takeLatest } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
 import callApi from './helpers';
 import * as types from '../constants/actionTypes';
-import * as appActions from '../actions/app';
+import * as appActions from '../actions/appActions';
 
 export function* login({username, password}) {
 

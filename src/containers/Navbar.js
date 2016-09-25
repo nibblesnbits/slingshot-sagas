@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Login from '../components/Login'; // eslint-disable-line import/no-named-as-default
 import Logout from '../components/Logout'; // eslint-disable-line import/no-named-as-default
 import { connect } from 'react-redux';
-import * as authActions from '../actions/auth';
+import * as authActions from '../actions/authActions';
 import { IndexLink, Link } from 'react-router';
 
 export class Navbar extends Component {

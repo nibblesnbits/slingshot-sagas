@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
 import * as types from '../constants/actionTypes';
-import * as appActions from '../actions/app';
-import * as authActions from '../actions/auth';
+import * as appActions from '../actions/appActions';
+import * as authActions from '../actions/authActions';
 import * as keys from '../constants/storageKeys';
 import decode from 'jwt-decode';
 
