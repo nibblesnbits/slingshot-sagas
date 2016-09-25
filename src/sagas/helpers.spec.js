@@ -7,7 +7,7 @@ describe('saga helper', () => {
     it('should yield specified SUCCESS type on request success', () => {
 
       // arrange
-      const text = "quote";
+      const text = "test";
       const responseType = "text";
       const url = 'http://tempuri.org/json';
       const config = { };

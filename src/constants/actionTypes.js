@@ -17,7 +17,3 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 // check credentials
 export const CHECK_CREDS = 'CHECK_CREDS';
-// quotes
-export const QUOTE_REQUEST = 'QUOTE_REQUEST';
-export const QUOTE_SUCCESS = 'QUOTE_SUCCESS';
-export const QUOTE_FAILURE = 'QUOTE_FAILURE';
