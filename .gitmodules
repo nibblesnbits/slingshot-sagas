@@ -1,0 +1,6 @@
+[submodule "slingshot-store-server"]
+	path = slingshot-store-server
+	url = https://github.com/nibblesnbits/slingshot-store-server.git
+[submodule "jwt-server"]
+	path = jwt-server
+	url = https://github.com/nibblesnbits/jwt-server.git
