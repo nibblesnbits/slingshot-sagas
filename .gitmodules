@@ -1,3 +1,0 @@
-[submodule "auth-server"]
-	path = auth-server
-	url = https://github.com/auth0-blog/nodejs-jwt-authentication-sample
