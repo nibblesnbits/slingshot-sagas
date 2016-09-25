@@ -3,9 +3,11 @@ import { combineReducers } from 'redux';
 
 import authReducer from './authReducer';
 import appReducer from './appReducer';
+import productReducer from './productReducer';
 
 export default combineReducers({
   auth: authReducer,
   routing: routerReducer,
-  app: appReducer
+  app: appReducer,
+  products: productReducer
 });

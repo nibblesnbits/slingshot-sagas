@@ -7,5 +7,9 @@ export default {
     username: '',
     isFetching: false,
     isAuthenticated: false
+  },
+  products: {
+    list: [],
+    filter: ""
   }
 };
