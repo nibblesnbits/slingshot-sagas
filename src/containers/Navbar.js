@@ -21,6 +21,9 @@ export class Navbar extends Component {
             </button>
             <IndexLink to="/" className="navbar-brand" activeClassName="active">React-Sagas</IndexLink>
           </div>
+          <ul className="nav navbar-nav">
+            <li><Link to="products">Products</Link></li>
+          </ul>
 
           <div className="collapse navbar-collapse">
             <div className="navbar-form navbar-right">
