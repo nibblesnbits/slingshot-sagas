@@ -1,3 +1,5 @@
+@import './cards.css';
+
 #notificationArea {
   bottom: 20px;
   left: 10px;
@@ -5,6 +7,7 @@
   max-width: 800px;
 }
 
-.username {
-  
+.product-price {
+  font-weight: bold;
+  font-size-adjust: 1.25;
 }

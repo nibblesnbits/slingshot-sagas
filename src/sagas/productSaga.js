@@ -68,7 +68,6 @@ export function* updateProductRequest({ product }) {
   const uri = url.resolve(BASE_URL, '/api/products');
 
   try {
-    debugger;
     yield call(callApi, uri, config, [types.UPDATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
     yield put(appActions.showToast('Updated Product:', product.name, 'info'));
   } catch(error) {

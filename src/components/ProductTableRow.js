@@ -19,7 +19,7 @@ export class ProductTableRow extends Component {
   render() {
     const { product } = this.props;
     return (
-    <tr key={product.id}>
+    <tr>
       <td className="product-name">{product.name}</td>
       <td className="product-price">{product.price}</td>
       <td className="product-price">
