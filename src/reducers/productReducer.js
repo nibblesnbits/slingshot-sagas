@@ -40,7 +40,6 @@ export default function authReducer(state = initialState.products, action) {
         isFetching: false
       };
     case types.DELETE_PRODUCT_SUCCESS:
-    debugger;
       return {
         ...state,
         list: [ ...state.list.filter(p => p.id !== action.result.id) ],
@@ -51,6 +50,14 @@ export default function authReducer(state = initialState.products, action) {
         ...state,
         isFetching: false,
         error: action.error
+      };
+    case types.MANAGE_EDIT:
+      return {
+        ...state,
+        editing: {
+          ...state.editing,
+          ...action.editing
+         }
       };
     default:
       return state;

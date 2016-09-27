@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import Product from './Product';
+import ProductTableRow from './ProductTableRow'; // eslint-disable-line import/no-named-as-default
 import * as actions from '../actions/productActions';
 import { makeGetAndSortProducts } from '../selectors/productSelectors';
 
@@ -30,12 +30,7 @@ export class ProductList extends Component {
           </thead>
           <tbody>
             {products.map((product) => {
-              return (
-                <tr key={product.id}>
-                  <td className="product-name">{product.name}</td>
-                  <td className="product-price">{product.price}</td>
-                  <td className="product-price"><a href="" onClick={e => this.onDeleteClick(e, product)}><i className="fa fa-trash" /></a></td>
-                </tr>);
+              return (<ProductTableRow key={product.id} product={product} />);
             })}
           </tbody>
         </table>

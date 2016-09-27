@@ -56,10 +56,10 @@ export default function manageTokenMiddleware(storage = localStorage) {
           }
           return next(action);
         }
-        case types.LOGIN_REQUEST_FAILURE: {
-          store.dispatch(push('/'));
-          return next(action);
-        }
+        // case types.LOGIN_REQUEST_FAILURE: {
+        //   store.dispatch(push('/'));
+        //   return next(action);
+        // }
         case types.LOGIN_REQUEST_SUCCESS: {
           const token = action.result.id_token;
           if (!token) {

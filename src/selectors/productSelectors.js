@@ -16,7 +16,7 @@ const getFilter = (state) => state.products.filter;
 const getSortBy = (state) => state.products.sortBy;
 
 const sortProducts = (products, by) =>  products.sort(createSort(by));
-const filterAndSortProducts = (products, filter, sortBy) =>  products.filter(filterByName(filter).sort(createSort(sortBy)));
+const filterAndSortProducts = (products, filter, sortBy) => products.filter(filterByName(filter).sort(createSort(sortBy)));
 
 export const makeGetAndSortProducts = () => {
   return createSelector(

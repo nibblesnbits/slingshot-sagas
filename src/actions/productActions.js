@@ -20,7 +20,7 @@ export function deleteProduct(id) {
   };
 }
 
-export function updateProduct(id, product) {
+export function updateProduct(product) {
   return {
     type: types.UPDATE_PRODUCT_REQUEST,
     product
@@ -31,5 +31,24 @@ export function createProduct(product) {
   return {
     type: types.CREATE_PRODUCT_REQUEST,
     product
+  };
+}
+
+export function showEditModal(product) {
+  return {
+    type: types.MANAGE_EDIT,
+    editing: {
+      modalOpen: true,
+      product: product
+    }
+  };
+}
+
+export function closeEditModal() {
+  return {
+    type: types.MANAGE_EDIT,
+    editing: {
+      modalOpen: false
+    }
   };
 }

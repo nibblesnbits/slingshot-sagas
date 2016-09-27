@@ -7,9 +7,16 @@ import url from 'url';
 
 const BASE_URL = "http://localhost:5001/";
 
+const DefaultConfig = {
+  headers: {
+    "Content-Type": "application/json"
+  }
+};
+
 export function* getProductsRequest() {
 
   const config = {
+    ...DefaultConfig,
     method: 'GET'
   };
   const uri = url.resolve(BASE_URL, '/api/products');
@@ -24,6 +31,7 @@ export function* getProductsRequest() {
 export function* getProductRequest({ id }) {
 
   const config = {
+    ...DefaultConfig,
     method: 'GET'
   };
   const uri = url.resolve(BASE_URL, '/api/products/' + id);
@@ -38,6 +46,7 @@ export function* getProductRequest({ id }) {
 export function* deleteProductRequest({id}) {
 
   const config = {
+    ...DefaultConfig,
     method: 'DELETE'
   };
   const uri = url.resolve(BASE_URL, '/api/products/' + id);
@@ -51,14 +60,15 @@ export function* deleteProductRequest({id}) {
 }
 
 export function* updateProductRequest({ product }) {
-
   const config = {
+    ...DefaultConfig,
     method: 'PUT',
-    body: product
+    body: JSON.stringify(product)
   };
   const uri = url.resolve(BASE_URL, '/api/products');
 
   try {
+    debugger;
     yield call(callApi, uri, config, [types.UPDATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
     yield put(appActions.showToast('Updated Product:', product.name, 'info'));
   } catch(error) {
@@ -69,8 +79,9 @@ export function* updateProductRequest({ product }) {
 export function* createProductRequest({ product }) {
 
   const config = {
+    ...DefaultConfig,
     method: 'POST',
-    body: product
+    body: JSON.stringify(product)
   };
   const uri = url.resolve(BASE_URL, '/api/products');
 

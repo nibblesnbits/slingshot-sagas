@@ -11,6 +11,13 @@ export default {
   products: {
     list: [],
     filter: '',
-    sortBy: 'name'
+    sortBy: 'name',
+    editing: {
+      modalOpen: false,
+      product: {
+        name: '',
+        price: 0
+      }
+    }
   }
 };
