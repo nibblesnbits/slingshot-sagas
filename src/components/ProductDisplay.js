@@ -12,7 +12,7 @@ const ProductDisplay = ({name, price, description}) => {
       <div className="card-content">
         <div className="product-display">
           <p className="product-decription">{description}</p>
-          <div className="product-price">${price}</div>
+          <h4 className="product-price">${price}</h4>
         </div>
       </div>
       <div className="card-action">
