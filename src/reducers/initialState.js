@@ -5,6 +5,7 @@ export default {
   auth: {
     token: '',
     username: '',
+    roles: [],
     isFetching: false,
     isAuthenticated: false
   },

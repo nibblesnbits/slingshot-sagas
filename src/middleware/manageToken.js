@@ -5,13 +5,10 @@ import * as authActions from '../actions/authActions';
 import * as keys from '../constants/storageKeys';
 import decode from 'jwt-decode';
 
-function tryGetUsername(token, cb) {
+function tryGetProperties(token, cb) {
   try {
-    const username = decode(token).username;
-    if (!username) {
-      return cb(undefined, new Error("Token in incorrect format"));
-    }
-    cb(username);
+    const decoded = decode(token);
+    cb(decoded);
   } catch (err) {
     return cb(undefined, err);
   }
@@ -45,12 +42,12 @@ export default function manageTokenMiddleware(storage = localStorage) {
         case types.CHECK_CREDS: {
           const token = store.getState().auth.token || storage.getItem(keys.ACCESS_TOKEN);
           if (token) {
-            tryGetUsername(token, (username, error) => {
+            tryGetProperties(token, (properties, error) => {
               if (error) {
                 store.dispatch({ type: types.LOGIN_FAILURE, error });
                 store.dispatch(authActions.requireLogin('/'));
               } else {
-                store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
+                store.dispatch({ type: types.LOGIN_SUCCESS, token: token, ...properties });
               }
             });
           }
@@ -66,12 +63,12 @@ export default function manageTokenMiddleware(storage = localStorage) {
             store.dispatch({ type: types.LOGIN_FAILURE, error: { message: 'Error locating token in response' } });
             return next(action);
           }
-          tryGetUsername(token, (username, error) => {
+          tryGetProperties(token, (properties, error) => {
             if (error) {
               store.dispatch({ type: types.LOGIN_FAILURE, error });
             } else {
               storage.setItem(keys.ACCESS_TOKEN, token);
-              store.dispatch({ type: types.LOGIN_SUCCESS, token: token, username: username });
+              store.dispatch({ type: types.LOGIN_SUCCESS, token: token, ...properties });
             }
           });
           return next(action);

@@ -8,7 +8,7 @@ import { IndexLink, Link } from 'react-router';
 export class Navbar extends Component {
 
   render() {
-    const { username, isAuthenticated, logout, login } = this.props;
+    const { username, isAuthenticated, isAdmin, logout, login } = this.props;
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -21,11 +21,13 @@ export class Navbar extends Component {
             </button>
             <IndexLink to="/" className="navbar-brand" activeClassName="active">Slingshot-Sagas</IndexLink>
           </div>
-          <ul className="nav navbar-nav">
-            <li><Link to="products">Products</Link></li>
-          </ul>
 
           <div className="collapse navbar-collapse">
+
+            <ul className="nav navbar-nav">
+              <li><Link to="/products">Products</Link></li>
+            </ul>
+
             <div className="navbar-form navbar-right">
               {!isAuthenticated &&
                 <Login onLoginClick={creds => login(creds)} />
@@ -33,7 +35,8 @@ export class Navbar extends Component {
 
               {isAuthenticated &&
                 <ul className="nav navbar-nav">
-                  <li><Link to="profile">{username}</Link></li>
+                  {isAdmin && <li><Link to="/products/admin">Administration</Link></li>}
+                  <li><Link to="/profile">{username}</Link></li>
                   <div className="navbar-form navbar-left">
                     <Logout onLogoutClick={() => logout()} />
                   </div>
@@ -48,10 +51,11 @@ export class Navbar extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { isAuthenticated, username } = state.auth;
+  const { token, username, roles } = state.auth;
   return {
-    isAuthenticated,
-    username
+    isAuthenticated: !!token,
+    username,
+    isAdmin: roles.indexOf('admin') > -1
   };
 }
 
@@ -60,6 +64,7 @@ Navbar.propTypes = {
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, { ...authActions })(Navbar);
