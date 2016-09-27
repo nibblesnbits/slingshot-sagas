@@ -19,7 +19,7 @@ export class Navbar extends Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <IndexLink to="/" className="navbar-brand" activeClassName="active">React-Sagas</IndexLink>
+            <IndexLink to="/" className="navbar-brand" activeClassName="active">Slingshot-Sagas</IndexLink>
           </div>
           <ul className="nav navbar-nav">
             <li><Link to="products">Products</Link></li>
