@@ -5,7 +5,7 @@ export default class Message extends Component {
   render() {
     const { title, text, className, hidden, hide } = this.props;
     return (
-      <div className={`notification-container ${hidden ? 'hide' : ''}`}>
+      <div className={`notification-container ${hidden ? 'fadeOut' : ''}`}>
         <div className={`alert alert-${className} alert-dismissible`} role="alert">
           <button onClick={() => hide()} type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {title && <strong>{title}</strong>}&emsp;{text}

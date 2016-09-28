@@ -68,7 +68,7 @@ export default function manageTokenMiddleware(storage = localStorage) {
               store.dispatch({ type: types.LOGIN_FAILURE, error });
             } else {
               storage.setItem(keys.ACCESS_TOKEN, token);
-              store.dispatch({ type: types.LOGIN_SUCCESS, token: token, ...properties });
+              store.dispatch({ type: types.LOGIN_SUCCESS, token, ...properties });
             }
           });
           return next(action);

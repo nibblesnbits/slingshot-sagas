@@ -35,13 +35,15 @@ export class Navbar extends Component {
               }
 
               {isAuthenticated &&
-                <ul className="nav navbar-nav">
-                  {isAdmin && <li><Link to="/products/admin">Administration</Link></li>}
-                  <li><Link to="/profile">{username}</Link></li>
+                <div>
+                  <ul className="nav navbar-nav">
+                    {isAdmin && <li><Link to="/products/admin">Administration</Link></li>}
+                    <li><Link to="/profile">{username}</Link></li>
+                  </ul>
                   <div className="navbar-form navbar-left">
                     <Logout onLogoutClick={() => logout()} />
                   </div>
-                </ul>
+                </div>
               }
             </div>
           </div>
@@ -51,7 +53,7 @@ export class Navbar extends Component {
   }
 }
 
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   const { token, username, roles } = state.auth;
   const { items } = state.cart;
   return {

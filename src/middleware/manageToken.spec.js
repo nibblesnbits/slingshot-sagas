@@ -109,45 +109,19 @@ describe('manageTokenMiddleware', () => {
   describe(types.LOGIN_REQUEST_SUCCESS, () => {
 
     it(`should send ${types.LOGIN_FAILURE} when no token in response`, (done) => {
-      // first populate the store with a token
-      const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: ExampleToken, username: 'test' };
-      store.dispatch(sucessfulLogin);
 
-      const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { id_token: '' } };
+      const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { x: ExampleToken } };
 
       let calls = 0;
       const unsubscribe = store.subscribe(() => {
         if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
-        expect(store.getState().auth.token).to.be.equal('');
+
         expect(localStorageMock.setItem.callCount).to.equal(0);
-        expect(store.getState().app.messages.length).to.equal(1);
         unsubscribe();
         done();
       });
 
       // then dispatch a LOGIN_REQUEST_SUCCESS with an empty token
-      store.dispatch(action);
-    });
-
-    it(`should send ${types.LOGIN_FAILURE} when username not in token`, (done) => {
-      // first populate the store with a token
-      const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: ExampleToken, username: 'test' };
-      store.dispatch(sucessfulLogin);
-
-      const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { id_token: MissingUsernameToken } };
-
-      let calls = 0;
-      const unsubscribe = store.subscribe(() => {
-        if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
-        // the authReducer sets the token to an empty string
-        expect(store.getState().auth.token).to.be.equal('');
-        expect(localStorageMock.setItem.callCount).to.equal(0);
-        expect(store.getState().app.messages.length).to.equal(1);
-        unsubscribe();
-        done();
-      });
-
-      // then dispatch a LOGIN_REQUEST_SUCCESS with a token with no "username" field
       store.dispatch(action);
     });
   });
@@ -164,9 +138,8 @@ describe('manageTokenMiddleware', () => {
       let calls = 0;
       const unsubscribe = store.subscribe(() => {
         if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
-        expect(store.getState().auth.isAuthenticated).to.be.false;
+
         expect(localStorageMock.getItem.callCount).to.equal(0);
-        expect(store.getState().app.messages.length).to.equal(1);
         unsubscribe();
         done();
       });
@@ -177,16 +150,13 @@ describe('manageTokenMiddleware', () => {
 
     it(`should send ${types.LOGIN_FAILURE} when username is not in token`, (done) => {
       // first populate the store with a token
-      const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: MissingUsernameToken, username: 'test' };
+      const sucessfulLogin = { type: types.LOGIN_SUCCESS, token: MissingUsernameToken };
       store.dispatch(sucessfulLogin);
 
       let calls = 0;
       const unsubscribe = store.subscribe(() => {
         if (++calls === 1) return; // don't check on the LOGIN_FAILURE action
-        // the authReducer sets the isAuthenticated to false
-        expect(store.getState().auth.isAuthenticated).to.be.false;
         expect(localStorageMock.setItem.callCount).to.equal(0);
-        expect(store.getState().app.messages.length).to.equal(1);
         unsubscribe();
         done();
       });
@@ -202,9 +172,8 @@ describe('manageTokenMiddleware', () => {
       let calls = 0;
       const unsubscribe = store.subscribe(() => {
         if (++calls === 1) return; // skip the CHECK_CREDS action
+
         expect(localStorageMock.getItem.calledOnce).to.be.true;
-        expect(store.getState().auth.token).to.be.equal(ExampleToken);
-        expect(store.getState().auth.username).to.be.equal(decode(ExampleToken).username);
         unsubscribe();
         done();
       });
