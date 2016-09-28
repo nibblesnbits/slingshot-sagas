@@ -1,15 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import chai, {expect} from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
+import {expect} from 'chai';
 import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
 import { Provider } from 'react-redux';
-import { Navbar } from './Navbar';
+import Navbar from './Navbar'; // eslint-disable-line import/no-named-as-default
 
-chai.use(sinonChai);
+const ExampleToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcm5hbWUiOiJKb2huIERvZSIsImFkbWluIjp0cnVlfQ.Y0M_wkxFaw2R8ZQUT1-nAd_2zKtzBs2almfUwZposoM";
 
 describe('<Navbar />', () => {
 
@@ -21,10 +19,6 @@ describe('<Navbar />', () => {
 
   it('should render Login when isAuthenticated is false', () => {
     const props = {
-      isAuthenticated: false,
-      username: 'test',
-      isAdmin: true,
-      cartCount: 1,
       login: () => null,
       logout: () => null
     };
@@ -41,13 +35,11 @@ describe('<Navbar />', () => {
 
   it('should render Logout when isAuthenticated is true', () => {
     const props = {
-      isAuthenticated: true,
-      username: 'test',
-      isAdmin: true,
-      cartCount: 1,
       login: () => null,
       logout: () => null
     };
+
+    store.dispatch({ type: "LOGIN_SUCCESS", token: ExampleToken, username: 'test', roles: [] });
 
     const wrapper = mount(
       <Provider store={store}>
