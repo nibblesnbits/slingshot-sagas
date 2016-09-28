@@ -8,7 +8,8 @@ export class CartProductList extends Component {
 
   getCount(id) {
     const { cart } = this.props;
-    return cart.filter(c => c.id === id)[0].count;
+    const item = cart.filter(c => c.id === id);
+    return item.length ? item[0].count : 0;
   }
 
   render() {
