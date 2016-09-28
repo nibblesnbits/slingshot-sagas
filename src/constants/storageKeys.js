@@ -1,1 +1,2 @@
-export const ACCESS_TOKEN = 'access_token';
+export const ACCESS_TOKEN = 't';
+export const CART = 'c';

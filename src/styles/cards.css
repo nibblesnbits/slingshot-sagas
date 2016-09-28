@@ -48,15 +48,16 @@
   border-top: 1px solid rgba(160, 160, 160, 0.2);
   padding: 16px;
 }
-.card .card-action a {
+.card .card-action button {
   background: #5FB0E4;
+  border: none;
   padding: 8px;
   color: #fff;
   margin-right: 16px;
   transition: background 0.3s ease;
   text-transform: uppercase;
 }
-.card .card-action a:hover {
+.card .card-action button:hover {
   background: #3985B5;
   text-decoration: none;
 }

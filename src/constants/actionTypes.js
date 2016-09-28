@@ -36,3 +36,7 @@ export const PRODUCT_REQUEST_FAILURE = 'PRODUCT_REQUEST_FAILURE';
 
 // Products - Editing
 export const MANAGE_EDIT = 'MANAGE_EDIT';
+
+// Cart actions
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';

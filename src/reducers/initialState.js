@@ -20,5 +20,8 @@ export default {
         price: 0
       }
     }
+  },
+  cart: {
+    items: []
   }
 };

@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 
-const ProductDisplay = ({name, price, description}) => {
+const ProductDisplay = ({ id, name, price, description, handleAddToCart }) => {
 
   return (
     <div className="card">
       <div className="card-image">
-          <img className="img-responsive" src="/img/trans.png" />
-          <span className="card-title">{name}</span>
+        <img className="img-responsive" src="/img/trans.png" />
+        <span className="card-title">{name}</span>
       </div>
       <div className="card-content">
         <div className="product-display">
@@ -16,16 +15,18 @@ const ProductDisplay = ({name, price, description}) => {
         </div>
       </div>
       <div className="card-action">
-        <Link to={`/cart?productId=`}>Add to Cart</Link>
+        <button onClick={() => handleAddToCart(id)}>Add to Cart</button>
       </div>
-  </div>
+    </div>
   );
 };
 
 ProductDisplay.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  handleAddToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDisplay;

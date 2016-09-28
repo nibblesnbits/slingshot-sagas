@@ -8,7 +8,7 @@ import { IndexLink, Link } from 'react-router';
 export class Navbar extends Component {
 
   render() {
-    const { username, isAuthenticated, isAdmin, logout, login } = this.props;
+    const { username, isAuthenticated, isAdmin, logout, login, cartCount } = this.props;
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -26,6 +26,7 @@ export class Navbar extends Component {
 
             <ul className="nav navbar-nav">
               <li><Link to="/products">Products</Link></li>
+              <li><Link to="/cart">Cart ({cartCount})</Link></li>
             </ul>
 
             <div className="navbar-form navbar-right">
@@ -52,10 +53,12 @@ export class Navbar extends Component {
 
 export function mapStateToProps(state) {
   const { token, username, roles } = state.auth;
+  const { items } = state.cart;
   return {
     isAuthenticated: !!token,
     username,
-    isAdmin: roles.indexOf('admin') > -1
+    isAdmin: roles.indexOf('admin') > -1,
+    cartCount: items.length
   };
 }
 
@@ -64,7 +67,8 @@ Navbar.propTypes = {
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool.isRequired,
+  cartCount: PropTypes.number.isRequired
 };
 
 export default connect(mapStateToProps, { ...authActions })(Navbar);
