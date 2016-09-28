@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import CartProductList from '../components/CartProductList'; // eslint-disable-line import/no-named-as-default
+import CartSummary from '../components/CartSummary'; // eslint-disable-line import/no-named-as-default
 import * as cartActions from '../actions/cartActions';
 
 export class CartPage extends Component {
@@ -14,9 +15,14 @@ export class CartPage extends Component {
 
   render() {
     return (
-      <div>
-        <div className="container">
-          <CartProductList />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-9">
+            <CartProductList />
+          </div>
+          <div className="col-md-3 cart-sidebar">
+            <CartSummary />
+          </div>
         </div>
       </div>
     );

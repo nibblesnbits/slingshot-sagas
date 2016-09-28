@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const CartProductDisplay = ({ id, name, description, handleRemoveFromCart, getCount }) => {
+const CartProductDisplay = ({ id, name, price, description, handleRemoveFromCart, getCount }) => {
 
   return (
     <div className="card">
@@ -11,6 +11,7 @@ const CartProductDisplay = ({ id, name, description, handleRemoveFromCart, getCo
       <div className="card-content">
         <div className="product-display">
           <p className="product-decription">{description}</p>
+          <h4 className="product-price">${price}</h4>
         </div>
       </div>
       <div className="card-action">
