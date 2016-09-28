@@ -21,16 +21,12 @@ describe('<Navbar />', () => {
 
   it('should render Login when isAuthenticated is false', () => {
     const props = {
-      auth: {
-        token: '',
-        username: 'test',
-        roles: []
-      },
-      logout: sinon.spy(),
-      login: sinon.spy(),
-      cart: {
-        items: []
-      }
+      isAuthenticated: false,
+      username: 'test',
+      isAdmin: true,
+      cartCount: 1,
+      login: () => null,
+      logout: () => null
     };
 
     const wrapper = mount(

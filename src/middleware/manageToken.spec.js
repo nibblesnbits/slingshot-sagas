@@ -10,7 +10,6 @@ import manageTokenMiddleware from './manageToken';
 import * as types from '../constants/actionTypes';
 import * as actions from '../actions/authActions';
 import * as keys from '../constants/storageKeys';
-import decode from 'jwt-decode';
 
 chai.use(sinonChai);
 
