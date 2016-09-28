@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 
 const CartProductDisplay = ({ id, name, description, handleRemoveFromCart, getCount }) => {
 
-  debugger;
   return (
     <div className="card">
       <div className="card-image">
