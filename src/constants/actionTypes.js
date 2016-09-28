@@ -40,3 +40,8 @@ export const MANAGE_EDIT = 'MANAGE_EDIT';
 // Cart actions
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const INIT_CART = 'INIT_CART';
+export const FILL_CART = 'FILL_CART';
+export const GET_CART_PRODUCT_SUCCESS = 'GET_CART_PRODUCT_SUCCESS';
+export const GET_CART_PRODUCT_FAILURE = 'GET_CART_PRODUCT_FAILURE';
+export const GET_CART_PRODUCTS = 'GET_CART_PRODUCTS';

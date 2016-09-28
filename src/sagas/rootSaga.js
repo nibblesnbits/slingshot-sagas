@@ -7,6 +7,7 @@ import {
   watchUpdateProductRequest,
   watchDeleteProductRequest
 } from './productSaga';
+import { watchGetCartProductsRequest } from './cartSaga';
 
 export default function* rootSaga() {
   yield [
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     watchReadProductsRequest(),
     watchReadProductRequest(),
     watchUpdateProductRequest(),
-    watchDeleteProductRequest()
+    watchDeleteProductRequest(),
+    watchGetCartProductsRequest()
   ];
 }

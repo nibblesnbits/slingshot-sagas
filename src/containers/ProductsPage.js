@@ -1,7 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import ProductList from '../components/ProductList'; // eslint-disable-line import/no-named-as-default
+import * as productActions from '../actions/productActions';
 
-export default class ProductsPage extends Component {
+export class ProductsPage extends Component {
+
+  componentWillMount() {
+    const { getAllProducts } = this.props;
+    getAllProducts();
+  }
 
   render() {
     return (
@@ -13,3 +20,9 @@ export default class ProductsPage extends Component {
     );
   }
 }
+
+ProductsPage.propTypes = {
+  getAllProducts: PropTypes.func.isRequired
+};
+
+export default connect(null, { ...productActions })(ProductsPage);
