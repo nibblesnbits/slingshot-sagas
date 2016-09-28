@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import CartProductDisplay from './CartProductDisplay'; // eslint-disable-line import/no-named-as-default
 import * as cartActions from '../actions/cartActions';
-import { makeGetAndSortProducts } from '../selectors/productSelectors';
+import { makeGetAndSortCartProducts } from '../selectors/productSelectors';
 
 export class CartProductList extends Component {
 
-  componentWillMount() {
-    const { cart, getCartItems } = this.props;
-    getCartItems(cart.map(p => p.id));
+  getCount(id) {
+    const { cart } = this.props;
+    return cart.filter(c => c.id === id)[0].count;
   }
 
   render() {
@@ -17,7 +17,10 @@ export class CartProductList extends Component {
     return (
       <div>
         {products.map((product) => {
-          return (<CartProductDisplay handleRemoveFromCart={id => removeFromCart(id)} key={product.id} {...product} />);
+          return (<CartProductDisplay
+            key={product.id} {...product}
+            handleRemoveFromCart={id => removeFromCart(id)}
+            getCount={(id) => this.getCount(id)} />);
         })}
       </div>
     );
@@ -26,7 +29,7 @@ export class CartProductList extends Component {
 
 
 const makeMapStateToProps = () => {
-  const getAndSortProducts = makeGetAndSortProducts();
+  const getAndSortProducts = makeGetAndSortCartProducts();
   const mapStateToProps = (state) => {
     const products = getAndSortProducts(state);
     const cart = state.cart.items;
@@ -41,7 +44,6 @@ const makeMapStateToProps = () => {
 CartProductList.propTypes = {
   products: PropTypes.array.isRequired,
   removeFromCart: PropTypes.func.isRequired,
-  getCartItems: PropTypes.func.isRequired,
   cart: PropTypes.array.isRequired
 };
 

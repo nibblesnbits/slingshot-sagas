@@ -59,12 +59,6 @@ export default function authReducer(state = initialState.products, action) {
           ...action.editing
          }
       };
-    case types.GET_CART_PRODUCT_SUCCESS: {
-      return {
-        ...state,
-        list: action.result
-      };
-    }
     default:
       return state;
   }

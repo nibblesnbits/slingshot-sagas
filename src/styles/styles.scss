@@ -7,6 +7,14 @@
   max-width: 800px;
 }
 
+.notification-container {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  .hide {
+    opacity: 0;
+  }
+}
+
 .product-price {
   margin-top: 15px;
   font-weight: bold;

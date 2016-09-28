@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
 
-const CartProductDisplay = ({ id, name, description, handleRemoveFromCart }) => {
+const CartProductDisplay = ({ id, name, description, handleRemoveFromCart, getCount }) => {
 
+  debugger;
   return (
     <div className="card">
       <div className="card-image">
         <img className="img-responsive" src="/img/trans.png" />
-        <span className="card-title">{name}</span>
+        <span className="card-title">{name} {`(${getCount(id)})`}</span>
       </div>
       <div className="card-content">
         <div className="product-display">
@@ -26,6 +27,7 @@ CartProductDisplay.propTypes = {
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   handleRemoveFromCart: PropTypes.func.isRequired,
+  getCount: PropTypes.func.isRequired
 };
 
 export default CartProductDisplay;

@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import * as keys from '../constants/storageKeys';
+import * as actions from '../actions/cartActions';
 
 const jsonCartLocalStorage = {
   setItem: (key, value) => {
@@ -16,13 +17,24 @@ export default function manageCartMiddleware(storage = jsonCartLocalStorage) {
       switch (action.type) {
         case types.ADD_TO_CART: {
           const cart = storage.getItem(keys.CART) || [];
-          storage.setItem(keys.CART, [ ...cart, { id: action.id, count: cart.length ? cart.reduce((a, b) => a.id === b.id ? 1 : 0 ) : 1 } ]);
+          const cartEntry = cart.filter(({id}) => id === action.id);
+          if (cartEntry.length) {
+            storage.setItem(keys.CART, [...cart.filter(({id}) => id !== action.id), { id: action.id, count: cartEntry[0].count + 1 }]);
+          } else {
+            storage.setItem(keys.CART, [...cart, { id: action.id, count: 1 }]);
+          }
           return next(action);
         }
         case types.REMOVE_FROM_CART: {
           const cart = storage.getItem(keys.CART);
-          const newItemCount = cart.filter(({id}) => id === action.id).reduce((a, b) => a.id === b.id ? 1 : 0 ) + 1;
-          storage.setItem(keys.CART, [ ...cart.filter(({id}) => id !== action.id), { id: action.id, count: newItemCount } ]);
+          const cartEntry = cart.filter(({id}) => id === action.id);
+          if (cartEntry.length && cartEntry[0].count === 1) {
+            const newCart = [...cart.filter(({id}) => id !== action.id)];
+            storage.setItem(keys.CART, newCart);
+            store.dispatch(actions.getCartItems(newCart.map(c => c.id)));
+          } else {
+            storage.setItem(keys.CART, [...cart.filter(({id}) => id !== action.id), { id: action.id, count: cartEntry[0].count - 1 }]);
+          }
           return next(action);
         }
         case types.INIT_CART: {

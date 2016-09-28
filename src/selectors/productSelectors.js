@@ -11,6 +11,7 @@ function filterByName(filter) {
   });
 }
 
+const getCartProducts = (state) => state.cart.products;
 const getProducts = (state) => state.products.list;
 const getFilter = (state) => state.products.filter;
 const getSortBy = (state) => state.products.sortBy;
@@ -21,6 +22,18 @@ const filterAndSortProducts = (products, filter, sortBy) => products.filter(filt
 export const makeGetAndSortProducts = () => {
   return createSelector(
     [getProducts, getFilter, getSortBy],
+    (products, filter, sortBy) => {
+      if (filter) {
+        return filterAndSortProducts(products);
+      }
+      return sortProducts(products, sortBy);
+    }
+  );
+};
+
+export const makeGetAndSortCartProducts = () => {
+  return createSelector(
+    [getCartProducts, getFilter, getSortBy],
     (products, filter, sortBy) => {
       if (filter) {
         return filterAndSortProducts(products);

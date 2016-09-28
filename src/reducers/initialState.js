@@ -22,6 +22,7 @@ export default {
     }
   },
   cart: {
-    items: []
+    items: [],
+    products: []
   }
 };
