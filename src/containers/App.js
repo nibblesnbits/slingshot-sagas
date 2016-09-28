@@ -2,12 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Navbar from './Navbar'; // eslint-disable-line import/no-named-as-default
 import AppMessages from '../components/AppMessages'; // eslint-disable-line import/no-named-as-default
-import * as authActions from '../actions/auth';
+import * as authActions from '../actions/authActions';
+import * as cartActions from '../actions/cartActions';
 
 export class App extends Component {
 
   componentWillMount() {
     this.props.checkCreds();
+    this.props.initCart();
   }
 
   render() {
@@ -24,7 +26,8 @@ export class App extends Component {
 
 App.propTypes = {
   children: PropTypes.element,
-  checkCreds: PropTypes.func.isRequired
+  checkCreds: PropTypes.func.isRequired,
+  initCart: PropTypes.func.isRequired
 };
 
 
@@ -34,4 +37,4 @@ export function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, { ...authActions })(App);
+export default connect(mapStateToProps, { ...authActions, ...cartActions })(App);

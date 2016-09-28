@@ -3,7 +3,7 @@ import callApi from './helpers';
 import { login } from './authSaga';
 import { expect } from 'chai';
 import * as types from '../constants/actionTypes';
-import * as appActions from '../actions/app';
+import * as appActions from '../actions/appActions';
 
 describe('authSaga', () => {
   describe('login', () => {

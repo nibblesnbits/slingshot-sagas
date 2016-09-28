@@ -1,3 +1,5 @@
+@import './cards.css';
+
 #notificationArea {
   bottom: 20px;
   left: 10px;
@@ -5,6 +7,20 @@
   max-width: 800px;
 }
 
-.username {
-  
+.notification-container {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  .hide {
+    opacity: 0;
+  }
+}
+
+.product-price {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size-adjust: 1.25;
+}
+
+.order-total {
+  font-weight: bold;
 }

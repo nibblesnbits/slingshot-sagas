@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import decode from 'jwt-decode';
-import * as actions from '../actions/auth';
+import * as actions from '../actions/authActions';
 
 export class AuthGuard extends Component {
 

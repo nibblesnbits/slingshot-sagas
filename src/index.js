@@ -9,6 +9,7 @@ import 'babel-polyfill';
 import configureStore from './store/configureStore';
 require('./favicon.ico');
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 import './styles/styles.scss';
 import { syncHistoryWithStore } from 'react-router-redux';
 import initialState from './reducers/initialState';

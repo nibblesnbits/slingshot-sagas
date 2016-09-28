@@ -1,7 +1,7 @@
 import { takeEvery, delay  } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
 import * as types from '../constants/actionTypes';
-import * as actions from '../actions/app';
+import * as actions from '../actions/appActions';
 
 export function* showToast({ title, text, className, duration }) {
   const message = yield put(actions.showMessage(title, text, className));

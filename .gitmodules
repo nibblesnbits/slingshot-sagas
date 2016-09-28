@@ -1,3 +1,6 @@
-[submodule "auth-server"]
-	path = auth-server
-	url = https://github.com/auth0-blog/nodejs-jwt-authentication-sample
+[submodule "slingshot-store-server"]
+	path = slingshot-store-server
+	url = https://github.com/nibblesnbits/slingshot-store-server.git
+[submodule "jwt-server"]
+	path = jwt-server
+	url = https://github.com/nibblesnbits/jwt-server.git

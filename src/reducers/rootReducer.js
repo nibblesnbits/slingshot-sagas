@@ -1,13 +1,18 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
+import { reducer as formReducer } from 'redux-form';
+
 import authReducer from './authReducer';
-import quotesReducer from './quotesReducer';
 import appReducer from './appReducer';
+import productReducer from './productReducer';
+import cartReducer from './cartReducer';
 
 export default combineReducers({
   auth: authReducer,
-  quotes: quotesReducer,
   routing: routerReducer,
-  app: appReducer
+  app: appReducer,
+  products: productReducer,
+  form: formReducer,
+  cart: cartReducer
 });

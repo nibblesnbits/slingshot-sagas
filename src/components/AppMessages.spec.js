@@ -4,7 +4,7 @@ import chai, {expect} from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import { AppMessages } from './AppMessages';
-import * as actions from '../actions/app';
+import * as actions from '../actions/appActions';
 
 chai.use(sinonChai);
 

@@ -16,7 +16,8 @@ describe('<App />', () => {
   it('should call checkCreds() on mount', () => {
     const props = {
       children: (<div />),
-      checkCreds: sinon.spy()
+      checkCreds: sinon.spy(),
+        initCart: sinon.spy()
     };
     const store = createStore(rootReducer, initialState);
 
@@ -33,7 +34,8 @@ describe('<App />', () => {
     it('should return valid props', () => {
       const props = {
         children: (<div />),
-        checkCreds: sinon.spy()
+        checkCreds: sinon.spy(),
+        initCart: sinon.spy()
       };
       const state = {
         children: {}

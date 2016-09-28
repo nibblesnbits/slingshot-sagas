@@ -7,12 +7,12 @@ describe('saga helper', () => {
     it('should yield specified SUCCESS type on request success', () => {
 
       // arrange
-      const text = "quote";
+      const text = "test";
       const responseType = "text";
       const url = 'http://tempuri.org/json';
       const config = { };
       const types = ['SUCCESS', 'FAILURE'];
-      const sucessAction = { type: types[0], result: text, authenticated: false };
+      const sucessAction = { type: types[0], result: text };
 
       const gen = callApi(url, config, types, responseType);
 
@@ -39,7 +39,7 @@ describe('saga helper', () => {
       const url = 'http://tempuri.org/json';
       const config = { };
       const types = ['SUCCESS', 'FAILURE'];
-      const failureAction = { type: types[1], error: error.message };
+      const failureAction = { type: types[1], error: { message: error.message } };
 
       const gen = callApi(url, config, types, responseType);
 
