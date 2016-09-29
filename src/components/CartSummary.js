@@ -15,7 +15,7 @@ export class CartSummary extends Component {
           <tbody>
             <tr>
               <td>Subtotal</td>
-              <td>${total.toFixed(2)}</td>
+              <td className="cart-subtotal">${total.toFixed(2)}</td>
             </tr>
             <tr>
               <td>Tax</td>

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-let EditProductForm = ({handleSubmit}) => {
+const EditProductForm = ({handleSubmit}) => {
 
   return (
     <form onSubmit={handleSubmit}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import {expect} from 'chai';
+import { expect } from 'chai';
 import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
