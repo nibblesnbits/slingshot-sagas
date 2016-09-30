@@ -10,8 +10,8 @@ const ProductDisplay = ({ id, name, price, description, handleAddToCart }) => {
       </div>
       <div className="card-content">
         <div className="product-display">
-          <p className="product-decription">{description}</p>
-          <h4 className="product-price">${price}</h4>
+          <p className="product-description">{description}</p>
+          <h4 className="product-price">${price.toFixed(2)}</h4>
         </div>
       </div>
       <div className="card-action">

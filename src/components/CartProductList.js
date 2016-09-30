@@ -32,7 +32,7 @@ const makeMapStateToProps = () => {
   const getAndSortProducts = makeGetAndSortCartProducts();
   const mapStateToProps = (state) => {
     const products = getAndSortProducts(state);
-    console.log(products.length);
+
     const cart = state.cart.items;
     return {
       products,

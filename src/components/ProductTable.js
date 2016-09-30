@@ -11,11 +11,6 @@ export class ProductTable extends Component {
     getAllProducts();
   }
 
-  onDeleteClick(e, product) {
-    e.preventDefault();
-    this.props.deleteProduct(product.id);
-  }
-
   render() {
     const { products } = this.props;
     return (
@@ -42,13 +37,12 @@ export class ProductTable extends Component {
 
 const makeMapStateToProps = () => {
   const getAndSortProducts = makeGetAndSortProducts();
-  const mapStateToProps = (state) => {
+  return (state) => {
     const products = getAndSortProducts(state);
     return {
       products
     };
   };
-  return mapStateToProps;
 };
 
 ProductTable.propTypes = {

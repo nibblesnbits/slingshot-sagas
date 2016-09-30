@@ -27,7 +27,7 @@ export class ProductTableRow extends Component {
           <MenuItem eventKey="1" onClick={e => this.onDeleteClick(e, product)}>
             <i className="fa fa-trash" />&nbsp;Delete
           </MenuItem>
-          <MenuItem eventKey="1" onClick={e => this.onEditClick(e, product)}>
+          <MenuItem eventKey="2" onClick={e => this.onEditClick(e, product)}>
             <i className="fa fa-pencil-square-o" />&nbsp;Edit
           </MenuItem>
         </DropdownButton>

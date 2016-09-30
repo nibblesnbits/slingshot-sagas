@@ -36,8 +36,8 @@ export class EditProductModal extends Component {
           <EditProductForm ref={f => this.editForm = f} onSubmit={product => this.submitForm(product)}/>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="btn btn-primary" onClick={this.saveClick}>Save</Button>
-          <Button className="btn btn-warning" onClick={() => closeEditModal()}>Cancel</Button>
+          <Button className="btn btn-primary edit-modal-save" onClick={this.saveClick}>Save</Button>
+          <Button className="btn btn-warning edit-modal-close" onClick={() => closeEditModal()}>Cancel</Button>
         </Modal.Footer>
       </Modal>
     );
