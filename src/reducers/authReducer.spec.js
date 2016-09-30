@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import authReducer from './authReducer';
 import * as actions from '../actions/authActions';
 
-describe('App Reducer', () => {
+describe('Auth Reducer', () => {
 
   it ('should return isFetching on login()', () => {
     const initialState = {

@@ -4,7 +4,7 @@ import * as actions from '../actions/cartActions';
 import * as types from '../constants/actionTypes';
 import initialState from './initialState';
 
-describe('App Reducer', () => {
+describe('Cart Reducer', () => {
 
   let state;
   beforeEach(() => {

@@ -4,7 +4,7 @@ import * as actions from '../actions/productActions';
 import * as types from '../constants/actionTypes';
 import initialState from './initialState';
 
-describe('App Reducer', () => {
+describe('Product Reducer', () => {
 
   it ('should set isFetching to true on all request actions', () => {
 
