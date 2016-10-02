@@ -6,7 +6,7 @@ import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
 import { Provider } from 'react-redux';
 import ProductTable from './ProductTable'; // eslint-disable-line import/no-named-as-default
-// import * as actions from '../actions/productActions';
+import * as types from '../constants/actionTypes';
 
 
 describe('<ProductTable />', () => {
@@ -19,7 +19,7 @@ describe('<ProductTable />', () => {
       done();
     });
     store.dispatch({
-      type: 'PRODUCT_REQUEST_SUCCESS',
+      type: types.PRODUCT_REQUEST_SUCCESS,
       result: [{
           id: 1,
           name: 'test',
