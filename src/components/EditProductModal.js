@@ -45,7 +45,6 @@ export class EditProductModal extends Component {
 }
 
 EditProductModal.propTypes = {
-  product: PropTypes.object.isRequired,
   modalOpen: PropTypes.bool.isRequired,
   closeEditModal: PropTypes.func.isRequired,
   updateProduct: PropTypes.func.isRequired

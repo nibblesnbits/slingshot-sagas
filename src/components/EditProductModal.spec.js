@@ -1,36 +1,36 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { expect } from 'chai';
-import { createStore } from 'redux';
-import rootReducer from '../reducers/rootReducer';
-import initialState from '../reducers/initialState';
-import { Provider } from 'react-redux';
-import EditProductModal from './EditProductModal'; // eslint-disable-line import/no-named-as-default
-import * as actions from '../actions/productActions';
+import chai, {expect} from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import { EditProductModal } from './EditProductModal';
 
-describe('<EditProductModal />', () => {
+chai.use(sinonChai);
 
-  let store;
+describe('<EditProductModal />', (done) => {
 
-  beforeEach(() => {
-    store = createStore(rootReducer, initialState);
+  it('should call closeEditModal on close click', () => {
 
-    store.dispatch(actions.showEditModal({
-      id: 0,
-      name: 'test',
-      description: 'test',
-      price: 1
-    }));
-  });
+    const props = {
+      modalOpen: true,
+      closeEditModal: sinon.spy(),
+      updateProduct: sinon.spy()
+    };
 
-  it('should... ?', () => {
+    const wrapper = mount(<EditProductModal />);
 
-    const wrapper = mount(
-      <Provider store={store}>
-        <EditProductModal />
-      </Provider>
-    );
+    setTimeout(() => {
+      const modal = wrapper.find('EditProductModal');
+      expect(modal.length).to.equal(1);
 
-    expect(wrapper).to.not.be.undefined;
+      const button = modal.find('button');
+      expect(button.length).to.equal(1);
+
+      button.simulate('click');
+
+      expect(props.closeEditModal.calledOnce).to.equal(true);
+
+      done();
+    }, 50);
   });
 });
