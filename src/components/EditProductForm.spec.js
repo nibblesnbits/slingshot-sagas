@@ -12,8 +12,13 @@ describe('<EditProductForm />', () => {
 
   let store;
 
-  beforeEach(() => {
+  beforeEach((done) => {
     store = createStore(rootReducer, initialState);
+
+    const unsubscribe = store.subscribe(() => {
+      unsubscribe();
+      done();
+    });
 
     store.dispatch(actions.showEditModal({
       id: 0,
