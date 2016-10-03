@@ -9,7 +9,6 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import ConnectedCartProductList, { CartProductList } from './CartProductList'; // eslint-disable-line import/no-named-as-default
 import * as types from '../constants/actionTypes';
-import * as actions from '../actions/cartActions';
 
 chai.use(sinonChai);
 

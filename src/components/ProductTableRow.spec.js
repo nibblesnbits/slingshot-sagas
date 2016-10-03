@@ -17,7 +17,11 @@ describe('<ProductTableRow />', () => {
   let props;
   beforeEach(() => {
     props = {
-      product: {},
+      product: {
+        id: 1,
+        name: 'test',
+        price: 1
+      },
       deleteProduct: sinon.spy(),
       showEditModal: sinon.spy()
     };
@@ -25,7 +29,7 @@ describe('<ProductTableRow />', () => {
 
   it('call deleteProduct when delete button is clicked', () => {
 
-    const wrapper = mount(<ProductTableRow {...props} />);
+    const wrapper = mount(<table><tbody><ProductTableRow {...props} /></tbody></table>);
 
     const button = wrapper.find('a').first();
     expect(button.length).to.equal(1);
@@ -38,7 +42,7 @@ describe('<ProductTableRow />', () => {
 
   it('call showEditModal when edit button is clicked', () => {
 
-    const wrapper = mount(<ProductTableRow {...props} />);
+    const wrapper = mount(<table><tbody><ProductTableRow {...props} /></tbody></table>);
 
     const button = wrapper.find('a').last();
     expect(button.length).to.equal(1);

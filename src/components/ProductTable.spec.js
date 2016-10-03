@@ -8,8 +8,14 @@ import { Provider } from 'react-redux';
 import ProductTable from './ProductTable'; // eslint-disable-line import/no-named-as-default
 import * as types from '../constants/actionTypes';
 
-
 describe('<ProductTable />', () => {
+
+  const products = [{
+    id: 1,
+    name: 'test',
+    description: 'test',
+    price: 1
+  }];
 
   let store;
   beforeEach((done) => {
@@ -19,13 +25,8 @@ describe('<ProductTable />', () => {
       done();
     });
     store.dispatch({
-      type: types.PRODUCT_REQUEST_SUCCESS,
-      result: [{
-          id: 1,
-          name: 'test',
-          description: 'test',
-          price: 1
-        }]
+      type: types.PRODUCTS_REQUEST_SUCCESS,
+      result: [...products]
     });
   });
 
@@ -37,8 +38,8 @@ describe('<ProductTable />', () => {
       </Provider>
     );
 
-    const productDisplays = wrapper.find('ProductTableRow');
+    const rows = wrapper.find('ProductTableRow');
 
-    expect(productDisplays.length).to.equal(1);
+    expect(rows.length).to.equal(products.length);
   });
 });

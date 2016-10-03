@@ -14,22 +14,20 @@ export class ProductTable extends Component {
   render() {
     const { products } = this.props;
     return (
-      <div>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>Price</td>
-              <td>&nbsp;</td>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => {
-              return (<ProductTableRow key={product.id} product={product} />);
-            })}
-          </tbody>
-        </table>
-      </div>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => {
+            return (<ProductTableRow key={product.id} product={product} />);
+          })}
+        </tbody>
+      </table>
     );
   }
 }

@@ -19,20 +19,20 @@ export class ProductTableRow extends Component {
   render() {
     const { product } = this.props;
     return (
-    <tr>
-      <td className="product-name">{product.name}</td>
-      <td className="product-price">{product.price}</td>
-      <td className="product-price">
-        <DropdownButton id={`edit-dropdown-${product.id}`} title="Actions">
-          <MenuItem eventKey="1" onClick={e => this.onDeleteClick(e, product)}>
-            <i className="fa fa-trash" />&nbsp;Delete
-          </MenuItem>
-          <MenuItem eventKey="2" onClick={e => this.onEditClick(e, product)}>
-            <i className="fa fa-pencil-square-o" />&nbsp;Edit
-          </MenuItem>
-        </DropdownButton>
-      </td>
-    </tr>
+      <tr>
+        <td className="product-name">{product.name}</td>
+        <td className="product-price">{product.price.toFixed(2)}</td>
+        <td className="product-controls">
+          <DropdownButton id={`edit-dropdown-${product.id}`} title="Actions">
+            <MenuItem eventKey="1" onClick={e => this.onDeleteClick(e, product)}>
+              <i className="fa fa-trash" />&nbsp;Delete
+            </MenuItem>
+            <MenuItem eventKey="2" onClick={e => this.onEditClick(e, product)}>
+              <i className="fa fa-pencil-square-o" />&nbsp;Edit
+            </MenuItem>
+          </DropdownButton>
+        </td>
+      </tr>
     );
   }
 }
