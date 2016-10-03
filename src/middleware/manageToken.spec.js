@@ -123,6 +123,23 @@ describe('manageTokenMiddleware', () => {
       // then dispatch a LOGIN_REQUEST_SUCCESS with an empty token
       store.dispatch(action);
     });
+
+    it(`should send ${types.LOGIN_FAILURE} when token causes error`, (done) => {
+
+      const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { x: BrokenToken } };
+
+      let calls = 0;
+      const unsubscribe = store.subscribe(() => {
+        if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
+
+        expect(localStorageMock.setItem.callCount).to.equal(0);
+        unsubscribe();
+        done();
+      });
+
+      // then dispatch a LOGIN_REQUEST_SUCCESS with an empty token
+      store.dispatch(action);
+    });
   });
 
   describe(types.CHECK_CREDS, () => {
