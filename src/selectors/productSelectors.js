@@ -34,7 +34,7 @@ export const makeGetAndSortCartProducts = () => {
     [getCartProducts, getFilter, getSortBy],
     (products, filter, sortBy) => {
       if (filter) {
-        return filterAndSortProducts(products);
+        return filterAndSortProducts(products, filter, sortBy);
       }
       return sortProducts(products, sortBy);
     }

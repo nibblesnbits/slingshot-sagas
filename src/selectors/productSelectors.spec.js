@@ -5,13 +5,6 @@ const createSort = (by) => (a, b) => {
   return a[by].localeCompare(b.name);
 };
 
-function filterByName(filter) {
-  const regex = new RegExp(filter);
-  return list => list.filter(p => {
-    regex.test(p.name);
-  });
-}
-
 describe('productSelectors', () => {
   describe('makeGetAndSortProducts', () => {
     it('should correctly sort products', () => {
@@ -59,6 +52,40 @@ describe('productSelectors', () => {
       });
 
       expect(result).to.deep.equal(products.filter(p => p.name === 'a'));
+
+    });
+  });
+
+  describe('makeGetAndSortCartProducts', () => {
+
+    it('should correctly sort and filter cart products', () => {
+      const selector = makeGetAndSortCartProducts();
+
+      const products = [{
+          id: 2,
+          name: 'a'
+        }, {
+          id: 1,
+          name: 'b'
+        }
+      ];
+
+      const result = selector({
+        products: {
+          list: products,
+          filter: 'a',
+          sortBy: 'name'
+        },
+        cart: {
+          products: products
+        }
+      });
+
+      const expected = products
+        .filter(p => p.name === 'a')
+        .sort(createSort('name'));
+
+        expect(result).to.deep.equal(expected);
 
     });
   });
