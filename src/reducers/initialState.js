@@ -6,8 +6,7 @@ export default {
     token: '',
     username: '',
     roles: [],
-    isFetching: false,
-    isAuthenticated: false
+    isFetching: false
   },
   products: {
     list: [],

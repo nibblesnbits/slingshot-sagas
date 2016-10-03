@@ -1,12 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
 import { Provider } from 'react-redux';
 import ConnectedProductList, { ProductList } from './ProductList';
 import * as types from '../constants/actionTypes';
+
+chai.use(sinonChai);
 
 describe('<ProductList />', () => {
 
@@ -55,7 +59,7 @@ describe('<ProductList />', () => {
           name: 'test',
           description: 'test',
         }],
-        addToCart: () => null
+        addToCart: sinon.spy()
       };
 
       const wrapper = mount(<ProductList {...props} />);

@@ -31,7 +31,7 @@ export class Navbar extends Component {
 
             <div className="navbar-form navbar-right">
               {!isAuthenticated &&
-                <Login onLoginClick={creds => login(creds)} />
+                <Login onLoginClick={login} />
               }
 
               {isAuthenticated &&
@@ -41,7 +41,7 @@ export class Navbar extends Component {
                     <li><Link to="/profile">{username}</Link></li>
                   </ul>
                   <div className="navbar-form navbar-left">
-                    <Logout onLogoutClick={() => logout()} />
+                    <Logout onLogoutClick={logout} />
                   </div>
                 </div>
               }

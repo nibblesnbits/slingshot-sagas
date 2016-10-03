@@ -1,54 +1,79 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
-import initialState from '../reducers/initialState';
 import { Provider } from 'react-redux';
 import Navbar from './Navbar'; // eslint-disable-line import/no-named-as-default
+
+chai.use(sinonChai);
 
 const ExampleToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcm5hbWUiOiJKb2huIERvZSIsImFkbWluIjp0cnVlfQ.Y0M_wkxFaw2R8ZQUT1-nAd_2zKtzBs2almfUwZposoM";
 
 describe('<Navbar />', () => {
 
-  let store;
+  describe('when user is logged out', () => {
 
-  beforeEach(() => {
-    store = createStore(rootReducer, initialState);
+    let store;
+    beforeEach(() => {
+      store = createStore(rootReducer, {
+        auth: {
+          token: '',
+          username: 'user',
+          roles: ['user'],
+          isFetching: false
+        }
+      });
+    });
+
+    it('should render Login component', () => {
+      const props = {
+        login: sinon.spy(),
+        logout: sinon.spy()
+      };
+
+      const wrapper = mount(
+        <Provider store={store}>
+            <Navbar {...props} />
+        </Provider>
+      );
+      const loginComponent = wrapper.find('Login');
+
+      expect(loginComponent.length).to.equal(1);
+    });
   });
 
-  it('should render Login when isAuthenticated is false', () => {
-    const props = {
-      login: () => null,
-      logout: () => null
-    };
+  describe('when user is logged in', () => {
 
-    const wrapper = mount(
-      <Provider store={store}>
-          <Navbar {...props} />
-      </Provider>
-    );
-    const loginButton = wrapper.find('Login');
+    let store;
+    beforeEach(() => {
+      store = createStore(rootReducer, {
+        auth: {
+          token: ExampleToken,
+          username: 'user',
+          roles: ['user'],
+          isFetching: false
+        }
+      });
+    });
 
-    expect(loginButton.length).to.equal(1);
-  });
+    it('should render Logout', () => {
+      const props = {
+        login: sinon.spy(),
+        logout: sinon.spy()
+      };
 
-  it('should render Logout when isAuthenticated is true', () => {
-    const props = {
-      login: () => null,
-      logout: () => null
-    };
+      const wrapper = mount(
+        <Provider store={store}>
+            <Navbar {...props} />
+        </Provider>
+      );
 
-    store.dispatch({ type: "LOGIN_SUCCESS", token: ExampleToken, username: 'test', roles: [] });
+      const logoutButton = wrapper.find('Logout');
 
-    const wrapper = mount(
-      <Provider store={store}>
-          <Navbar {...props} />
-      </Provider>
-    );
-
-    const logoutButton = wrapper.find('Logout');
-
-    expect(logoutButton.length).to.equal(1);
+      expect(logoutButton.length).to.equal(1);
+    });
   });
 });

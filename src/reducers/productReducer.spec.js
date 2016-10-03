@@ -8,19 +8,19 @@ describe('Product Reducer', () => {
 
   it ('should set isFetching to true on all request actions', () => {
 
-    let newState = productReducer({ ...initialState.products }, { type: types.UPDATE_PRODUCT_REQUEST });
+    let newState = productReducer({ ...initialState.products }, actions.updateProduct({}));
     expect(newState.isFetching).to.equal(true);
 
-    newState = productReducer({ ...initialState.products }, { type: types.DELETE_PRODUCT_REQUEST });
+    newState = productReducer({ ...initialState.products }, actions.deleteProduct(0));
     expect(newState.isFetching).to.equal(true);
 
-    newState = productReducer({ ...initialState.products }, { type: types.CREATE_PRODUCT_REQUEST });
+    newState = productReducer({ ...initialState.products }, actions.createProduct({}));
     expect(newState.isFetching).to.equal(true);
 
-    newState = productReducer({ ...initialState.products }, { type: types.READ_PRODUCT_REQUEST });
+    newState = productReducer({ ...initialState.products }, actions.getProduct(0));
     expect(newState.isFetching).to.equal(true);
 
-    newState = productReducer({ ...initialState.products }, { type: types.READ_PRODUCTS_REQUEST });
+    newState = productReducer({ ...initialState.products }, actions.getAllProducts());
     expect(newState.isFetching).to.equal(true);
   });
 
@@ -118,14 +118,14 @@ describe('Product Reducer', () => {
       }]
     };
     const action = {
-      type: types.CREATE_PRODUCT_SUCCESS,
+      type: types.DELETE_PRODUCT_SUCCESS,
       result: {
         id: 1
       }
     };
 
     let newState = productReducer(state, action);
-    expect(newState.list[0].id).to.equal(1);
+    expect(newState.list[0].id).to.equal(2);
   });
 
   it (`should set error on ${types.PRODUCT_REQUEST_FAILURE}`, () => {

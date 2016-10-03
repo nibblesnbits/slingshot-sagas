@@ -15,7 +15,7 @@ describe('<ProductDisplay />', () => {
       price: 1,
       name: 'test',
       description: 'test',
-      handleAddToCart: () => null
+      handleAddToCart: sinon.spy()
     };
 
     const wrapper = mount(<ProductDisplay {...props} />);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import CartProductDisplay from './CartProductDisplay';

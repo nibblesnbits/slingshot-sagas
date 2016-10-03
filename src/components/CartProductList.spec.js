@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import { createStore } from 'redux';
 import rootReducer from '../reducers/rootReducer';
 import initialState from '../reducers/initialState';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
 import ConnectedCartProductList, { CartProductList } from './CartProductList'; // eslint-disable-line import/no-named-as-default
 import * as types from '../constants/actionTypes';
 
@@ -32,6 +32,27 @@ describe('<CartProductList />', () => {
       const displays = wrapper.find('CartProductDisplay');
 
       expect(displays.length).to.equal(props.products.length);
+    });
+
+    it('should call removeFromCart() on remove button click', () => {
+      const props = {
+        removeFromCart: sinon.spy(),
+        products: [{
+          id: 0,
+          name: 'test',
+          price: 0,
+          description: 'test'
+        }],
+        cart: []
+      };
+
+      const wrapper = mount(<CartProductList {...props} />);
+      const button = wrapper.find('button');
+      expect(button.length).to.equal(1);
+
+      button.simulate('click');
+
+      expect(props.removeFromCart.calledOnce).to.equal(true);
     });
   });
 
