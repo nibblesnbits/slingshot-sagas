@@ -1,25 +1,78 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { expect } from 'chai';
-import { CartProductList } from './CartProductList'; // eslint-disable-line import/no-named-as-default
+import chai, {expect} from 'chai';
+import { createStore } from 'redux';
+import rootReducer from '../reducers/rootReducer';
+import initialState from '../reducers/initialState';
+import { Provider } from 'react-redux';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import ConnectedCartProductList, { CartProductList } from './CartProductList'; // eslint-disable-line import/no-named-as-default
+import * as types from '../constants/actionTypes';
+import * as actions from '../actions/cartActions';
+
+chai.use(sinonChai);
 
 describe('<CartProductList />', () => {
 
-  it('should render a CartProductDisplay for each product', () => {
-    const props = {
-      removeFromCart: () => null,
-      products: [{
-        id: 0,
-        name: 'test',
-        price: 0,
-        description: 'test'
-      }],
-      cart: []
-    };
+  describe('without redux', () => {
 
-    const wrapper = mount(<CartProductList {...props} />);
-    const displays = wrapper.find('CartProductDisplay');
+    it('should render a CartProductDisplay for each product', () => {
+      const props = {
+        removeFromCart: sinon.spy(),
+        products: [{
+          id: 0,
+          name: 'test',
+          price: 0,
+          description: 'test'
+        }],
+        cart: []
+      };
 
-    expect(displays.length).to.equal(props.products.length);
+      const wrapper = mount(<CartProductList {...props} />);
+      const displays = wrapper.find('CartProductDisplay');
+
+      expect(displays.length).to.equal(props.products.length);
+    });
+  });
+
+  describe('with redux', () => {
+
+    const products = [{
+      id: 1,
+      name: 'test',
+      description: 'test',
+      price: 1
+    }];
+    let store;
+    beforeEach((done) => {
+      store = createStore(rootReducer, initialState);
+      let calls = 0;
+      const unsubscribe = store.subscribe(() => {
+        if (++calls === 1) return;
+        unsubscribe();
+        done();
+      });
+      store.dispatch({
+        type: types.PRODUCT_REQUEST_SUCCESS,
+        result: [...products]
+      });
+      store.dispatch({
+        type: types.GET_CART_PRODUCTS_SUCCESS,
+        result: [...products]
+      });
+    });
+
+    it('should render a CartProductDisplay for each product', () => {
+
+      const wrapper = mount(
+        <Provider store={store}>
+          <ConnectedCartProductList />
+        </Provider>
+      );
+      const displays = wrapper.find('CartProductDisplay');
+
+      expect(displays.length).to.equal(1);
+    });
   });
 });

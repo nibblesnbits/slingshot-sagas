@@ -30,16 +30,15 @@ export class CartProductList extends Component {
 
 const makeMapStateToProps = () => {
   const getAndSortProducts = makeGetAndSortCartProducts();
-  const mapStateToProps = (state) => {
+  return (state) => {
     const products = getAndSortProducts(state);
-
     const cart = state.cart.items;
+
     return {
       products,
       cart
     };
   };
-  return mapStateToProps;
 };
 
 CartProductList.propTypes = {
