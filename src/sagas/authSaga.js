@@ -14,7 +14,7 @@ export function* login({username, password}) {
   const url = "http://localhost:4001/sessions/create";
 
   try {
-    yield call(callApi, url, config, [types.LOGIN_REQUEST_SUCCESS, types.LOGIN_REQUEST_FAILURE]);
+    yield call(callApi, () => fetch(url, config), [types.LOGIN_REQUEST_SUCCESS, types.LOGIN_REQUEST_FAILURE]);
   } catch(error) {
     yield put(appActions.showMessage('Login Error:', error.message, 'danger'));
   }

@@ -23,7 +23,7 @@ export function* getCartProducts({ ids }) {
   const uri = url.resolve(BASE_URL, 'cart/products');
 
   try {
-    yield call(callApi, uri, config, [types.GET_CART_PRODUCTS_SUCCESS, types.GET_CART_PRODUCTS_FAILURE]);
+    yield call(callApi, () => fetch(uri, config), [types.GET_CART_PRODUCTS_SUCCESS, types.GET_CART_PRODUCTS_FAILURE]);
   } catch(error) {
     yield put(appActions.showMessage('Request Error:', error.message, 'danger'));
   }

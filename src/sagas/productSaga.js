@@ -22,7 +22,7 @@ export function* getProductsRequest() {
   const uri = url.resolve(BASE_URL, '/api/products');
 
   try {
-    yield call(callApi, uri, config, [types.PRODUCTS_REQUEST_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
+    yield call(callApi, () => fetch(uri, config), [types.PRODUCTS_REQUEST_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
   } catch(error) {
     yield put(appActions.showMessage('Request Error:', error.message, 'danger'));
   }
@@ -37,7 +37,7 @@ export function* getProductRequest({ id }) {
   const uri = url.resolve(BASE_URL, '/api/products/' + id);
 
   try {
-    yield call(callApi, uri, config, [types.PRODUCT_REQUEST_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
+    yield call(callApi, () => fetch(uri, config), [types.PRODUCT_REQUEST_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
   } catch(error) {
     yield put(appActions.showToast('Request Error:', error.message, 'danger'));
   }
@@ -52,7 +52,7 @@ export function* deleteProductRequest({id}) {
   const uri = url.resolve(BASE_URL, '/api/products/' + id);
 
   try {
-    const product = yield call(callApi, uri, config, [types.DELETE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
+    const product = yield call(callApi, () => fetch(uri, config), [types.DELETE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
     yield put(appActions.showToast('Deleted Product:', product.name, 'info'));
   } catch(error) {
     yield put(appActions.showMessage('Request Error:', error.message, 'danger'));
@@ -68,7 +68,7 @@ export function* updateProductRequest({ product }) {
   const uri = url.resolve(BASE_URL, '/api/products');
 
   try {
-    yield call(callApi, uri, config, [types.UPDATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
+    yield call(callApi, () => fetch(uri, config), [types.UPDATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
     yield put(appActions.showToast('Updated Product:', product.name, 'info'));
   } catch(error) {
     yield put(appActions.showMessage('Request Error:', error.message, 'danger'));
@@ -85,7 +85,7 @@ export function* createProductRequest({ product }) {
   const uri = url.resolve(BASE_URL, '/api/products');
 
   try {
-    yield call(callApi, uri, config, [types.CREATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
+    yield call(callApi, () => fetch(uri, config), [types.CREATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
     yield put(appActions.showToast('Created Product:', product.name, 'info'));
   } catch(error) {
     yield put(appActions.showMessage('Request Error:', error.message, 'danger'));

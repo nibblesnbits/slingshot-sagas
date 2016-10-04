@@ -1,7 +1,7 @@
 import { put, call } from 'redux-saga/effects';
 
-export function makeRequest(url, config, returnType) {
-  return fetch(url, config).then(response =>
+export function makeRequest(request, returnType) {
+  return request().then(response =>
     response[returnType]()
       .then(result => ({ result, response }))
   ).then(({ result, response }) => {
@@ -12,10 +12,10 @@ export function makeRequest(url, config, returnType) {
   });
 }
 
-export default function* callApi(url, config, statusTypes, returnType = "json") {
+export default function* callApi(request, statusTypes, returnType = "json") {
   const [SUCCESS, FAILURE] = statusTypes;
   try {
-    const result = yield call(makeRequest, url, config, returnType);
+    const result = yield call(makeRequest, request, returnType);
     yield put({ type: SUCCESS, result });
     return result;
   } catch (error) {

@@ -4,21 +4,24 @@ import callApi, { makeRequest } from './helpers';
 
 describe('saga helper', () => {
   describe('callApi()', () => {
+
     it('should yield specified SUCCESS type on request success', () => {
 
       // arrange
+      const fetch = () => Promise.resolve({
+        json: () => {},
+        ok: true
+      });
       const text = "test";
       const responseType = "text";
-      const url = 'http://tempuri.org/json';
-      const config = { };
       const types = ['SUCCESS', 'FAILURE'];
       const sucessAction = { type: types[0], result: text };
 
-      const gen = callApi(url, config, types, responseType);
+      const gen = callApi(fetch, types, responseType);
 
       // act & assert
       let next = gen.next().value;
-      expect(next).to.deep.equal(call(makeRequest, url, config, responseType));
+      expect(next).to.deep.equal(call(makeRequest, fetch, responseType));
 
       next = gen.next(text).value;
       expect(next).to.deep.equal(put(sucessAction));
@@ -35,17 +38,19 @@ describe('saga helper', () => {
 
       // arrange
       const error = new Error('test');
+      const fetch = () => Promise.reject({
+        json: () => error,
+        ok: false
+      });
       const responseType = "text";
-      const url = 'http://tempuri.org/json';
-      const config = { };
       const types = ['SUCCESS', 'FAILURE'];
       const failureAction = { type: types[1], error: { message: error.message } };
 
-      const gen = callApi(url, config, types, responseType);
+      const gen = callApi(fetch, types, responseType);
 
       // act & assert
       let next = gen.next().value;
-      expect(next).to.deep.equal(call(makeRequest, url, config, responseType));
+      expect(next).to.deep.equal(call(makeRequest, fetch, responseType));
 
       next = gen.throw(error).value;
       expect(next).to.deep.equal(put(failureAction));
