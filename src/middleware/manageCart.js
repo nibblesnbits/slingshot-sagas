@@ -1,10 +1,10 @@
 import * as types from '../constants/actionTypes';
 import * as keys from '../constants/storageKeys';
 import * as actions from '../actions/cartActions';
-import { jsonCartLocalStorage } from '../util/jsonCartStorage';
+import jsonLocalStorage from '../util/jsonLocalStorage';
 
 // NOTE: we can pass in a mock storage object here to unit test
-export default function manageCartMiddleware(storage = jsonCartLocalStorage) {
+export default function manageCartMiddleware(storage = jsonLocalStorage) {
   return (store) => {
     return (next) => (action) => {
 
