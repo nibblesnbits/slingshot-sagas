@@ -1,13 +1,7 @@
 import * as types from '../constants/actionTypes';
 import * as keys from '../constants/storageKeys';
 import * as actions from '../actions/cartActions';
-
-const jsonCartLocalStorage = {
-  setItem: (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
-  },
-  getItem: (key) => JSON.parse(localStorage.getItem(key))
-};
+import { jsonCartLocalStorage } from '../util/jsonCartStorage';
 
 // NOTE: we can pass in a mock storage object here to unit test
 export default function manageCartMiddleware(storage = jsonCartLocalStorage) {
