@@ -29,9 +29,9 @@ export default function manageCartMiddleware(storage = jsonCartLocalStorage) {
           const cart = storage.getItem(keys.CART);
           const cartEntry = cart.filter(({id}) => id === action.id);
           if (cartEntry.length && cartEntry[0].count === 1) {
-            const newCart = [...cart.filter(({id}) => id !== action.id)];
+            const newCart = cart.filter(({id}) => id !== action.id);
             storage.setItem(keys.CART, newCart);
-            store.dispatch(actions.getCartItems(newCart.map(c => c.id)));
+            store.dispatch(actions.getCartItems(newCart.map(c => c.id))); // refresh the cart product info
           } else {
             storage.setItem(keys.CART, [...cart.filter(({id}) => id !== action.id), { id: action.id, count: cartEntry[0].count - 1 }]);
           }

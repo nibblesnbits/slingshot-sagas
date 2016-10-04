@@ -17,16 +17,16 @@ export default function cartReducer(state = initialState.cart, action) {
       };
     }
     case types.REMOVE_FROM_CART: {
-      const cartEntry = state.items.filter(({id}) => id === action.id);
-      if (cartEntry.length && cartEntry[0].count === 1) {
+      const cartEntries = state.items.filter(({id}) => id === action.id);
+      if (cartEntries.length && cartEntries[0].count === 1) {
         return {
           ...state,
-          items: [...state.items.filter(({id}) => id !== action.id)]
+          items: state.items.filter(({id}) => id !== action.id)
         };
       }
       return {
         ...state,
-        items: [...state.items.filter(({id}) => id !== action.id), { id: action.id, count: cartEntry[0].count - 1 }]
+        items: [...state.items.filter(({id}) => id !== action.id), { id: action.id, count: cartEntries[0].count - 1 }]
       };
     }
     case types.FILL_CART: {
