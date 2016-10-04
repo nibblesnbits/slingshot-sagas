@@ -8,10 +8,7 @@ describe('saga helper', () => {
     it('should yield specified SUCCESS type on request success', () => {
 
       // arrange
-      const fetch = () => Promise.resolve({
-        json: () => {},
-        ok: true
-      });
+      const fetch = () => Promise.resolve();
       const text = "test";
       const responseType = "text";
       const types = ['SUCCESS', 'FAILURE'];
@@ -38,10 +35,7 @@ describe('saga helper', () => {
 
       // arrange
       const error = new Error('test');
-      const fetch = () => Promise.reject({
-        json: () => error,
-        ok: false
-      });
+      const fetch = () => Promise.reject();
       const responseType = "text";
       const types = ['SUCCESS', 'FAILURE'];
       const failureAction = { type: types[1], error: { message: error.message } };
@@ -54,6 +48,46 @@ describe('saga helper', () => {
 
       next = gen.throw(error).value;
       expect(next).to.deep.equal(put(failureAction));
+    });
+
+    describe('makeRequest', () => {
+
+      it('should resolve a promise with the specfied result', (done) => {
+
+        // arrange
+        const response = {};
+        const returnType = "json";
+        const fetch = () => Promise.resolve({
+          [returnType]: () => Promise.resolve(response),
+          ok: true
+        });
+
+        makeRequest(fetch, returnType).then(result => {
+          expect(result).to.equal(response);
+          done();
+        }).catch(err => {
+          expect.fail(err);
+        });
+      });
+
+      it('should reject a promise with the specfied error', (done) => {
+
+        // arrange
+        const error = new Error('test');
+        const returnType = "json";
+        const fetch = () => Promise.resolve({
+          [returnType]: () => Promise.resolve(error),
+          ok: true
+        });
+
+
+        makeRequest(fetch, returnType).then(result => {
+          expect(result).to.equal(error);
+          done();
+        }).catch(err => {
+          expect.fail(err);
+        });
+      });
     });
   });
 });
