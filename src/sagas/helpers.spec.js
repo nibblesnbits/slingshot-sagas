@@ -65,8 +65,6 @@ describe('saga helper', () => {
         makeRequest(fetch, returnType).then(result => {
           expect(result).to.equal(response);
           done();
-        }).catch(err => {
-          expect.fail(err);
         });
       });
 
@@ -75,17 +73,46 @@ describe('saga helper', () => {
         // arrange
         const error = new Error('test');
         const returnType = "json";
+        const fetch = () => Promise.reject(error);
+
+
+        makeRequest(fetch, returnType).catch(err => {
+          expect(err).to.equal(error);
+          done();
+        });
+      });
+
+      it('should reject a promise with the specfied error when "ok" is false', (done) => {
+
+        // arrange
+        const error = new Error('test');
+        const returnType = "json";
         const fetch = () => Promise.resolve({
           [returnType]: () => Promise.resolve(error),
-          ok: true
+          ok: false
         });
 
 
-        makeRequest(fetch, returnType).then(result => {
-          expect(result).to.equal(error);
+        makeRequest(fetch, returnType).catch(err => {
+          expect(err).to.equal(error);
           done();
-        }).catch(err => {
-          expect.fail(err);
+        });
+      });
+
+      it('should reject a promise with the specfied error when body parse fails', (done) => {
+
+        // arrange
+        const error = new Error('test');
+        const returnType = "json";
+        const fetch = () => Promise.resolve({
+          [returnType]: () => Promise.reject(error),
+          ok: false
+        });
+
+
+        makeRequest(fetch, returnType).catch(err => {
+          expect(err).to.equal(error);
+          done();
         });
       });
     });

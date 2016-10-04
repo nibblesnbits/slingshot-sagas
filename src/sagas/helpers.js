@@ -6,7 +6,7 @@ export function makeRequest(request, returnType) {
       .then(result => ({ result, response }))
   ).then(({ result, response }) => {
     if (!response.ok) {
-      return Promise.reject({ message: result.message });
+      throw result;
     }
     return result;
   });
