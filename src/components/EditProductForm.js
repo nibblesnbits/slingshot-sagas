@@ -15,7 +15,6 @@ const EditProductForm = ({handleSubmit}) => {
         <label htmlFor="edit-product-price">Price</label>
         <Field name="price" component="input" type="number" className="form-control" id="edit-product-price" placeholder="0.00" />
       </div>
-      <button type="submit">Save</button>
     </form>
   );
 };
