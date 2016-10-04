@@ -4,6 +4,7 @@ import * as appActions from '../actions/appActions';
 import * as authActions from '../actions/authActions';
 import * as keys from '../constants/storageKeys';
 import decode from 'jwt-decode';
+import { getTokenFromResult } from '../selectors/tokenSelectors';
 
 function tryGetProperties(token, cb) {
   try {
@@ -53,12 +54,8 @@ export default function manageTokenMiddleware(storage = localStorage) {
           }
           return next(action);
         }
-        // case types.LOGIN_REQUEST_FAILURE: {
-        //   store.dispatch(push('/'));
-        //   return next(action);
-        // }
         case types.LOGIN_REQUEST_SUCCESS: {
-          const token = action.result.id_token;
+          const token = getTokenFromResult(action.result);
           if (!token) {
             store.dispatch({ type: types.LOGIN_FAILURE, error: { message: 'Error locating token in response' } });
             return next(action);

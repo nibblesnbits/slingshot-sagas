@@ -10,6 +10,7 @@ import manageTokenMiddleware from './manageToken';
 import * as types from '../constants/actionTypes';
 import * as actions from '../actions/authActions';
 import * as keys from '../constants/storageKeys';
+import { tokenProperty } from '../selectors/tokenSelectors';
 
 chai.use(sinonChai);
 
@@ -62,7 +63,7 @@ describe('manageTokenMiddleware', () => {
   });
 
   it(`should call setItem on storage on ${types.LOGIN_REQUEST_SUCCESS}`, (done) => {
-    const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { id_token: ExampleToken } };
+    const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { [tokenProperty]: ExampleToken } };
 
     let calls = 0;
     const unsubscribe = store.subscribe(() => {
@@ -126,11 +127,11 @@ describe('manageTokenMiddleware', () => {
 
     it(`should send ${types.LOGIN_FAILURE} when token causes error`, (done) => {
 
-      const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { x: BrokenToken } };
+      const action = { type: types.LOGIN_REQUEST_SUCCESS, result: { [tokenProperty]: BrokenToken } };
 
       let calls = 0;
       const unsubscribe = store.subscribe(() => {
-        if (++calls === 1) return; // skip the LOGIN_REQUEST_SUCCESS action
+        if (++calls < 3) return; // skip the LOGIN_REQUEST_SUCCESS action
 
         expect(localStorageMock.setItem.callCount).to.equal(0);
         unsubscribe();
@@ -197,24 +198,4 @@ describe('manageTokenMiddleware', () => {
       store.dispatch(action);
     });
   });
-
-  // it(`should push new route on ${types.LOGIN_REQUIRED}`, (done) => {
-  //   const path = '/';
-  //   const action =  actions.requireLogin(path);
-  //   const firstPush = {
-  //     type: "@@router/LOCAION_CHANGE",
-  //     payload: {
-  //       pathname: '/'
-  //     }
-  //   };
-  //   store.dispatch(firstPush);
-
-  //   const unsubscribe = store.subscribe(() => {
-  //     expect(store.getState().routing.locationBeforeTransitions.pathname).to.be.equal(path);
-  //     unsubscribe();
-  //     done();
-  //   });
-
-  //   store.dispatch(action); // load the token into state
-  // });
 });
