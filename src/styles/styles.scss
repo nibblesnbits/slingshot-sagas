@@ -1,18 +1,11 @@
 @import './cards.css';
+@import './animate.css';
 
 #notificationArea {
   bottom: 20px;
   left: 10px;
   position: fixed;
   max-width: 800px;
-}
-
-.notification-container {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  .hide {
-    opacity: 0;
-  }
 }
 
 .product-price {
