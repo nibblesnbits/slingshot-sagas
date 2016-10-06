@@ -7,7 +7,7 @@ export function* showToast({ title, text, className, duration }) {
   const message = yield put(actions.showMessage(title, text, className));
   yield call(delay, duration);
   yield put(actions.fadeMessage(message.id));
-  yield call(delay, 2500);
+  yield call(delay, 750);
   yield put(actions.removeMessage(message.id));
 }
 
