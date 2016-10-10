@@ -14,11 +14,9 @@ export class AppMessages extends Component {
     const { messages, removeMessage, clearMessages } = this.props;
     return (
       <div id="notificationArea">
-        <div>
-          {messages.map((message) => {
-            return (<Message key={message.id} hide={() => removeMessage(message.id)} {...message} />);
-          })}
-        </div>
+        {messages.map((message) => {
+          return (<Message key={message.id} hide={() => removeMessage(message.id)} {...message} />);
+        })}
         <div className={`clear-button-container${messages.length > 2 ? '' : ' hidden'}`}>
           <button className="btn btn-info btn-sm" onClick={clearMessages}>Clear</button>
         </div>
