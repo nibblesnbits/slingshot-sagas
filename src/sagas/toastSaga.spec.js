@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { showToast } from './toastSaga';
+import { showToast, FADE_DELAY } from './toastSaga';
 import { expect } from 'chai';
 import * as types from '../constants/actionTypes';
 
@@ -28,7 +28,7 @@ describe('toastSaga', () => {
 
       // then wait the saga-specified delay
       next = gen.next().value;
-      expect(next).to.deep.equal(call(delay, 2500));
+      expect(next).to.deep.equal(call(delay, FADE_DELAY));
 
       // then dispatch REMOVE_MESSAGE
       next = gen.next().value;

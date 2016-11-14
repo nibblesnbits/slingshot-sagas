@@ -14,7 +14,8 @@ describe('<AppMessages />', () => {
     const props = {
       showToast: sinon.spy(),
       removeMessage: sinon.spy(),
-      messages: [actions.showMessage('test','test','test')]
+      messages: [actions.showMessage('test','test','test')],
+      clearMessages: sinon.spy(),
     };
 
     const wrapper = mount(<AppMessages {...props} />);
@@ -29,7 +30,8 @@ describe('<AppMessages />', () => {
     const props = {
       showToast: sinon.spy(),
       removeMessage: sinon.spy(),
-      messages: [message]
+      messages: [message],
+      clearMessages: sinon.spy(),
     };
 
     const wrapper = mount(<AppMessages {...props} />);
@@ -46,7 +48,8 @@ describe('<AppMessages />', () => {
     const props = {
       showToast: sinon.spy(),
       removeMessage: sinon.spy(),
-      messages: []
+      messages: [],
+      clearMessages: sinon.spy(),
     };
 
     mount(<AppMessages {...props} />);

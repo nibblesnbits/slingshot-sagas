@@ -1,6 +1,6 @@
 {
   "name": "slingshot-sagas",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "engines": {
     "npm": ">=3"
@@ -19,7 +19,7 @@
     "build": "babel-node tools/build.js && npm run open:dist",
     "test": "mocha tools/testSetup.js \"src/**/*.spec.js\" --reporter progress",
     "test:debug": "mocha tools/testSetup.js \"src/**/*.spec.js\" --debug-brk",
-    "test:cover": "babel-node node_modules/isparta/bin/isparta cover --root src --report html node_modules/mocha/bin/_mocha -- --require ./tools/testSetup.js \"src/**/*.spec.js\" --reporter progress",
+    "test:cover": "babel-node node_modules/isparta/bin/isparta cover --root src --report html node_modules/mocha/bin/_mocha -- --require ./tools/testSetup.js \"./src/**/*.spec.js\" --reporter progress",
     "test:cover:travis": "babel-node node_modules/isparta/bin/isparta cover --root src --report lcovonly _mocha -- --require ./tools/testSetup.js \"src/**/*.spec.js\" && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "test:watch": "npm run test -- --watch",
     "open:cover": "npm run test:cover && open coverage/index.html"
@@ -31,6 +31,8 @@
     "bootstrap": "~3.3.7",
     "font-awesome": "4.6.3",
     "history": "3.2.1",
+    "isparta": "4.0.0",
+    "istanbul": "0.4.4",
     "jquery": "~3.1.1",
     "jwt-decode": "~2.1.0",
     "react": "~15.3.2",
@@ -40,7 +42,7 @@
     "react-router": "3.0.0-beta.1",
     "react-router-redux": "~4.0.6",
     "redux": "~3.6.0",
-    "redux-form": "~6.0.5",
+    "redux-form": "6.2.0",
     "redux-saga": "~0.12.0",
     "reselect": "~2.5.4"
   },
@@ -75,10 +77,11 @@
     "file-loader": "~0.9.0",
     "html-webpack-plugin": "~2.22.0",
     "isparta": "~4.0.0",
+    "istanbul": "0.4.5",
     "jsdom": "~9.6.0",
     "jsdom-global": "~2.1.0",
     "mocha": "~3.1.0",
-    "node-sass": "~3.10.1",
+    "node-sass": "3.10.1",
     "npm-run-all": "~3.1.0",
     "open": "~0.0.5",
     "postcss-loader": "~0.13.0",
@@ -108,7 +111,7 @@
     "edit",
     "webpack",
     "redux",
-    "flux",
+    "redux-form",
     "boilerplate",
     "starter",
     "redux-saga",

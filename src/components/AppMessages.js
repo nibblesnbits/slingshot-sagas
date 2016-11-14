@@ -11,12 +11,15 @@ export class AppMessages extends Component {
   }
 
   render() {
-    const { messages, removeMessage } = this.props;
+    const { messages, removeMessage, clearMessages } = this.props;
     return (
       <div id="notificationArea">
         {messages.map((message) => {
           return (<Message key={message.id} hide={() => removeMessage(message.id)} {...message} />);
         })}
+        <div className={`clear-button-container${messages.length > 2 ? '' : ' hidden'}`}>
+          <button className="btn btn-info btn-sm" onClick={clearMessages}>Clear</button>
+        </div>
       </div>
     );
   }
@@ -36,6 +39,7 @@ const makeMapStateToProps = () => {
 AppMessages.propTypes = {
   messages: PropTypes.array.isRequired,
   removeMessage: PropTypes.func.isRequired,
+  clearMessages: PropTypes.func.isRequired,
   showToast: PropTypes.func.isRequired
 };
 

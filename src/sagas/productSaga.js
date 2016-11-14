@@ -4,8 +4,7 @@ import callApi from './helpers';
 import * as types from '../constants/actionTypes';
 import * as appActions from '../actions/appActions';
 import url from 'url';
-
-const BASE_URL = "http://localhost:5001/";
+import { STORE_SERVER_URL } from '../config';
 
 const DefaultConfig = {
   headers: {
@@ -19,7 +18,7 @@ export function* getProductsRequest() {
     ...DefaultConfig,
     method: 'GET'
   };
-  const uri = url.resolve(BASE_URL, '/api/products');
+  const uri = url.resolve(STORE_SERVER_URL, '/api/products');
 
   try {
     yield call(callApi, () => fetch(uri, config), [types.PRODUCTS_REQUEST_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
@@ -34,7 +33,7 @@ export function* getProductRequest({ id }) {
     ...DefaultConfig,
     method: 'GET'
   };
-  const uri = url.resolve(BASE_URL, '/api/products/' + id);
+  const uri = url.resolve(STORE_SERVER_URL, '/api/products/' + id);
 
   try {
     yield call(callApi, () => fetch(uri, config), [types.PRODUCT_REQUEST_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
@@ -49,7 +48,7 @@ export function* deleteProductRequest({id}) {
     ...DefaultConfig,
     method: 'DELETE'
   };
-  const uri = url.resolve(BASE_URL, '/api/products/' + id);
+  const uri = url.resolve(STORE_SERVER_URL, '/api/products/' + id);
 
   try {
     const product = yield call(callApi, () => fetch(uri, config), [types.DELETE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
@@ -65,7 +64,7 @@ export function* updateProductRequest({ product }) {
     method: 'PUT',
     body: JSON.stringify(product)
   };
-  const uri = url.resolve(BASE_URL, '/api/products');
+  const uri = url.resolve(STORE_SERVER_URL, '/api/products');
 
   try {
     yield call(callApi, () => fetch(uri, config), [types.UPDATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);
@@ -82,7 +81,7 @@ export function* createProductRequest({ product }) {
     method: 'POST',
     body: JSON.stringify(product)
   };
-  const uri = url.resolve(BASE_URL, '/api/products');
+  const uri = url.resolve(STORE_SERVER_URL, '/api/products');
 
   try {
     yield call(callApi, () => fetch(uri, config), [types.CREATE_PRODUCT_SUCCESS, types.PRODUCT_REQUEST_FAILURE]);

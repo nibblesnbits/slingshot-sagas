@@ -4,6 +4,7 @@ Another React-Redux starter kit heavily inspired by heavily inspired by [@coryho
 [![Build Status](https://travis-ci.org/nibblesnbits/slingshot-sagas.svg?branch=master)](https://travis-ci.org/nibblesnbits/slingshot-sagas)
 [![Build status](https://ci.appveyor.com/api/projects/status/ytf3aupfshvgt0u5?svg=true)](https://ci.appveyor.com/project/nibblesnbits/slingshot-sagas)
 [![Coverage Status](https://coveralls.io/repos/github/nibblesnbits/slingshot-sagas/badge.svg?branch=master)](https://coveralls.io/github/nibblesnbits/slingshot-sagas?branch=master)
+[![Quality](https://img.shields.io/codeclimate/github/nibblesnbits/slingshot-sagas.svg?label=quality)](https://codeclimate.com/github/nibblesnbits/slingshot-sagas)
 [![Dependency Status](https://david-dm.org/nibblesnbits/slingshot-sagas.svg?style=flat-square)](https://david-dm.org/nibblesnbits/slingshot-sagas)
 
 Slingshot Sagas is a comprehensive starter kit for rapid application development using React, Redux, React Router, and Redux Sagas.
@@ -20,7 +21,7 @@ Why Slingshot?
 
 ## Get Started
 1. **Initial Machine Setup**. First time running the starter kit? Then complete the [Initial Machine Setup](#initial-machine-setup).
-2. **Clone the project**. `git clone https://github.com/nibblesbits/slingshot-saga.git`.
+2. **Clone the project**. `git clone https://github.com/nibblesnbits/slingshot-saga.git`.
 3. **Install the pacakges**. `npm i`
 4. **Run the example app**. `npm start -s`
 This will run the automated build process, start up a webserver, and open the application in your default browser. When doing development with this kit, this command will continue watching all your files. Every time you hit save the code is rebuilt, linting runs, and tests run automatically. Note: The -s flag is optional. It enables silent mode which suppresses unnecessary messages during the build.
