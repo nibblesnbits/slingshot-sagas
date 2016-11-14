@@ -1,6 +1,6 @@
 {
   "name": "slingshot-sagas",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "engines": {
     "npm": ">=3"
@@ -81,7 +81,7 @@
     "jsdom": "~9.6.0",
     "jsdom-global": "~2.1.0",
     "mocha": "~3.1.0",
-    "node-sass": "~3.10.1",
+    "node-sass": "3.10.1",
     "npm-run-all": "~3.1.0",
     "open": "~0.0.5",
     "postcss-loader": "~0.13.0",
