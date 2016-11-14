@@ -8,3 +8,7 @@ after_success:
 
 git:
   submodules: false
+
+addons:
+  code_climate:
+    repo_token: 8cfa090552603aef77981cdea8e7a9a6f843365ab53a02e3577d4878175cfb70
