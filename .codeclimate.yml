@@ -16,6 +16,6 @@ ratings:
   - "src/**.scss"
   - "src/**.js"
 exclude_paths:
-- test/
-- tools/
-- src/**/*spec.js
+- "test/"
+- "tools/"
+- "src/**/**spec.js"
