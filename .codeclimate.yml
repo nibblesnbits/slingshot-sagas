@@ -18,4 +18,4 @@ ratings:
 exclude_paths:
 - test/
 - tools/
-- src/**/*spec.js
+- "src/**/**spec.js"
